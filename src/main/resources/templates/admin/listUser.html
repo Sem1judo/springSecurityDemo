@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List user</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/listUser.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css}" rel="stylesheet"
+          type="text/css"/>
+</head>
+<body>
+<header th:insert="fragment/header :: header"></header>
+<div class="site-content" >
+    <div class="container mt-3 mb-4">
+        <div class="col-lg-9 mt-4 mt-lg-0">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+                        <table class="table manage-candidates-top mb-0">
+                            <thead>
+                            <tr>
+                                <th>Candidate Name</th>
+                                <th class="text-center">Status</th>
+                                <th class="action text-right">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="candidates-list" th:each="user : ${userPage}">
+                                <td class="title">
+                                    <div class="thumb">
+
+                                    </div>
+                                    <div class="candidate-list-details">
+                                        <div class="candidate-list-info">
+                                            <div class="candidate-list-title">
+                                                <h5 class="mb-0"><a href="#"
+                                                                    th:text="${user.firstName  + ' ' + user.lastName}"></a>
+                                                </h5>
+                                            </div>
+                                            <div class="candidate-list-option">
+                                                <ul class="list-unstyled">
+                                                    <li th:text="${user.email}"></li>
+                                                    <li th:text="${user.phone}"></li>
+                                                    <li th:text="${user.gender}"></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="candidate-list-favourite-time text-center">
+                                    <a class="candidate-list-favourite order-2 text-danger" th:href="@{/client/edit}"><i
+                                            class="fas fa-heart"></i>
+                                    </a>
+                                    <span class="candidate-list-time order-1"
+                                          th:text="${user.status}">Shortlisted</span>
+                                    <span class="candidate-list-time order-1"
+                                          th:text="${user.enabled}">Shortlisted</span>
+                                </td>
+                                <td>
+                                    <ul class="list-inline mb-0 d-flex justify-content-end">
+                                        <li class="list-inline-item">
+                                            <a th:href="@{/client/profile}" class="text-primary"
+                                               data-toggle="tooltip"
+                                               data-original-title="view"><i
+                                                    class="fas fa-eye"></i></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a th:href="@{/client/edit}" class="text-info" data-toggle="tooltip"
+                                               data-original-title="Edit"><i
+                                                    class="fas fa-pencil-alt"></i></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a th:href="@{/client/delete}" class="text-danger"
+                                               data-toggle="tooltip"
+                                               data-original-title="Delete"><i
+                                                    class="far fa-trash-alt"></i></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center mt-3 mt-sm-3">
+                            <div th:if="${userPage.totalPages > 0}" class="pagination">
+                             <span th:each="pageNumber : ${pageNumbers}">|
+                            <a th:href="@{/admin/listUser(size=${userPage.size}, page=${pageNumber})}"
+                               th:text="${pageNumber}"
+                               th:class="${pageNumber==userPage.number + 1} ? active"></a> |
+                             </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
