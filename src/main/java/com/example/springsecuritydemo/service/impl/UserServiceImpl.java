@@ -41,6 +41,9 @@ public class UserServiceImpl implements IUserService {
     private static final String NOT_EXIST_ENTITY = "Doesn't exist such user";
 
 
+
+
+
     public <T extends User> User registerNewUser(UserDto userDto) throws UserAlreadyExistException {
         log.debug("Trying to register user: {}", userDto);
 
@@ -76,38 +79,98 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
-    public List<User> getListUserPageable(Integer pageNo, Integer pageSize, String sortBy) {
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+    public void update(UserDto userDto) {
+        log.debug("Trying to update userDto: {}", userDto);
 
-        Page<User> pagedResult = userRepository.findAll(paging);
+        if (userDto.getId() == 0) {
+            log.warn(MISSING_ID_ERROR_MESSAGE);
+            throw new ServiceException(MISSING_ID_ERROR_MESSAGE);
+        }
 
-        if (pagedResult.hasContent()) {
-            return pagedResult.getContent();
-        } else {
-            return new ArrayList<>();
+        final String encryptedPassword = bcryptEncoder.encode(userDto.getPassword());
+
+        userDto.setPassword(encryptedPassword);
+
+        try {
+            userRepository.findById(userDto.getId());
+        } catch (EmptyResultDataAccessException e) {
+            log.warn("Not existing userDto: {}", userDto);
+            throw new NoSuchEntityException(NOT_EXIST_ENTITY);
+        } catch (DataAccessException e) {
+            log.error("Failed to retrieve userDto: {}", userDto);
+            throw new ServiceException("Failed to retrieve userDto: ", e);
+        }
+        try {
+            if (userDto.getTypeUser().equals(TypeUser.CLIENT)) {
+                clientRepository.save((Client) userDtoConvertToEntity(userDto));
+            }
+            if (userDto.getTypeUser().equals(TypeUser.COACH)) {
+                coachRepository.save((Coach) userDtoConvertToEntity(userDto));
+            }
+        } catch (DataAccessException e) {
+            log.error("Failed to update userDto: {}", userDto);
+            throw new ServiceException("Problem with updating userDto");
         }
     }
 
-    public Page<User> findPaginated(Pageable pageable, List<User> users) {
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<User> listUser;
 
-        if (users.size() < startItem) {
-            listUser = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, users.size());
-            listUser = users.subList(startItem, toIndex);
+    public void deleteById(long id) {
+        log.debug("Trying to delete user with id={}", id);
+        if (id == 0) {
+            log.warn(MISSING_ID_ERROR_MESSAGE);
+            throw new ServiceException(MISSING_ID_ERROR_MESSAGE);
         }
+        try {
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            log.warn("Not existing user with id={}", id);
+            throw new NoSuchEntityException(NOT_EXIST_ENTITY);
+        } catch (DataAccessException e) {
+            log.error("failed to delete user with id={}", id, e);
+            throw new ServiceException("Failed to delete user by id", e);
+        }
+    }
 
-        return new PageImpl<>(listUser, PageRequest.of(currentPage, pageSize), users.size());
+    public void delete(User user) {
+        log.debug("Trying to delete user = {}", user);
+
+        if (user == null) {
+            log.warn(MISSING_ID_ERROR_MESSAGE);
+            throw new ServiceException(MISSING_ID_ERROR_MESSAGE);
+        }
+        try {
+            userRepository.delete(user);
+        } catch (EmptyResultDataAccessException e) {
+            log.warn("Not existing user = {}", user);
+            throw new NoSuchEntityException(NOT_EXIST_ENTITY);
+        } catch (DataAccessException e) {
+            log.error("failed to delete user = {}", user, e);
+            throw new ServiceException("Failed to delete user", e);
+        }
     }
 
 
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email).get();
+    public UserDto getByIdUserConvertedToUserDto(long id) {
+        log.debug("Trying to get user with id={}", id);
+
+        if (id == 0) {
+            log.warn(MISSING_ID_ERROR_MESSAGE);
+            throw new ServiceException(MISSING_ID_ERROR_MESSAGE);
+        }
+        UserDto userDto;
+        try {
+            userDto = entityConvertToUserDto(userRepository.findById(id)
+                    .orElseThrow(() -> new NoSuchEntityException("Invalid user ID")));
+        } catch (EmptyResultDataAccessException e) {
+            log.warn("Not existing event with id={}", id);
+            throw new NoSuchEntityException(NOT_EXIST_ENTITY);
+        } catch (DataAccessException e) {
+            log.error("Failed to retrieve user with id={}", id, e);
+            throw new ServiceException("Failed to retrieve user with such id", e);
+        }
+        return userDto;
     }
+
 
     public User getUserByEmail(String email) {
         log.debug("Trying to get user with email={}", email);
@@ -128,6 +191,34 @@ public class UserServiceImpl implements IUserService {
             throw new ServiceException("Failed to retrieve user with such email", e);
         }
         return user;
+    }
+
+
+    private <T extends User> UserDto entityConvertToUserDto(T t) {
+        UserDto userDto = new UserDto();
+
+        userDto.setId(t.getId());
+        userDto.setEmail(t.getEmail());
+        userDto.setPassword(t.getPassword());
+        userDto.setFirstName(t.getFirstName());
+        userDto.setLastName(t.getLastName());
+        userDto.setPhone(t.getPhone());
+        userDto.setBirthDate(t.getBirthDate());
+        userDto.setGender(t.getGender());
+
+        if (t instanceof Client) {
+            userDto.setTypeUser(TypeUser.CLIENT);
+            userDto.setHeight(((Client) t).getHeight());
+            userDto.setWeight(((Client) t).getWeight());
+        }
+        if (t instanceof Coach) {
+            userDto.setTypeUser(TypeUser.COACH);
+            userDto.setEducation(((Coach) t).getEducation());
+            userDto.setAchievement(((Coach) t).getAchievement());
+            userDto.setAdditionalInfo(((Coach) t).getAdditionalInfo());
+        }
+
+        return userDto;
     }
 
 
@@ -153,8 +244,17 @@ public class UserServiceImpl implements IUserService {
     }
 
     private <T extends User> User setUserValues(UserDto userDto, T t) {
+
+        if (userDto.getId() != null) {
+            t.setId(userDto.getId());
+        }
+
+        if (userDto.getPassword().startsWith("2a$12$")) {
+            t.setPassword(userDto.getPassword());
+        } else {
+            t.setPassword(bcryptEncoder.encode(userDto.getPassword()));
+        }
         t.setEmail(userDto.getEmail());
-        t.setPassword(bcryptEncoder.encode(userDto.getPassword()));
         t.setFirstName(userDto.getFirstName());
         t.setLastName(userDto.getLastName());
         t.setPhone(userDto.getPhone());

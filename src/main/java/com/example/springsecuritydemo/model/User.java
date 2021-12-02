@@ -54,7 +54,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
     @Builder.Default
-    private Status status = Status.BANNED;
+    private Status status = Status.ACTIVE;
 
     @Column
     private boolean enabled;

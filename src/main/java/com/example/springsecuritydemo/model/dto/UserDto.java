@@ -20,6 +20,8 @@ import java.time.LocalDate;
 @ToString
 public class UserDto {
 
+    Long id;
+
     @ValidEmail
     @NotBlank(message = "Email may not be blank")
     @NotNull
@@ -80,21 +82,21 @@ public class UserDto {
 
     /// coach
 
-//    @Size(min = 3, max = 1024,
+    //    @Size(min = 3, max = 1024,
 //            message = "Additional info must be between 3 and 1024 characters long")
     @Pattern(regexp = "^[\\w\\s.,\\-'!?+#*А-Яа-яЪъЇї]*$",
             message = "Additional info must be alphanumeric with no forbidden characters")
     private String additionalInfo;
 
 
-//    @Size(min = 10, max = 1024,
+    //    @Size(min = 10, max = 1024,
 //            message = "Education must be between 10 and 1024 characters long")
     @Pattern(regexp = "^[\\w\\s.,\\-'!?+#*А-Яа-яЪъЇї]*$",
             message = "Education must be alphanumeric with no forbidden characters")
     private String education;
 
 
-//    @Size(min = 10, max = 1024,
+    //    @Size(min = 10, max = 1024,
 //            message = "Achievement must be between 10 and 1024 characters long")
     @Pattern(regexp = "^[\\w\\s.,\\-'!?+#*А-Яа-яЪъЇї]*$",
             message = "Achievement must be alphanumeric with no forbidden characters")
