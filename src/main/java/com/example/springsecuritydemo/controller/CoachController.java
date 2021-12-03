@@ -2,11 +2,11 @@ package com.example.springsecuritydemo.controller;
 
 import com.example.springsecuritydemo.exception.UserAlreadyExistException;
 import com.example.springsecuritydemo.model.Coach;
-import com.example.springsecuritydemo.model.dto.TypeUser;
 import com.example.springsecuritydemo.model.dto.UserDto;
 import com.example.springsecuritydemo.service.impl.CoachServiceImpl;
 import com.example.springsecuritydemo.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,6 +25,17 @@ public class CoachController {
     private static final String REDIRECT = "redirect:";
     private final CoachServiceImpl coachService;
     private final UserServiceImpl userService;
+
+
+    @GetMapping("/viewCoach/{id}")
+    public ModelAndView viewCoach(@PathVariable("id") Long coachId) {
+        ModelAndView mav = new ModelAndView("coach/profileCoach");
+
+
+        mav.addObject("coach", coachService.getByIdCoach(coachId));
+
+        return mav;
+    }
 
 
     @GetMapping("/addCoach")
@@ -49,10 +60,11 @@ public class CoachController {
         return mav;
     }
 
+    @PreAuthorize("hasAuthority('admin:update')")
     @GetMapping("/editCoach/{id}")
     public ModelAndView editPage(@PathVariable("id") Long coachId) {
 
-        ModelAndView mav = new ModelAndView("user/editFormUser");
+        ModelAndView mav = new ModelAndView("coach/editFormCoach");
 
         UserDto userDto = userService.getByIdUserConvertedToUserDto(coachId);
 
@@ -61,6 +73,7 @@ public class CoachController {
         return mav;
     }
 
+    @PreAuthorize("hasAuthority('admin:update')")
     @PostMapping("/updateCoach/{id}")
     public ModelAndView updating(@PathVariable("id") Long coachId,
                                  @Valid UserDto userDto,
@@ -69,8 +82,7 @@ public class CoachController {
         ModelAndView mav = new ModelAndView("redirect:/" + "user/profile");
 
         if (bindingResult.hasErrors()) {
-
-            mav.setViewName("user/editFormUser");
+            mav.setViewName("coach/editFormCoach");
         } else {
             try {
                 userService.update(userDto);

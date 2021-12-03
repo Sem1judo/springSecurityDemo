@@ -1,17 +1,13 @@
 $(document).ready(function () {
 
-
     let client = document.getElementById('CLIENT');
     let coach = document.getElementById('COACH');
-
-    client.setAttribute("checked", "checked");
-    client.checked = true;
-    $('#coachContent').hide();
 
 
     $('#CLIENT').click(function () {
         client.setAttribute("checked", "checked");
         client.checked = true;
+
 
         coach.setAttribute("checked", "");
         coach.removeAttribute("checked");
@@ -37,6 +33,7 @@ $(document).ready(function () {
         // $('#CLIENT').prop('checked', false);
     });
 });
+
 
 
 

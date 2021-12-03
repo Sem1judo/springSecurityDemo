@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,8 @@ public class AdminController {
     private final CoachServiceImpl coachService;
     private final ClientServiceImpl clientService;
 
+
+    @PreAuthorize("hasAuthority('admin:read')")
     @GetMapping("/listCoaches")
     public ModelAndView findPaginatedCoaches(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                              @RequestParam("size") Optional<Integer> size,
@@ -34,12 +37,12 @@ public class AdminController {
     ) {
         ModelAndView mav = new ModelAndView("admin/listCoaches");
 
-        int pageSize = size.orElse(5);
+        int pageSize = size.orElse(10);
 
         Page<Coach> page = coachService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Coach> listCoaches = page.getContent();
 
-        getPagingAndSortingParams(pageNo, sortField, sortDir, mav, page.getTotalPages(), page.getTotalElements(), page);
+        getPagingAndSortingParams(pageNo, sortField, sortDir, mav, page.getTotalPages(), page.getTotalElements());
 
         mav.addObject("listCoaches", listCoaches);
 
@@ -47,6 +50,7 @@ public class AdminController {
     }
 
 
+    @PreAuthorize("hasAuthority('admin:read')")
     @GetMapping("/listClients")
     public ModelAndView findPaginatedClients(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                              @RequestParam("size") Optional<Integer> size,
@@ -55,12 +59,12 @@ public class AdminController {
     ) {
         ModelAndView mav = new ModelAndView("admin/listClients");
 
-        int pageSize = size.orElse(5);
+        int pageSize = size.orElse(10);
 
         Page<Client> page = clientService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Client> listClients = page.getContent();
 
-        getPagingAndSortingParams(pageNo, sortField, sortDir, mav, page.getTotalPages(), page.getTotalElements(), page);
+        getPagingAndSortingParams(pageNo, sortField, sortDir, mav, page.getTotalPages(), page.getTotalElements());
 
         mav.addObject("listClients", listClients);
 
@@ -70,8 +74,7 @@ public class AdminController {
     private void getPagingAndSortingParams(int pageNo,
                                            String sortField,
                                            String sortDir,
-                                           ModelAndView mav, int totalPages, long totalElements,
-                                           Page<?> page) {
+                                           ModelAndView mav, int totalPages, long totalElements) {
         mav.addObject("currentPage", pageNo);
         mav.addObject("totalPages", totalPages);
         mav.addObject("totalItems", totalElements);
@@ -82,8 +85,9 @@ public class AdminController {
     }
 
 
+    @PreAuthorize("hasAuthority('admin:read')")
     @GetMapping("/adminPanel")
-    public ModelAndView getEvent() {
+    public ModelAndView getAdminPanel() {
 
         return new ModelAndView("/admin/adminPanel");
     }

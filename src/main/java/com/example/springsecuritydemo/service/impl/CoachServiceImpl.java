@@ -65,4 +65,26 @@ public class CoachServiceImpl implements ICoachService {
     }
 
 
+    public Coach getByIdCoach(long id) {
+        log.debug("Trying to get user with id={}", id);
+
+        if (id == 0) {
+            log.warn("Missing id coach");
+            throw new ServiceException("Missing id coach");
+        }
+        Coach coach;
+        try {
+            coach = coachRepository.findById(id)
+                    .orElseThrow(() -> new NoSuchEntityException("Invalid coach ID"));
+        } catch (EmptyResultDataAccessException e) {
+            log.warn("Not existing coach with id={}", id);
+            throw new NoSuchEntityException("Not existing coach with id ="+id);
+        } catch (DataAccessException e) {
+            log.error("Failed to retrieve coach with id={}", id, e);
+            throw new ServiceException("Failed to retrieve user with coach id", e);
+        }
+        return coach;
+    }
+
+
 }

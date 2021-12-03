@@ -41,9 +41,6 @@ public class UserServiceImpl implements IUserService {
     private static final String NOT_EXIST_ENTITY = "Doesn't exist such user";
 
 
-
-
-
     public <T extends User> User registerNewUser(UserDto userDto) throws UserAlreadyExistException {
         log.debug("Trying to register user: {}", userDto);
 
@@ -162,7 +159,7 @@ public class UserServiceImpl implements IUserService {
             userDto = entityConvertToUserDto(userRepository.findById(id)
                     .orElseThrow(() -> new NoSuchEntityException("Invalid user ID")));
         } catch (EmptyResultDataAccessException e) {
-            log.warn("Not existing event with id={}", id);
+            log.warn("Not existing user with id={}", id);
             throw new NoSuchEntityException(NOT_EXIST_ENTITY);
         } catch (DataAccessException e) {
             log.error("Failed to retrieve user with id={}", id, e);
@@ -170,6 +167,7 @@ public class UserServiceImpl implements IUserService {
         }
         return userDto;
     }
+
 
 
     public User getUserByEmail(String email) {
@@ -184,7 +182,7 @@ public class UserServiceImpl implements IUserService {
             user = userRepository.findByEmail(email)
                     .orElseThrow(() -> new NoSuchEntityException("Invalid user email"));
         } catch (EmptyResultDataAccessException e) {
-            log.warn("Not existing event with id={}", email);
+            log.warn("Not existing user with id={}", email);
             throw new NoSuchEntityException(NOT_EXIST_ENTITY);
         } catch (DataAccessException e) {
             log.error("Failed to retrieve user with email={}", email, e);

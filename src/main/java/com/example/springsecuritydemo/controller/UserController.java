@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,12 +23,22 @@ public class UserController {
     private final UserServiceImpl userService;
 
     @GetMapping("/profile")
-    public ModelAndView getEvent() {
+    public ModelAndView getUser() {
         ModelAndView mav = new ModelAndView("/user/profile");
 
         User user = getCurrentUser();
 
         mav.addObject("user", user);
+
+        return mav;
+    }
+
+    @PostMapping(value = "/deleteUser/{id}")
+    public ModelAndView deleteEvent(@PathVariable("id") long id) {
+
+        ModelAndView mav = new ModelAndView("redirect:/" + "admin/listClients");
+
+        userService.deleteById(id);
 
         return mav;
     }

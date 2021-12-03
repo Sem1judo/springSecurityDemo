@@ -30,7 +30,6 @@ public class RegistrationUserController {
 
         mav.addObject("userDto", new UserDto());
         mav.addObject("isClient", true);
-
         return mav;
     }
 

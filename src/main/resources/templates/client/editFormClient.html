@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head>
     <meta charset="UTF-8">
     <title>Update user</title>
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/registration.css}" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -18,7 +17,7 @@
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                            <form th:action="@{/coach/updateCoach/{id}(id=${userDto.id})}" th:method="post"
+                            <form th:action="@{/client/updateClient/{id}(id=${userDto.id})}" th:method="post"
                                   th:object="${userDto}">
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
@@ -41,18 +40,16 @@
 
                                     </div>
                                     <div class="col-md-6 mb-4">
-
                                         <div class="form-outline">
-                                            <label class="form-label" for="password">password</label>
-                                            <input type="password" id="password" class="form-control form-control-lg"
-                                                   th:field="*{password}"/>
+                                            <label for="password"></label>
+                                            <input type="text" id="password" class="form-control form-control-lg"
+                                                   th:field="*{password}" hidden/>
                                             <span th:if="${#fields.hasErrors('password')}"
                                                   th:errors="*{password}">Name Error</span>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 mb-4">
-
                                         <div class="form-outline">
                                             <label class="form-label" for="email">Email</label>
                                             <input type="email" id="email" class="form-control form-control-lg"
@@ -88,42 +85,6 @@
                                         </div>
                                     </div>
 
-                                </div>
-
-                                <div class="row">
-
-                                </div>
-                                <div id="coachContent"
-                                     th:if="${userDto.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}">
-                                    <div class="form-outline coach_div">
-                                        <label class="form-label"
-                                               for="education">Education </label>
-                                        <input type="text" id="education"
-                                               class="form-control form-control-lg"
-                                               th:field="*{education}"/>
-                                        <span th:if="${#fields.hasErrors('education')}"
-                                              th:errors="*{education}">Name Error</span>
-                                    </div>
-
-                                    <div class="form-outline">
-                                        <label class="form-label"
-                                               for="achievement">Achievement</label>
-                                        <input type="text" id="achievement"
-                                               class="form-control form-control-lg"
-                                               th:field="*{achievement}"/>
-                                        <span th:if="${#fields.hasErrors('achievement')}"
-                                              th:errors="*{achievement}">Name Error</span>
-                                    </div>
-
-                                    <div class="form-outline">
-                                        <label class="form-label" for="additionalInfo">additional
-                                            Info</label>
-                                        <input type="text" id="additionalInfo"
-                                               class="form-control form-control-lg"
-                                               th:field="*{additionalInfo}"/>
-                                        <span th:if="${#fields.hasErrors('additionalInfo')}"
-                                              th:errors="*{additionalInfo}">Name Error</span>
-                                    </div>
                                 </div>
 
                                 <div id="clientContent"
@@ -187,8 +148,6 @@
             </div>
         </div>
     </section>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </div>
-<script th:src="@{/js/register.js}"></script>
 </body>
 </html>

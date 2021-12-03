@@ -7,6 +7,7 @@ import com.example.springsecuritydemo.model.dto.UserDto;
 import com.example.springsecuritydemo.service.impl.ClientServiceImpl;
 import com.example.springsecuritydemo.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,16 @@ public class ClientController {
     private final ClientServiceImpl clientService;
     private final UserServiceImpl userService;
 
+
+    @GetMapping("/viewClient/{id}")
+    public ModelAndView viewClient(@PathVariable("id") Long clientId) {
+        ModelAndView mav = new ModelAndView("client/profileClient");
+
+
+        mav.addObject("client", clientService.getByIdClient(clientId));
+
+        return mav;
+    }
 
     @GetMapping("/addClient")
     ModelAndView addingPage() {
@@ -50,15 +61,18 @@ public class ClientController {
         return mav;
     }
 
+
+
     private String getAuthCurrentEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
     }
 
+    @PreAuthorize("hasAuthority('admin:update')")
     @GetMapping("/editClient/{id}")
     public ModelAndView editPage(@PathVariable("id") Long clientId) {
 
-        ModelAndView mav = new ModelAndView("user/editFormUser");
+        ModelAndView mav = new ModelAndView("client/editFormClient");
 
         UserDto userDto = userService.getByIdUserConvertedToUserDto(clientId);
 
@@ -67,6 +81,7 @@ public class ClientController {
         return mav;
     }
 
+    @PreAuthorize("hasAuthority('admin:update')")
     @PostMapping("/updateClient/{id}")
     public ModelAndView updating(@PathVariable("id") Long clientId,
                                  @Valid UserDto userDto,
@@ -76,7 +91,7 @@ public class ClientController {
 
         if (bindingResult.hasErrors()) {
 
-            mav.setViewName("user/editFormUser");
+            mav.setViewName("client/editFormClient");
         } else {
             try {
                 userService.update(userDto);

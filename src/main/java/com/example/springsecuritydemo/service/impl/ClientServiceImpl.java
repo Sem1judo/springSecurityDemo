@@ -62,6 +62,27 @@ public class ClientServiceImpl implements IClientService {
         return client;
     }
 
+    public Client getByIdClient(long id) {
+        log.debug("Trying to get client with id={}", id);
+
+        if (id == 0) {
+            log.warn("Missing id client");
+            throw new ServiceException("Missing id client");
+        }
+        Client client;
+        try {
+            client = clientRepository.findById(id)
+                    .orElseThrow(() -> new NoSuchEntityException("Invalid client ID"));
+        } catch (EmptyResultDataAccessException e) {
+            log.warn("Not existing client with id={}", id);
+            throw new NoSuchEntityException("Not existing client with id ="+id);
+        } catch (DataAccessException e) {
+            log.error("Failed to retrieve client with id={}", id, e);
+            throw new ServiceException("Failed to retrieve client with id", e);
+        }
+        return client;
+    }
+
 
 
 }
