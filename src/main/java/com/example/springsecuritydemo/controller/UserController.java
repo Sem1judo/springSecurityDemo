@@ -22,6 +22,8 @@ public class UserController {
 
     private final UserServiceImpl userService;
 
+
+
     @GetMapping("/profile")
     public ModelAndView getUser() {
         ModelAndView mav = new ModelAndView("/user/profile");

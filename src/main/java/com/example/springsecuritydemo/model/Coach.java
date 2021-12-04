@@ -10,12 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@ToString
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity(name = "coaches")
 public class Coach extends User {
 
@@ -36,4 +35,13 @@ public class Coach extends User {
     private List<Client> clients = new ArrayList<>();
 
 
+    @Override
+    public String toString() {
+        return "Coach{" +
+                "additionalInfo='" + additionalInfo + '\'' +
+                ", education='" + education + '\'' +
+                ", achievement='" + achievement + '\'' +
+                ", clients=" + clients +
+                '}';
+    }
 }

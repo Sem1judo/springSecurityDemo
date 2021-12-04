@@ -2,11 +2,14 @@ package com.example.springsecuritydemo.controller;
 
 import com.example.springsecuritydemo.exception.UserAlreadyExistException;
 import com.example.springsecuritydemo.model.Client;
+import com.example.springsecuritydemo.model.Coach;
 import com.example.springsecuritydemo.model.User;
 import com.example.springsecuritydemo.model.dto.UserDto;
 import com.example.springsecuritydemo.service.impl.ClientServiceImpl;
+import com.example.springsecuritydemo.service.impl.CoachServiceImpl;
 import com.example.springsecuritydemo.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +18,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -26,6 +32,62 @@ public class ClientController {
     private static final String REDIRECT = "redirect:";
     private final ClientServiceImpl clientService;
     private final UserServiceImpl userService;
+    private final CoachServiceImpl coachService;
+
+
+    @PostMapping("/addCoachForUser/{id}")
+    public ModelAndView addCoachForUser(@PathVariable("id") Long coachId, HttpServletRequest request) {
+
+        String referer = request.getHeader("Referer");
+        ModelAndView mav = new ModelAndView("redirect:" + referer);
+
+        clientService.addCoachForUser(coachId, getAuthCurrentEmail());
+
+        return mav;
+
+    }
+
+    @PostMapping("/deleteCoachForUser/{id}")
+    public ModelAndView deleteCoachForUser(@PathVariable("id") Long coachId, HttpServletRequest request) {
+
+        String referer = request.getHeader("Referer");
+        ModelAndView mav = new ModelAndView("redirect:" + referer);
+
+        clientService.deleteCoachForUser(getAuthCurrentEmail(), coachId);
+
+        return mav;
+
+    }
+
+
+
+
+    @GetMapping("/listCoachesForClient")
+    public ModelAndView findPaginatedCoaches(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                                             @RequestParam("size") Optional<Integer> size,
+                                             @RequestParam(value = "sort", defaultValue = "firstName") String sortField,
+                                             @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir
+    ) {
+        ModelAndView mav = new ModelAndView("client/listCoachesForClient");
+
+        int pageSize = size.orElse(10);
+
+        Page<Coach> page = coachService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Coach> listCoaches = page.getContent();
+
+        mav.addObject("client", clientService.getClientByEmail(getAuthCurrentEmail()));
+        mav.addObject("currentPage", pageNo);
+        mav.addObject("totalPages", page.getTotalPages());
+        mav.addObject("totalItems", page.getTotalElements());
+
+        mav.addObject("sortField", sortField);
+        mav.addObject("sortDir", sortDir);
+        mav.addObject("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        mav.addObject("listCoaches", listCoaches);
+
+        return mav;
+    }
 
 
     @GetMapping("/viewClient/{id}")
@@ -62,12 +124,6 @@ public class ClientController {
     }
 
 
-
-    private String getAuthCurrentEmail() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getName();
-    }
-
     @PreAuthorize("hasAuthority('admin:update')")
     @GetMapping("/editClient/{id}")
     public ModelAndView editPage(@PathVariable("id") Long clientId) {
@@ -101,6 +157,12 @@ public class ClientController {
         }
 
         return mav;
+    }
+
+
+    private String getAuthCurrentEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
     }
 
 }

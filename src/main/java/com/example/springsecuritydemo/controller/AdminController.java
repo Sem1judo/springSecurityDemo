@@ -27,12 +27,15 @@ public class AdminController {
     private final CoachServiceImpl coachService;
     private final ClientServiceImpl clientService;
 
+    //todo choose page where user can chose coach for himself
+    //todo page with price for losing the extra weight for users - subscribes
+    //todo edit all POST mappings for doing redirect and chose right page to infer
 
     @PreAuthorize("hasAuthority('admin:read')")
     @GetMapping("/listCoaches")
     public ModelAndView findPaginatedCoaches(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                              @RequestParam("size") Optional<Integer> size,
-                                             @RequestParam(value = "sort", defaultValue = "email") String sortField,
+                                             @RequestParam(value = "sort", defaultValue = "firstName") String sortField,
                                              @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir
     ) {
         ModelAndView mav = new ModelAndView("admin/listCoaches");

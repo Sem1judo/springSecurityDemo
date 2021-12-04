@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Table 05</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
+
+    <link th:href="@{/css/listCoachesForClient.css}" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Coaches</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-wrap">
+                    <table class="table table-responsive-xl">
+                        <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Status</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="alert" role="alert" th:each="coach : ${listCoaches}">
+                            <td>
+                                <label class="checkbox-wrap checkbox-primary">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td class="d-flex align-items-center">
+
+                                <div class="img" th:style="'background-image:url(' + @{/img/person_1.jpg} + ');'"></div>
+
+                                <div class="pl-3 email">
+                                    <span th:text="${coach.email}"></span>
+                                    <span th:text="${#temporals.format(coach.registrationDate, 'dd-MM-yyyy HH:mm')}"></span>
+                                </div>
+                            </td>
+                            <td th:text="${coach.firstName +' '+ coach.lastName}"></td>
+                            <td class="status"><span class="active" th:text="${coach.status}">Active</span></td>
+                            <td>
+                                <div th:if="${client.coach == null}">
+                                    <form th:action="@{/client/addCoachForUser/{id}(id=${coach.id})}" method="post">
+                                        <button type="submit" class="close" data-dismiss="alert" aria-label="add">
+                                            <span aria-hidden="true"><i class="fa fa-plus"></i></span>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div th:unless="${client.coach == null}">
+                                    <th:block th:if="${client.coach.id} == ${coach.id}">
+                                        <form th:action="@{/client/deleteCoachForUser/{id}(id=${coach.id})}" method="post">
+                                            <button type="submit" class="close" data-dismiss="alert" aria-label="close">
+                                                <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                                            </button>
+                                        </form>
+                                    </th:block>
+                                    You have coach
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>
+
