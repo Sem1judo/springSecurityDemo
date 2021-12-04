@@ -60,31 +60,20 @@ public class ClientController {
     }
 
 
-
-
     @GetMapping("/listCoachesForClient")
-    public ModelAndView findPaginatedCoaches(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                                             @RequestParam("size") Optional<Integer> size,
-                                             @RequestParam(value = "sort", defaultValue = "firstName") String sortField,
-                                             @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir
-    ) {
+    public ModelAndView findPaginatedCoaches(@RequestParam(required = false) String keyword) {
         ModelAndView mav = new ModelAndView("client/listCoachesForClient");
 
-        int pageSize = size.orElse(10);
 
-        Page<Coach> page = coachService.findPaginated(pageNo, pageSize, sortField, sortDir);
-        List<Coach> listCoaches = page.getContent();
+        if (keyword != null && keyword.length() >= 1) {
+            mav.addObject("listCoaches", coachService.findByKeyword(keyword));
+            mav.addObject("keyword", keyword);
+        } else {
+            mav.addObject("listCoaches", coachService.getListCoach());
+        }
 
         mav.addObject("client", clientService.getClientByEmail(getAuthCurrentEmail()));
-        mav.addObject("currentPage", pageNo);
-        mav.addObject("totalPages", page.getTotalPages());
-        mav.addObject("totalItems", page.getTotalElements());
 
-        mav.addObject("sortField", sortField);
-        mav.addObject("sortDir", sortDir);
-        mav.addObject("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
-        mav.addObject("listCoaches", listCoaches);
 
         return mav;
     }
