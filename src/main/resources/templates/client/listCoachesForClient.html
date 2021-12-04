@@ -48,12 +48,22 @@
 
                                 <div class="pl-3 email">
                                     <span th:text="${coach.email}"></span>
-                                    <span th:text="${#temporals.format(coach.registrationDate, 'dd-MM-yyyy HH:mm')}"></span>
+                                    <span th:text="${#temporals.format(coach.registrationDate, 'dd-MM-yyyy')}"></span>
                                 </div>
                             </td>
-                            <td th:text="${coach.firstName +' '+ coach.lastName}"></td>
-                            <td class="status"><span class="active" th:text="${coach.status}">Active</span></td>
                             <td>
+                                <a th:href="@{/coach/viewCoach/{id}(id=${coach.id})}">
+                                    <span th:text=" ${coach.firstName +' '+ coach.lastName}"></span>
+                                </a>
+                            </td>
+                            <td th:if="${coach.status == T(com.example.springsecuritydemo.model.Status).ACTIVE}" class="status"><span class="active" th:text="${coach.status}">Active</span></td>
+                            <td th:if="${coach.status == T(com.example.springsecuritydemo.model.Status).BANNED}" class="status"><span class="waiting" th:text="${coach.status}">Active</span></td>
+                            <td>
+                                <a th:href="@{/coach/viewCoach/{id}(id=${coach.id})}" class="text-primary"
+                                   data-toggle="tooltip"
+                                   data-original-title="view"><i
+                                        class="fa fa-eye"></i></a>
+                                </li>
                                 <div th:if="${client.coach == null}">
                                     <form th:action="@{/client/addCoachForUser/{id}(id=${coach.id})}" method="post">
                                         <button type="submit" class="close" data-dismiss="alert" aria-label="add">
@@ -63,7 +73,8 @@
                                 </div>
                                 <div th:unless="${client.coach == null}">
                                     <th:block th:if="${client.coach.id} == ${coach.id}">
-                                        <form th:action="@{/client/deleteCoachForUser/{id}(id=${coach.id})}" method="post">
+                                        <form th:action="@{/client/deleteCoachForUser/{id}(id=${coach.id})}"
+                                              method="post">
                                             <button type="submit" class="close" data-dismiss="alert" aria-label="close">
                                                 <span aria-hidden="true"><i class="fa fa-close"></i></span>
                                             </button>
