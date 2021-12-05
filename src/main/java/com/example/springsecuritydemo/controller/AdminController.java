@@ -2,19 +2,22 @@ package com.example.springsecuritydemo.controller;
 
 import com.example.springsecuritydemo.model.Client;
 import com.example.springsecuritydemo.model.Coach;
+import com.example.springsecuritydemo.model.StatusCoach;
+import com.example.springsecuritydemo.model.User;
 import com.example.springsecuritydemo.service.impl.ClientServiceImpl;
 import com.example.springsecuritydemo.service.impl.CoachServiceImpl;
+import com.example.springsecuritydemo.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,11 +34,35 @@ public class AdminController {
     //todo page with price for losing the extra weight for users - subscribes
     //todo edit all POST mappings for doing redirect and chose right page to infer
 
+    @PostMapping("/attachCoachForUser/{id}")
+    public ModelAndView attachCoachForUser(@PathVariable("id") Long clientId, HttpServletRequest request) {
+
+        String referer = request.getHeader("Referer");
+        ModelAndView mav = new ModelAndView("redirect:" + referer);
+
+        clientService.attachCoachForUser(clientId);
+
+        return mav;
+
+    }
+
+    @PostMapping("/declineCoachForUser/{id}")
+    public ModelAndView declineCoachForUser(@PathVariable("id") Long clientId, HttpServletRequest request) {
+
+        String referer = request.getHeader("Referer");
+        ModelAndView mav = new ModelAndView("redirect:" + referer);
+
+        clientService.declineCoachForUser(clientId);
+
+        return mav;
+
+    }
+
     @PreAuthorize("hasAuthority('admin:read')")
     @GetMapping("/listCoaches")
     public ModelAndView findPaginatedCoaches(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                              @RequestParam("size") Optional<Integer> size,
-                                             @RequestParam(value = "sort", defaultValue = "firstName") String sortField,
+                                             @RequestParam(value = "sortField", defaultValue = "firstName") String sortField,
                                              @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir
     ) {
         ModelAndView mav = new ModelAndView("admin/listCoaches");
@@ -45,7 +72,13 @@ public class AdminController {
         Page<Coach> page = coachService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Coach> listCoaches = page.getContent();
 
-        getPagingAndSortingParams(pageNo, sortField, sortDir, mav, page.getTotalPages(), page.getTotalElements());
+        mav.addObject("currentPage", pageNo);
+        mav.addObject("totalPages", page.getTotalPages());
+        mav.addObject("totalItems", page.getTotalElements());
+
+        mav.addObject("sortField", sortField);
+        mav.addObject("sortDir", sortDir);
+        mav.addObject("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         mav.addObject("listCoaches", listCoaches);
 
@@ -57,7 +90,7 @@ public class AdminController {
     @GetMapping("/listClients")
     public ModelAndView findPaginatedClients(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                              @RequestParam("size") Optional<Integer> size,
-                                             @RequestParam(value = "sort", defaultValue = "weight") String sortField,
+                                             @RequestParam(value = "sortField", defaultValue = "id") String sortField,
                                              @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir
     ) {
         ModelAndView mav = new ModelAndView("admin/listClients");
@@ -67,24 +100,18 @@ public class AdminController {
         Page<Client> page = clientService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Client> listClients = page.getContent();
 
-        getPagingAndSortingParams(pageNo, sortField, sortDir, mav, page.getTotalPages(), page.getTotalElements());
 
-        mav.addObject("listClients", listClients);
-
-        return mav;
-    }
-
-    private void getPagingAndSortingParams(int pageNo,
-                                           String sortField,
-                                           String sortDir,
-                                           ModelAndView mav, int totalPages, long totalElements) {
         mav.addObject("currentPage", pageNo);
-        mav.addObject("totalPages", totalPages);
-        mav.addObject("totalItems", totalElements);
+        mav.addObject("totalPages", page.getTotalPages());
+        mav.addObject("totalItems", page.getTotalElements());
 
         mav.addObject("sortField", sortField);
         mav.addObject("sortDir", sortDir);
         mav.addObject("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        mav.addObject("listClients", listClients);
+
+        return mav;
     }
 
 
@@ -92,7 +119,12 @@ public class AdminController {
     @GetMapping("/adminPanel")
     public ModelAndView getAdminPanel() {
 
-        return new ModelAndView("/admin/adminPanel");
+        ModelAndView mav = new ModelAndView("/admin/adminPanel");
+
+        mav.addObject("listClients", clientService.findByStatusCoach(StatusCoach.WAITING));
+        return mav;
     }
+
+
 }
 

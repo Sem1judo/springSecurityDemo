@@ -3,13 +3,7 @@ package com.example.springsecuritydemo.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 
@@ -18,6 +12,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "clients")
+@ToString
 public class Client extends User {
 
     @Column
@@ -27,15 +22,13 @@ public class Client extends User {
     private BigDecimal weight;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Coach coach;
 
+    @Column(name = "status_coach")
+    @Enumerated(value = EnumType.STRING)
+    private StatusCoach statusCoach;
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "height=" + height +
-                ", weight=" + weight +
-                ", coach=" + coach.getFirstName() + " " + coach.getLastName() + ",email =" + coach.getEmail() +
-                '}';
-    }
+
+
 }

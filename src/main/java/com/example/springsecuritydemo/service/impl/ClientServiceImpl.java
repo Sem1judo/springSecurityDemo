@@ -2,11 +2,9 @@ package com.example.springsecuritydemo.service.impl;
 
 import com.example.springsecuritydemo.exception.NoSuchEntityException;
 import com.example.springsecuritydemo.exception.ServiceException;
-import com.example.springsecuritydemo.exception.UserAlreadyExistException;
 import com.example.springsecuritydemo.model.Client;
 import com.example.springsecuritydemo.model.Coach;
-import com.example.springsecuritydemo.model.User;
-import com.example.springsecuritydemo.model.dto.UserDto;
+import com.example.springsecuritydemo.model.StatusCoach;
 import com.example.springsecuritydemo.repository.ClientRepository;
 import com.example.springsecuritydemo.service.IClientService;
 import lombok.AllArgsConstructor;
@@ -17,8 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -33,7 +32,11 @@ public class ClientServiceImpl implements IClientService {
     private ClientRepository clientRepository;
     private CoachServiceImpl coachService;
 
-    @Override
+    public List<Client> findByStatusCoach(StatusCoach statusCoach) {
+        return clientRepository.findAllByStatusCoach(statusCoach);
+    }
+
+
     public Page<Client> findPaginated(int pageNo, Integer pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();
@@ -122,14 +125,50 @@ public class ClientServiceImpl implements IClientService {
         Client client = getClientByEmail(authCurrentEmail);
         Coach coach = coachService.getByIdCoach(coachId);
         client.setCoach(coach);
+        client.setStatusCoach(StatusCoach.WAITING);
         try {
-
             clientRepository.save(client);
         } catch (DataAccessException e) {
             log.error("Failed to add coach to client: {}", client);
             throw new ServiceException("Problem with adding coach to client");
         }
 
+
+    }
+
+    public void attachCoachForUser(Long clientId) {
+        log.debug("Trying to confirm Coach For User with coach.id={}", clientId);
+
+        if (clientId == 0) {
+            log.warn("Missing clientId");
+            throw new ServiceException("Missing clientId");
+        }
+        Client client = getByIdClient(clientId);
+        client.setStatusCoach(StatusCoach.ATTACHED);
+        try {
+
+            clientRepository.save(client);
+        } catch (DataAccessException e) {
+            log.error("Failed to attach coach to client: {}", client);
+            throw new ServiceException("Problem with attach coach to client");
+        }
+    }
+
+    public void declineCoachForUser(Long clientId) {
+        log.debug("Trying to decline Coach For User with clientId={}", clientId);
+
+        if (clientId == 0) {
+            log.warn("Missing clientId");
+            throw new ServiceException("Missing clientId");
+        }
+        Client client = getByIdClient(clientId);
+        client.setStatusCoach(StatusCoach.DECLINED);
+        try {
+            clientRepository.save(client);
+        } catch (DataAccessException e) {
+            log.error("Failed to decline coach from client: {}", client);
+            throw new ServiceException("Problem with declining coach from client");
+        }
 
     }
 
@@ -142,6 +181,7 @@ public class ClientServiceImpl implements IClientService {
         }
         Client client = getClientByEmail(authCurrentEmail);
         client.setCoach(null);
+        client.setStatusCoach(StatusCoach.EMPTY);
         try {
             clientRepository.save(client);
         } catch (DataAccessException e) {

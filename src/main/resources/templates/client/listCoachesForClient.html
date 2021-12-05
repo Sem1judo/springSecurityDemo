@@ -33,7 +33,7 @@
                                                                 class="form-control"
                                                                 placeholder="Name"
                                                                 th:value="${keyword}"
-                                                                    name="keyword">
+                                                                name="keyword">
                                         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>
                                         </button>
                                         <a class="link-warning" th:href="@{/client/listCoachesForClient}">Discard</a>
@@ -85,7 +85,7 @@
                             <td>
                                 <a th:href="@{/coach/viewCoach/{id}(id=${coach.id})}" class="text-primary"
                                    data-toggle="tooltip"
-                                   data-original-title="view"><i
+                                   data-original-title="view">View coach <i
                                         class="fa fa-eye"></i></a>
                                 </li>
                                 <div th:if="${client.coach == null}">
@@ -93,7 +93,7 @@
                                           method="post">
                                         <button type="submit" class="close" data-dismiss="alert"
                                                 aria-label="add">
-                                            <span aria-hidden="true"><i class="fa fa-plus"></i></span>
+                                            <span aria-hidden="true">Add coach <i class="fa fa-plus"></i></span>
                                         </button>
                                     </form>
                                 </div>
@@ -103,11 +103,10 @@
                                               method="post">
                                             <button type="submit" class="close" data-dismiss="alert"
                                                     aria-label="close">
-                                                <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                                                <span aria-hidden="true">Delete coach <i class="fa fa-close"></i></span>
                                             </button>
                                         </form>
                                     </th:block>
-                                    You have coach
                                 </div>
                             </td>
                         </tr>

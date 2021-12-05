@@ -35,6 +35,8 @@ public class ClientController {
     private final CoachServiceImpl coachService;
 
 
+
+
     @PostMapping("/addCoachForUser/{id}")
     public ModelAndView addCoachForUser(@PathVariable("id") Long coachId, HttpServletRequest request) {
 
@@ -111,6 +113,8 @@ public class ClientController {
         }
         return mav;
     }
+
+
 
 
     @PreAuthorize("hasAuthority('admin:update')")

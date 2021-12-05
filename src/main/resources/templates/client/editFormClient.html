@@ -131,6 +131,25 @@
                                                   th:errors="*{gender}">Name Error</span>
                                         </div>
                                     </div>
+                                    <div class="col-12">
+
+                                        <div class="col-md-6 mb-4 ">
+                                            <h6 class="mb-2 pb-1">Status Coach: </h6>
+                                            <div class="form-check form-check-inline"
+                                                 th:each="statusValue : ${T(com.example.springsecuritydemo.model.StatusCoach).values()}">
+                                                <input
+                                                        type="radio"
+                                                        class="form-check-input"
+                                                        name="inlineRadioOptions"
+                                                        th:field="*{statusCoach}"
+                                                        th:value="${statusValue}"/>
+                                                <label class="form-check-label"
+                                                       th:text="${statusValue}"></label>
+                                            </div>
+                                            <span th:if="${#fields.hasErrors('statusCoach')}"
+                                                  th:errors="*{statusCoach}">Name Error</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <input type="text" id="typeUser"
                                        class="form-control form-control-lg"

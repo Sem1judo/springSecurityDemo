@@ -38,7 +38,7 @@ public class CoachServiceImpl implements ICoachService {
     public List<Coach> getListCoach() {
         log.debug("Trying to get list of Coaches");
         try {
-            return (List<Coach>) coachRepository.findAll();
+            return coachRepository.findAll();
         } catch (EmptyResultDataAccessException e) {
             log.warn("Coaches is not exist");
             throw new NoSuchEntityException("Doesn't exist such Coaches");
@@ -49,7 +49,7 @@ public class CoachServiceImpl implements ICoachService {
     }
 
 
-    @Override
+
     public Page<Coach> findPaginated(int pageNo, Integer pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();

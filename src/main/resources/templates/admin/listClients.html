@@ -12,12 +12,14 @@
 <header th:insert="fragment/header :: header"></header>
 
 <div class="site-content">
-    <h1>Coach List</h1>
+    <h1>Client List</h1>
 
     <table class="table table-striped table-dark">
         <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col"><a
+                    th:href="@{'/admin/listClients?pageNo=' + ${currentPage} + '&sortField=id&sortDir=' + ${reverseSortDir}}">
+                ID</a>
             <th scope="col"><a
                     th:href="@{'/admin/listClients?pageNo=' + ${currentPage} + '&sortField=firstName&sortDir=' + ${reverseSortDir}}">
                 First Name</a>
@@ -41,6 +43,10 @@
                     th:href="@{'/admin/listClients?pageNo=' + ${currentPage} + '&sortField=height&sortDir=' + ${reverseSortDir}}">
                 Height</a>
             </th>
+            <th scope="col"><a
+                    th:href="@{'/admin/listClients?pageNo=' + ${currentPage} + '&sortField=statusCoach&sortDir=' + ${reverseSortDir}}">
+                Status Coach</a>
+            </th>
             <th>Action</th>
         </tr>
         </thead>
@@ -52,6 +58,7 @@
             <td th:text="${client.email}"></td>
             <td th:text="${client.weight}"></td>
             <td th:text="${client.height}"></td>
+            <td th:text="${client.statusCoach}"></td>
             <td>
                 <ul class="list-inline ">
                     <li class="list-inline-item">

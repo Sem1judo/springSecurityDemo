@@ -1,13 +1,5 @@
-/*!
- * Bootstrap v4.3.1 (https://getbootstrap.com/)
- * Copyright 2011-2019 The Bootstrap Authors
- * Copyright 2011-2019 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
 
-.height {
-  height: 100vh
-}
+
 .search {
   position: relative;
   box-shadow: 0 0 40px rgba(51, 51, 51, .1)
@@ -22,12 +14,6 @@
 .search input:focus {
   box-shadow: none;
   border: 2px solid blue
-}
-
-.search .fa-search {
-  position: absolute;
-  top: 20px;
-  left: 16px
 }
 
 .search button {

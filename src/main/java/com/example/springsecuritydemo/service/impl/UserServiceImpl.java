@@ -169,7 +169,6 @@ public class UserServiceImpl implements IUserService {
     }
 
 
-
     public User getUserByEmail(String email) {
         log.debug("Trying to get user with email={}", email);
 
@@ -204,10 +203,13 @@ public class UserServiceImpl implements IUserService {
         userDto.setBirthDate(t.getBirthDate());
         userDto.setGender(t.getGender());
 
+
         if (t instanceof Client) {
             userDto.setTypeUser(TypeUser.CLIENT);
             userDto.setHeight(((Client) t).getHeight());
             userDto.setWeight(((Client) t).getWeight());
+            userDto.setStatusCoach(((Client) t).getStatusCoach());
+
         }
         if (t instanceof Coach) {
             userDto.setTypeUser(TypeUser.COACH);
@@ -227,6 +229,7 @@ public class UserServiceImpl implements IUserService {
                 setUserValues(userDto, client);
                 client.setHeight(userDto.getHeight());
                 client.setWeight(userDto.getWeight());
+                client.setStatusCoach(userDto.getStatusCoach());
                 return client;
             }
             if (userDto.getTypeUser().equals(TypeUser.COACH)) {

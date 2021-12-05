@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 public interface IClientService {
 
 
-    Page<Client> findPaginated(int pageNo, Integer pageSize, String sortField, String sortDirection);
 
     Client addClientInfo(Client client, String currentPrincipalName);
 

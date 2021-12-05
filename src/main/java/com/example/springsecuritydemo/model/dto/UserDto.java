@@ -1,6 +1,7 @@
 package com.example.springsecuritydemo.model.dto;
 
 import com.example.springsecuritydemo.model.Gender;
+import com.example.springsecuritydemo.model.StatusCoach;
 import com.example.springsecuritydemo.validation.validation.email.ValidEmail;
 import com.example.springsecuritydemo.validation.validation.userType.ValidTypeUser;
 import lombok.*;
@@ -66,7 +67,6 @@ public class UserDto {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-
     // client
 
     @Min(20)
@@ -102,6 +102,9 @@ public class UserDto {
             message = "Achievement must be alphanumeric with no forbidden characters")
     private String achievement;
 
+
+    @Enumerated(EnumType.STRING)
+    private StatusCoach statusCoach = StatusCoach.EMPTY;
 
     @NotNull
     @Enumerated(EnumType.STRING)
