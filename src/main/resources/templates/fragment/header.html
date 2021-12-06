@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
@@ -14,12 +15,20 @@
 </div>
 
 <div class="nav">
+    <div class="float-right">
+        <form th:action="@{/auth/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
     <div class="nav__content">
         <ul class="nav__list">
             <li class="nav__list-item"><a class="text-decoration-none" th:href="@{/}">Home</a></li>
             <li class="nav__list-item"><a class="text-decoration-none" th:href="@{/user/profile}">Profile</a></li>
-            <li class="nav__list-item"><a class="text-decoration-none" th:href="@{/admin/listCoaches}">Coaches</a></li>
-            <li class="nav__list-item"><a class="text-decoration-none" th:href="@{/admin/listClients}">Clients</a></li>
+            <li class="nav__list-item"><a class="text-decoration-none"
+                                          th:href="@{/client/listCoachesForClient}">Coaches</a></li>
+            <li sec:authorize="hasAuthority('admin:read')" class="nav__list-item">
+                <a class="text-decoration-none" th:href="@{/admin/adminPanel}">Admin Panel</a>
+            </li>
         </ul>
     </div>
 </div>

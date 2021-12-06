@@ -36,6 +36,19 @@ public class ClientServiceImpl implements IClientService {
         return clientRepository.findAllByStatusCoach(statusCoach);
     }
 
+    public List<Client> getListClient() {
+        log.debug("Trying to get list of Clients");
+        try {
+            return clientRepository.findAll();
+        } catch (EmptyResultDataAccessException e) {
+            log.warn("Clients is not exist");
+            throw new NoSuchEntityException("Doesn't exist such Clients");
+        } catch (DataAccessException e) {
+            log.error("Failed to get list of Clients", e);
+            throw new ServiceException("Failed to get list of Clients", e);
+        }
+    }
+
 
     public Page<Client> findPaginated(int pageNo, Integer pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :

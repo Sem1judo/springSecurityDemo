@@ -30,8 +30,8 @@ public class AdminController {
     private final CoachServiceImpl coachService;
     private final ClientServiceImpl clientService;
 
-    //todo choose page where user can chose coach for himself
     //todo page with price for losing the extra weight for users - subscribes
+
     //todo edit all POST mappings for doing redirect and chose right page to infer
 
     @PostMapping("/attachCoachForUser/{id}")
@@ -122,6 +122,9 @@ public class AdminController {
         ModelAndView mav = new ModelAndView("/admin/adminPanel");
 
         mav.addObject("listClients", clientService.findByStatusCoach(StatusCoach.WAITING));
+
+        mav.addObject("totalNumberCoaches", coachService.getListCoach().size());
+        mav.addObject("totalNumberClients", clientService.getListClient().size());
         return mav;
     }
 

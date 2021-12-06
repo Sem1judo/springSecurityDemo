@@ -10,6 +10,7 @@
 <header th:insert="fragment/header :: header"></header>
 <div class="site-content">
 <h1>HOME</h1>
+    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 </div>
 </body>
 </html>
