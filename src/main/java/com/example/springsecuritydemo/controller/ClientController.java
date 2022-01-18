@@ -116,41 +116,41 @@ public class ClientController {
 
 
 
-
-    @PreAuthorize("hasAuthority('admin:update')")
-    @GetMapping("/editClient/{id}")
-    public ModelAndView editPage(@PathVariable("id") Long clientId) {
-
-        ModelAndView mav = new ModelAndView("client/editFormClient");
-
-        UserDto userDto = userService.getByIdUserConvertedToUserDto(clientId);
-
-        mav.addObject("userDto", userDto);
-
-        return mav;
-    }
-
-    @PreAuthorize("hasAuthority('admin:update')")
-    @PostMapping("/updateClient/{id}")
-    public ModelAndView updating(@PathVariable("id") Long clientId,
-                                 @Valid UserDto userDto,
-                                 BindingResult bindingResult) {
-
-        ModelAndView mav = new ModelAndView("redirect:/" + "user/profile");
-
-        if (bindingResult.hasErrors()) {
-
-            mav.setViewName("client/editFormClient");
-        } else {
-            try {
-                userService.update(userDto);
-            } catch (UserAlreadyExistException uaeEx) {
-                mav.addObject("message", "An account for that username/email already exists.");
-            }
-        }
-
-        return mav;
-    }
+//
+//    @PreAuthorize("hasAuthority('admin:update')")
+//    @GetMapping("/editClient/{id}")
+//    public ModelAndView editPage(@PathVariable("id") Long clientId) {
+//
+//        ModelAndView mav = new ModelAndView("client/editFormClient");
+//
+//        UserDto userDto = userService.getByIdUserConvertedToUserDto(clientId);
+//
+//        mav.addObject("userDto", userDto);
+//
+//        return mav;
+//    }
+//
+//    @PreAuthorize("hasAuthority('admin:update')")
+//    @PostMapping("/updateClient/{id}")
+//    public ModelAndView updating(@PathVariable("id") Long clientId,
+//                                 @Valid UserDto userDto,
+//                                 BindingResult bindingResult) {
+//
+//        ModelAndView mav = new ModelAndView("redirect:/" + "user/profile");
+//
+//        if (bindingResult.hasErrors()) {
+//
+//            mav.setViewName("client/editFormClient");
+//        } else {
+//            try {
+//                userService.update(userDto);
+//            } catch (UserAlreadyExistException uaeEx) {
+//                mav.addObject("message", "An account for that username/email already exists.");
+//            }
+//        }
+//
+//        return mav;
+//    }
 
 
     private String getAuthCurrentEmail() {
