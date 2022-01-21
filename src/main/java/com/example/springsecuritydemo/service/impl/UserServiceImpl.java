@@ -1,5 +1,6 @@
 package com.example.springsecuritydemo.service.impl;
 
+import com.example.springsecuritydemo.exception.InvalidOldPasswordException;
 import com.example.springsecuritydemo.exception.NoSuchEntityException;
 import com.example.springsecuritydemo.exception.ServiceException;
 import com.example.springsecuritydemo.exception.UserAlreadyExistException;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -83,10 +85,6 @@ public class UserServiceImpl implements IUserService {
             log.warn(MISSING_ID_ERROR_MESSAGE);
             throw new ServiceException(MISSING_ID_ERROR_MESSAGE);
         }
-
-        final String encryptedPassword = bcryptEncoder.encode(userDto.getPassword());
-
-        userDto.setPassword(encryptedPassword);
 
         try {
             userRepository.findById(userDto.getId());
@@ -191,6 +189,12 @@ public class UserServiceImpl implements IUserService {
     }
 
 
+    public void changeUserPassword(final User user, final String password) {
+        user.setPassword(bcryptEncoder.encode(password));
+        userRepository.save(user);
+    }
+
+
     private <T extends User> UserDto entityConvertToUserDto(T t) {
         UserDto userDto = new UserDto();
 
@@ -203,13 +207,12 @@ public class UserServiceImpl implements IUserService {
         userDto.setBirthDate(t.getBirthDate());
         userDto.setGender(t.getGender());
 
-
         if (t instanceof Client) {
             userDto.setTypeUser(TypeUser.CLIENT);
             userDto.setHeight(((Client) t).getHeight());
             userDto.setWeight(((Client) t).getWeight());
             userDto.setStatusCoach(((Client) t).getStatusCoach());
-
+            userDto.setCoach(((Client) t).getCoach());
         }
         if (t instanceof Coach) {
             userDto.setTypeUser(TypeUser.COACH);
@@ -230,6 +233,7 @@ public class UserServiceImpl implements IUserService {
                 client.setHeight(userDto.getHeight());
                 client.setWeight(userDto.getWeight());
                 client.setStatusCoach(userDto.getStatusCoach());
+                client.setCoach(userDto.getCoach());
                 return client;
             }
             if (userDto.getTypeUser().equals(TypeUser.COACH)) {
@@ -249,11 +253,10 @@ public class UserServiceImpl implements IUserService {
         if (userDto.getId() != null) {
             t.setId(userDto.getId());
         }
-
-        if (userDto.getPassword().startsWith("2a$12$")) {
-            t.setPassword(userDto.getPassword());
-        } else {
+        if (!userDto.getPassword().startsWith("$2a$12")) {
             t.setPassword(bcryptEncoder.encode(userDto.getPassword()));
+        } else {
+            t.setPassword(userDto.getPassword());
         }
         t.setEmail(userDto.getEmail());
         t.setFirstName(userDto.getFirstName());
@@ -264,16 +267,10 @@ public class UserServiceImpl implements IUserService {
         return t;
     }
 
-//
-//    public User findByLoginAndPassword(String login, String password) {
-//        User userEntity = findByEmail(login);
-//        if (userEntity != null) {
-//            if (bcryptEncoder.matches(password, userEntity.getPassword())) {
-//                return userEntity;
-//            }
-//        }
-//        return null;
-//    }
+
+    public boolean checkIfValidOldPassword(final User user, final String oldPassword) throws InvalidOldPasswordException {
+        return bcryptEncoder.matches(oldPassword, user.getPassword());
+    }
 
 
 }

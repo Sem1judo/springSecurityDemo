@@ -1,5 +1,6 @@
 package com.example.springsecuritydemo.model.dto;
 
+import com.example.springsecuritydemo.model.Coach;
 import com.example.springsecuritydemo.model.Gender;
 import com.example.springsecuritydemo.model.StatusCoach;
 import com.example.springsecuritydemo.validation.validation.email.ValidEmail;
@@ -30,8 +31,6 @@ public class UserDto {
             message = "Email must be between 2 and 45 characters long")
     private String email;
 
-    @NotNull
-    @NotBlank(message = "Password may not be blank")
     @Size(min = 4, max = 126,
             message = "Password must be between 4 and 32 characters")
     private String password;
@@ -102,6 +101,7 @@ public class UserDto {
             message = "Achievement must be alphanumeric with no forbidden characters")
     private String achievement;
 
+    private Coach coach;
 
     @Enumerated(EnumType.STRING)
     private StatusCoach statusCoach = StatusCoach.EMPTY;

@@ -46,7 +46,7 @@
 
                                         <div class="form-outline">
                                             <label class="form-label" for="password">password</label>
-                                            <input type="password" id="password" class="form-control form-control-lg"
+                                            <input required type="password" id="password" class="form-control form-control-lg"
                                                    th:field="*{password}"/>
                                             <span th:if="${#fields.hasErrors('password')}"
                                                   th:errors="*{password}">Name Error</span>

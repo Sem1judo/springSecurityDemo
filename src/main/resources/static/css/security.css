@@ -57,3 +57,9 @@ body{margin-top:20px;
     margin-left: 1rem;
     margin-right: 1rem;
 }
+
+.btn-danger-soft {
+    color: #000;
+    background-color: #f1e0e3;
+    border-color: #f1e0e3;
+}
