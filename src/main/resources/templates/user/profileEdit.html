@@ -45,15 +45,20 @@
                     <form th:action="@{/user/updateUser/{id}(id=${userDto.id})}" th:method="post"
                           th:object="${userDto}">
 
-                        <input type="text" id="password" class="form-control form-control-lg"
+                        <input type="text" id="password"
                                th:field="*{password}" hidden/>
 
-                        <input type="text" id="coach" class="form-control form-control-lg"
+                        <input type="text" id="coach"
                                th:field="*{coach}" hidden/>
+
+                        <input type="text" id="typeUser"
+                               th:field="*{typeUser}" hidden/>
+
 
                         <div class="mb-3">
                             <div th:each="genderValue : ${T(com.example.springsecuritydemo.model.Gender).values()}">
-                                <label for="inputGender" class="small mb-1" th:text="${genderValue.displayValue}"></label>
+                                <label for="inputGender" class="small mb-1"
+                                       th:text="${genderValue.displayValue}"></label>
                                 <input
                                         type="radio"
                                         class="form-check-input"
@@ -61,7 +66,7 @@
                                         th:field="*{gender}"
                                         th:value="${genderValue}"/>
                             </div>
-                            <span th:if="${#fields.hasErrors('gender')}"
+                            <span  class="alert-danger"  th:if="${#fields.hasErrors('gender')}"
                                   th:errors="*{gender}">Name Error</span>
                         </div>
 
@@ -72,7 +77,7 @@
                                 <label class="small mb-1" for="inputFirstName">First name</label>
                                 <input class="form-control" id="inputFirstName" type="text"
                                        placeholder="Enter your first name" th:field="*{firstName}">
-                                <span th:if="${#fields.hasErrors('firstName')}"
+                                <span  class="alert-danger"  th:if="${#fields.hasErrors('firstName')}"
                                       th:errors="*{firstName}">Name Error</span>
 
                             </div>
@@ -81,26 +86,28 @@
                                 <label class="small mb-1" for="inputLastName">Last name</label>
                                 <input class="form-control" id="inputLastName" type="text"
                                        placeholder="Enter your last name" th:field="*{lastName}">
-                                <span th:if="${#fields.hasErrors('lastName')}"
+                                <span   class="alert-danger"  th:if="${#fields.hasErrors('lastName')}"
                                       th:errors="*{lastName}">Name Error</span>
                             </div>
                         </div>
                         <!-- Form Row        -->
-                        <div class="row gx-3 mb-3">
+                        <div class="row gx-3 mb-3"
+                             th:if="${userDto.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT}">
+
                             <!-- Form Group (organization name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputHeight">Height(cm)</label>
-                                <input class="form-control" id="inputHeight" type="text"
-                                       placeholder="Enter your height" th:field="*{height}">
-                                <span th:if="${#fields.hasErrors('height')}"
+                                <input class="form-control" id="inputHeight" type="number"
+                                       placeholder="Enter your height"  th:field="*{height}">
+                                <span   class="alert-danger"  th:if="${#fields.hasErrors('height')}"
                                       th:errors="*{height}">Name Error</span>
                             </div>
                             <!-- Form Group (location)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputWeight">Weight(kg)</label>
-                                <input class="form-control" id="inputWeight" type="text"
-                                       placeholder="Enter your weight" th:field="*{weight}">
-                                <span th:if="${#fields.hasErrors('weight')}"
+                                <input class="form-control" id="inputWeight" type="number"
+                                       placeholder="Enter your weight" pattern="[/d]*" th:field="*{weight}">
+                                <span   class="alert-danger"  th:if="${#fields.hasErrors('weight')}"
                                       th:errors="*{weight}">Name Error</span>
                             </div>
                         </div>
@@ -109,9 +116,9 @@
                             <label class="small mb-1" for="inputEmailAddress">Email address</label>
                             <input class="form-control" id="inputEmailAddress" type="email"
                                    placeholder="Enter your email address" th:field="*{email}">
-                            <span th:if="${#fields.hasErrors('email')}"
+                            <span  class="alert-danger"  th:if="${#fields.hasErrors('email')}"
                                   th:errors="*{email}">Name Error</span>
-                            <span th:if="${message}"
+                            <span  class="alert-danger"  th:if="${message}"
                                   th:text="${message}"></span>
                         </div>
                         <!-- Form Row-->
@@ -121,7 +128,7 @@
                                 <label class="small mb-1" for="inputPhone">Phone number</label>
                                 <input class="form-control" id="inputPhone" type="tel"
                                        placeholder="Enter your phone number" th:field="*{phone}">
-                                <span th:if="${#fields.hasErrors('phone')}"
+                                <span  class="alert-danger"  th:if="${#fields.hasErrors('phone')}"
                                       th:errors="*{phone}">Name Error</span>
                             </div>
                             <!-- Form Group (birthday)-->
@@ -129,9 +136,39 @@
                                 <label class="small mb-1" for="inputBirthday">Birthday</label>
                                 <input type="date" class="form-control" id="inputBirthday" name="birthday"
                                        placeholder="Enter your birthday" th:field="*{birthDate}">
-                                <span th:if="${#fields.hasErrors('birthDate')}"
+                                <span  class="alert-danger"  th:if="${#fields.hasErrors('birthDate')}"
                                       th:errors="*{birthDate}">Name Error</span>
                             </div>
+                            <div id="coachContent"
+                                 th:if="${userDto.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}">
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputEducation">Email address</label>
+                                    <input type="text" class="form-control" id="inputEducation" name="birthday"
+                                           placeholder="Enter your education" th:field="*{education}">
+                                    <span  class="alert-danger"  th:if="${#fields.hasErrors('education')}"
+                                          th:errors="*{education}">Name Error</span>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputAchievement">Achievement</label>
+                                    <input type="text" id="inputAchievement"
+                                           class="form-control" placeholder="Enter your achievement"
+                                           th:field="*{achievement}"/>
+                                    <span  class="alert-danger"  th:if="${#fields.hasErrors('achievement')}"
+                                          th:errors="*{achievement}">Name Error</span>
+
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputAdditionalInfo">Additional Info</label>
+                                    <input type="text" id="inputAdditionalInfo"
+                                           class="form-control" placeholder="Enter your additional info"
+                                           th:field="*{additionalInfo}"/>
+                                    <span  class="alert-danger"  th:if="${#fields.hasErrors('additionalInfo')}"
+                                          th:errors="*{additionalInfo}">Name Error</span>
+                                </div>
+
+                            </div>
+
                         </div>
                         <!-- Save changes button-->
                         <button class="btn btn-primary" type="submit">Change</button>

@@ -5,11 +5,11 @@ import com.example.springsecuritydemo.exception.InvalidOldPasswordException;
 import com.example.springsecuritydemo.exception.UserAlreadyExistException;
 import com.example.springsecuritydemo.model.Client;
 import com.example.springsecuritydemo.model.User;
+import com.example.springsecuritydemo.model.dto.TypeUser;
 import com.example.springsecuritydemo.model.dto.UserDto;
 import com.example.springsecuritydemo.service.impl.ClientServiceImpl;
 import com.example.springsecuritydemo.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,19 +25,17 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class UserController {
 
-
     private final UserServiceImpl userService;
-    private final ClientServiceImpl clientService;
-
 
     @GetMapping("/profile")
     public ModelAndView getUser() {
         ModelAndView mav = new ModelAndView("/user/profile");
 
+        User user = userService.getUserByEmail(getCurrentUser().getEmail());
 
-        Client user = clientService.getClientByEmail(getCurrentUser().getEmail());
+        UserDto userDto = userService.getByIdUserConvertedToUserDto(user.getId());
 
-        mav.addObject("user", user);
+        mav.addObject("user", userDto);
 
         return mav;
     }
@@ -46,43 +44,20 @@ public class UserController {
     public ModelAndView getUserProfileWithId(@PathVariable("id") long id) {
         ModelAndView mav = new ModelAndView("/user/profile");
 
-        Client user = clientService.getByIdClient(id);
-        mav.addObject("user", user);
+        UserDto userDto = userService.getByIdUserConvertedToUserDto(id);
 
-        return mav;
-    }
-
-
-    @GetMapping("/billing")
-    public ModelAndView getBilling() {
-        ModelAndView mav = new ModelAndView("/user/billing");
-
-
-        Client user = clientService.getClientByEmail(getCurrentUser().getEmail());
-
-        mav.addObject("user", user);
-
-        return mav;
-    }
-
-
-    @PostMapping(value = "/deleteUser/{id}")
-    public ModelAndView deleteEvent(@PathVariable("id") long id) {
-
-        ModelAndView mav = new ModelAndView("redirect:/" + "admin/listClients");
-
-        userService.deleteById(id);
+        mav.addObject("user", userDto);
 
         return mav;
     }
 
     @PreAuthorize("hasAuthority('user:update')")
     @GetMapping("/editUser/{id}")
-    public ModelAndView editUser(@PathVariable("id") Long clientId) {
+    public ModelAndView editUser(@PathVariable("id") Long userId) {
 
         ModelAndView mav = new ModelAndView("user/profileEdit");
 
-        UserDto userDto = userService.getByIdUserConvertedToUserDto(clientId);
+        UserDto userDto = userService.getByIdUserConvertedToUserDto(userId);
 
         mav.addObject("userDto", userDto);
 
@@ -92,16 +67,14 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('user:update')")
     @PostMapping("/updateUser/{id}")
-    public ModelAndView updatingUser(@PathVariable("id") Long clientId,
+    public ModelAndView updatingUser(@PathVariable("id") Long userId,
                                      @Valid UserDto userDto,
                                      BindingResult bindingResult) {
 
-        ModelAndView mav = new ModelAndView("redirect:/" + "user/profile/" + clientId);
-
+        ModelAndView mav = new ModelAndView("redirect:/" + "user/profile/" + userId);
 
         if (bindingResult.hasErrors()) {
             mav.setViewName("user/profileEdit");
-
         } else {
             try {
                 userService.update(userDto);
@@ -114,16 +87,57 @@ public class UserController {
     }
 
 
+    @GetMapping("/billing")
+    public ModelAndView getBilling() {
+        ModelAndView mav = new ModelAndView("/user/billing");
+
+        User user = userService.getUserByEmail(getCurrentUser().getEmail());
+
+        UserDto userDto = userService.getByIdUserConvertedToUserDto(user.getId());
+
+        mav.addObject("user", userDto);
+
+        return mav;
+    }
+
+
+    @PostMapping(value = "/deleteUser/{id}")
+    public ModelAndView deleteUser(@PathVariable("id") long id) {
+
+        ModelAndView mav = new ModelAndView("redirect:/" + "admin/listClients");
+
+        userService.deleteById(id);
+
+        return mav;
+    }
+
+
     @GetMapping("/security")
     public ModelAndView getSecurity() {
         ModelAndView mav = new ModelAndView("/user/security");
 
-        Client user = clientService.getClientByEmail(getCurrentUser().getEmail());
+        User user = userService.getUserByEmail(getCurrentUser().getEmail());
 
-        mav.addObject("user", user);
+        UserDto userDto = userService.getByIdUserConvertedToUserDto(user.getId());
+
+        mav.addObject("user", userDto);
 
         return mav;
     }
+
+    @GetMapping("/workout")
+    public ModelAndView getWorkout() {
+        ModelAndView mav = new ModelAndView("/user/workout");
+
+        User user = userService.getUserByEmail(getCurrentUser().getEmail());
+
+        UserDto userDto = userService.getByIdUserConvertedToUserDto(user.getId());
+
+        mav.addObject("user", userDto);
+
+        return mav;
+    }
+
 
     @PostMapping("/security")
     @PreAuthorize("hasAuthority('user:update')")
@@ -135,7 +149,7 @@ public class UserController {
 
         ModelAndView mav = new ModelAndView("user/security");
 
-        Client user = clientService.getClientByEmail(getCurrentUser().getEmail());
+        User user = userService.getUserByEmail(getCurrentUser().getEmail());
 
         mav.addObject("user", user);
 

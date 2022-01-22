@@ -23,11 +23,13 @@
                                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
                                         <form th:action="@{/admin/updateClient/{id}(id=${userDto.id})}" th:method="post"
                                               th:object="${userDto}">
+
                                             <div class="row">
                                                 <div class="col-md-6 mb-4">
                                                     <div class="form-outline">
                                                         <label class="form-label" for="firstName">First Name</label>
-                                                        <input type="text" id="firstName" class="form-control form-control-lg"
+                                                        <input type="text" id="firstName"
+                                                               class="form-control form-control-lg"
                                                                th:field="*{firstName}"/>
                                                         <span th:if="${#fields.hasErrors('firstName')}"
                                                               th:errors="*{firstName}">Name Error</span>
@@ -36,7 +38,8 @@
                                                 <div class="col-md-6 mb-4">
                                                     <div class="form-outline">
                                                         <label class="form-label" for="lastName">Last name</label>
-                                                        <input type="text" id="lastName" class="form-control form-control-lg"
+                                                        <input type="text" id="lastName"
+                                                               class="form-control form-control-lg"
                                                                th:field="*{lastName}"/>
                                                         <span th:if="${#fields.hasErrors('lastName')}"
                                                               th:errors="*{lastName}">Name Error</span>
@@ -46,7 +49,8 @@
                                                 <div class="col-md-6 mb-4">
                                                     <div class="form-outline">
                                                         <label for="password"></label>
-                                                        <input type="text" id="password" class="form-control form-control-lg"
+                                                        <input type="text" id="password"
+                                                               class="form-control form-control-lg"
                                                                th:field="*{password}" hidden/>
                                                         <span th:if="${#fields.hasErrors('password')}"
                                                               th:errors="*{password}">Name Error</span>
@@ -56,7 +60,8 @@
                                                 <div class="col-md-6 mb-4">
                                                     <div class="form-outline">
                                                         <label class="form-label" for="email">Email</label>
-                                                        <input type="email" id="email" class="form-control form-control-lg"
+                                                        <input type="email" id="email"
+                                                               class="form-control form-control-lg"
                                                                th:field="*{email}"/>
                                                         <span th:if="${#fields.hasErrors('email')}"
                                                               th:errors="*{email}">Name Error</span>
@@ -91,13 +96,28 @@
 
                                             </div>
 
+                                            <th:block
+                                                    th:if="${userDto.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT}">
+                                                <input hidden type="text"
+                                                       th:value="${T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT}"
+                                                       th:field="*{typeUser}">
+                                            </th:block>
+                                            <th:block
+                                                    th:if="${userDto.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}">
+                                                <input  hidden type="text"
+                                                        th:value="${T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}"
+                                                        th:field="*{typeUser}">
+                                            </th:block>
+
                                             <div id="clientContent"
                                                  th:if="${userDto.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT}">
+
                                                 <div class="col-md-6 mb-4 pb-2 ">
                                                     <div class="col-md-6 mb-4">
                                                         <div class="form-outline">
                                                             <label class="form-label" for="weight">Weight(kg)</label>
-                                                            <input type="text" id="weight" class="form-control form-control-lg"
+                                                            <input type="text" id="weight"
+                                                                   class="form-control form-control-lg"
                                                                    th:field="*{weight}"/>
                                                             <span th:if="${#fields.hasErrors('weight')}"
                                                                   th:errors="*{weight}">Name Error</span>
@@ -106,7 +126,8 @@
                                                     <div class="col-md-6 mb-4">
                                                         <div class="form-outline">
                                                             <label class="form-label" for="height">Height(cm)</label>
-                                                            <input type="text" id="height" class="form-control form-control-lg"
+                                                            <input type="text" id="height"
+                                                                   class="form-control form-control-lg"
                                                                    th:field="*{height}"/>
                                                             <span th:if="${#fields.hasErrors('height')}"
                                                                   th:errors="*{height}">Name Error</span>
@@ -172,8 +193,8 @@
                     </div>
                 </section>
             </div>
-    </div>
+        </div>
 
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

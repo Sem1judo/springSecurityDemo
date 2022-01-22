@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>List user</title>
-    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/adminPanel.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
     <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css}" rel="stylesheet"
@@ -24,7 +23,7 @@
                 <tr>
                     <th scope="col"><a
                             th:href="@{'/admin/listCoaches?pageNo=' + ${currentPage} + '&sortField=id&sortDir=' + ${reverseSortDir}}">
-                        ID</a>
+                        ID</a></th>
                     <th scope="col"><a
                             th:href="@{'/admin/listCoaches?pageNo=' + ${currentPage} + '&sortField=firstName&sortDir=' + ${reverseSortDir}}">
                         First Name</a>

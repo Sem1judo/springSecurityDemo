@@ -45,8 +45,9 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <label class="form-label" for="password">password</label>
-                                            <input required type="password" id="password" class="form-control form-control-lg"
+                                            <label class="form-label" for="password">Password</label>
+                                            <input required type="password" id="password"
+                                                   class="form-control form-control-lg"
                                                    th:field="*{password}"/>
                                             <span th:if="${#fields.hasErrors('password')}"
                                                   th:errors="*{password}">Name Error</span>
@@ -68,25 +69,24 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6 mb-4 d-flex align-items-center">
-
-                                        <div class="form-outline datepicker w-100">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <label for="birthDate" class="form-label">Birthday</label>
                                             <input
                                                     type="date"
                                                     class="form-control form-control-lg"
                                                     id="birthDate"
                                                     th:field="*{birthDate}"/>
-                                            <label for="birthDate" class="form-label">Birthday</label>
+
                                             <span th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}">Name Error</span>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-6 mb-4 d-flex align-items-center">
-
+                                    <div class="col-md-6 mb-4">
                                         <div class="form-outline">
+                                            <label class="form-label" for="phoneNumber">Phone Number</label>
                                             <input type="tel" id="phoneNumber" class="form-control form-control-lg"
                                                    th:field="*{phone}"/>
-                                            <label class="form-label" for="phoneNumber">Phone Number</label>
+
                                             <span th:if="${#fields.hasErrors('phone')}"
                                                   th:errors="*{phone}">Name Error</span>
                                         </div>
@@ -153,25 +153,23 @@
                                     </div>
                                 </div>
 
-                                <div id="clientContent">
-                                    <div class="col-md-6 mb-4 pb-2 ">
-                                        <div class="col-md-6 mb-4">
-                                            <div class="form-outline">
-                                                <label class="form-label" for="weight">Weight(kg)</label>
-                                                <input type="text" id="weight" class="form-control form-control-lg"
-                                                       th:field="*{weight}"/>
-                                                <span th:if="${#fields.hasErrors('weight')}"
-                                                      th:errors="*{weight}">Name Error</span>
-                                            </div>
+                                <div class="row" id="clientContent">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="weight">Weight(kg)</label>
+                                            <input type="number" id="weight" class="form-control form-control-lg"
+                                                   th:field="*{weight}"/>
+                                            <span th:if="${#fields.hasErrors('weight')}"
+                                                  th:errors="*{weight}">Name Error</span>
                                         </div>
-                                        <div class="col-md-6 mb-4">
-                                            <div class="form-outline">
-                                                <label class="form-label" for="height">Height(cm)</label>
-                                                <input type="text" id="height" class="form-control form-control-lg"
-                                                       th:field="*{height}"/>
-                                                <span th:if="${#fields.hasErrors('height')}"
-                                                      th:errors="*{height}">Name Error</span>
-                                            </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="height">Height(cm)</label>
+                                            <input type="number" id="height" class="form-control form-control-lg"
+                                                   th:field="*{height}"/>
+                                            <span th:if="${#fields.hasErrors('height')}"
+                                                  th:errors="*{height}">Name Error</span>
                                         </div>
                                     </div>
                                 </div>

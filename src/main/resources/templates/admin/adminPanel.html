@@ -51,8 +51,8 @@
                             <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Gtk-dialog-info.svg">
                         </div>
                         <div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
-                            <h4>Subscriptions</h4>
-                            <h2>50</h2>
+                            <h4>Exercises</h4>
+                            <h2 th:text="${totalNumberExercises}"></h2>
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                         <ul>
                         <li class="list-inline-item">
                             <form th:action="@{/admin/attachCoachForUser/{id}(id=${client.id})}" method="post">
-                                <button type="submit">Attach</i></button>
+                                <button type="submit">Attach</button>
                             </form>
 
                         </li>

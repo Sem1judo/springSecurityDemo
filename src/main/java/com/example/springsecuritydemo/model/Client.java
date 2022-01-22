@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 
 @Getter
@@ -29,6 +30,9 @@ public class Client extends User {
     @Enumerated(value = EnumType.STRING)
     private StatusCoach statusCoach;
 
+    @OneToMany(mappedBy="client")
+    @ToString.Exclude
+    private List<Exercise> exercises;
 
 
 }

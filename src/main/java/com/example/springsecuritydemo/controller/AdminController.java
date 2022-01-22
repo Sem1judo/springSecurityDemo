@@ -9,6 +9,7 @@ import com.example.springsecuritydemo.model.dto.TypeUser;
 import com.example.springsecuritydemo.model.dto.UserDto;
 import com.example.springsecuritydemo.service.impl.ClientServiceImpl;
 import com.example.springsecuritydemo.service.impl.CoachServiceImpl;
+import com.example.springsecuritydemo.service.impl.ExerciseServiceImpl;
 import com.example.springsecuritydemo.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,17 +35,16 @@ import java.util.Optional;
 public class AdminController {
     private final CoachServiceImpl coachService;
     private final ClientServiceImpl clientService;
+    private final ExerciseServiceImpl exerciseService;
     private static final String REDIRECT = "redirect:";
     private final UserServiceImpl userService;
 
-
-    //todo edit all POST mappings for doing redirect and chose right page to infer
 
     @PostMapping("/attachCoachForUser/{id}")
     public ModelAndView attachCoachForUser(@PathVariable("id") Long clientId, HttpServletRequest request) {
 
         String referer = request.getHeader("Referer");
-        ModelAndView mav = new ModelAndView("redirect:" + referer);
+        ModelAndView mav = new ModelAndView(REDIRECT + referer);
 
         clientService.attachCoachForUser(clientId);
 
@@ -131,6 +131,7 @@ public class AdminController {
 
         mav.addObject("totalNumberCoaches", coachService.getListCoach().size());
         mav.addObject("totalNumberClients", clientService.getListClient().size());
+        mav.addObject("totalNumberExercises", exerciseService.getListExercise().size());
         return mav;
     }
 
@@ -201,6 +202,7 @@ public class AdminController {
 
         return mav;
     }
+
 
 
 }

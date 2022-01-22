@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Billing</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/security.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/workout.css}" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+          integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous"/>
+
+
+</head>
+
+<body>
+
+<div class="container-xl px-4 mt-4">
+    <!-- Account page navigation-->
+    <nav class="nav nav-borders">
+        <a class="nav-link  ms-0" th:href="@{/}" target="__blank">Home</a>
+        <a class="nav-link  ms-0" th:href="@{/user/profile}" target="__blank">Profile</a>
+        <a class="nav-link " th:href="@{/user/billing}" target="__blank">Billing</a>
+        <a class="nav-link" th:href="@{/user/security}" target="__blank">Security</a>
+        <a class="nav-link" active th:href="@{/user/workout}" target="__blank">Workout</a>
+    </nav>
+    <hr class="mt-0 mb-4">
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <!-- Billing card 1-->
+            <div class="card h-100 border-start-lg border-start-primary">
+                <div class="card-body">
+                    <div class="h3">Exercises</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <!-- Billing card 2-->
+            <div class="card h-100 border-start-lg border-start-secondary">
+                <div class="card-body">
+                    <div class="h3">Perfoming</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <!-- Billing card 3-->
+            <div class="card h-100 border-start-lg border-start-success">
+                <div class="card-body">
+
+                    <div class="h3 d-flex align-items-center">Quantity</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 mb-3">
+            <!-- Billing card 1-->
+            <div class="card h-100 border-start-lg border-start-primary">
+                <div class="card-body">
+                    <div class="h3">The Push-Up</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-6">
+            <!-- Billing card 2-->
+            <div class="card h-100 border-start-lg border-start-secondary">
+                <div class="card-body">
+                    <iframe src="https://www.youtube.com/embed/_l3ySVKYVJ8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 mb-3">
+            <!-- Billing card 3-->
+            <div class="card h-100 border-start-lg border-start-success">
+                <div class="card-body">
+
+                    <div class="h3 d-flex align-items-center">4 / 20</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -7,6 +7,7 @@ import com.example.springsecuritydemo.model.User;
 import com.example.springsecuritydemo.model.dto.UserDto;
 import com.example.springsecuritydemo.service.impl.ClientServiceImpl;
 import com.example.springsecuritydemo.service.impl.CoachServiceImpl;
+import com.example.springsecuritydemo.service.impl.ExerciseServiceImpl;
 import com.example.springsecuritydemo.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -33,6 +34,7 @@ public class ClientController {
     private final ClientServiceImpl clientService;
     private final UserServiceImpl userService;
     private final CoachServiceImpl coachService;
+    private final ExerciseServiceImpl exerciseService;
 
 
 
@@ -80,16 +82,25 @@ public class ClientController {
         return mav;
     }
 
-
-    @GetMapping("/viewClient/{id}")
-    public ModelAndView viewClient(@PathVariable("id") Long clientId) {
+    @GetMapping("/listExercisesForClient/{id}")
+    public ModelAndView findPaginatedCoaches(@PathVariable("id") Long clientId, @RequestParam(required = false) String keyword) {
         ModelAndView mav = new ModelAndView("client/profileClient");
-
 
         mav.addObject("client", clientService.getByIdClient(clientId));
 
+
+        if (keyword != null && keyword.length() >= 1) {
+            mav.addObject("listExercises", exerciseService.findByKeyword(keyword));
+            mav.addObject("keyword", keyword);
+        } else {
+            mav.addObject("listExercises", exerciseService.getListExercise());
+        }
+
         return mav;
     }
+
+
+
 
     @GetMapping("/addClient")
     ModelAndView addingPage() {
