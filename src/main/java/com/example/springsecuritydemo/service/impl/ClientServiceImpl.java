@@ -4,6 +4,7 @@ import com.example.springsecuritydemo.exception.NoSuchEntityException;
 import com.example.springsecuritydemo.exception.ServiceException;
 import com.example.springsecuritydemo.model.Client;
 import com.example.springsecuritydemo.model.Coach;
+import com.example.springsecuritydemo.model.Exercise;
 import com.example.springsecuritydemo.model.StatusCoach;
 import com.example.springsecuritydemo.repository.ClientRepository;
 import com.example.springsecuritydemo.service.IClientService;
@@ -17,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -31,6 +34,7 @@ public class ClientServiceImpl implements IClientService {
 
     private ClientRepository clientRepository;
     private CoachServiceImpl coachService;
+    private ExerciseServiceImpl exerciseService;
 
     public List<Client> findByStatusCoach(StatusCoach statusCoach) {
         return clientRepository.findAllByStatusCoach(statusCoach);
@@ -201,6 +205,38 @@ public class ClientServiceImpl implements IClientService {
             log.error("Failed to deleting coach for client: {}", client);
             throw new ServiceException("Problem with deleting coach for client");
         }
+    }
 
+    public void addExercisesForClient(Client client) {
+        log.debug("Trying to add Exercises For client", client);
+
+        if (client == null) {
+            log.warn("Missing client");
+            throw new ServiceException("Missing client");
+        }
+        try {
+            clientRepository.save(client);
+        } catch (DataAccessException e) {
+            log.error("Failed to adding exercise for client: {}", client);
+            throw new ServiceException("Problem with adding exercise for client");
+        }
+    }
+
+    public void deleteExercisesForUser(Long clientId, Long exerciseId) {
+        log.debug("Trying to delete Exercise For Client with clientId", clientId);
+
+        if (clientId == 0) {
+            log.warn("Missing clientId");
+            throw new ServiceException("Missing clientId");
+        }
+        Client client = getByIdClient(clientId);
+        List<Exercise> exercises = client.getExercises();
+        exercises.remove(Integer.parseInt(String.valueOf(exerciseId)));
+        try {
+            clientRepository.save(client);
+        } catch (DataAccessException e) {
+            log.error("Failed to deleting exercise for client: {}", client);
+            throw new ServiceException("Problem with deleting exercise for client");
+        }
     }
 }

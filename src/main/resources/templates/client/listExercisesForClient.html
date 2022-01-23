@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>List user</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/adminPanel.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header th:insert="admin/adminPanelNav :: nav"></header>
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row bg-dark ">
+            <div class="container mt-4 mb-4 p-3 d-flex justify-content-center ">
+                <div class="card p-4">
+                    <div class=" image d-flex flex-column justify-content-center align-items-center">
+                        <button class="btn btn-secondary"><img src="https://i.imgur.com/wvxPV9S.png" height="100"
+                                                               width="100"/>
+                        </button>
+                        <span class="name mt-3" th:text="${clientEntity.firstName +' '+ client.lastName}">NAME
+                </span> <span class="idd" th:text="${clientEntity.email}">@</span>
+                        <div class="d-flex flex-row justify-content-center align-items-center gap-2">
+                            <span class="idd1" th:text="${clientEntity.phone}">phone</span>
+                            <span><i class="fa fa-copy"></i></span></div>
+                        <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+                            <span class="number"
+                                  th:text="${#numbers.formatDecimal(client.weight, 0, 'COMMA', 1, 'POINT')}"></span>
+                            <span class="follow">kg</span>
+                            <span class="number" th:text="${client.height}"> <span class="follow">cm</span></span>
+                        </div>
+
+
+                        <div class=" px-2 rounded mt-4 date "><span class="join">Joined <span
+                                th:text="${#temporals.month(clientEntity.registrationDate)+' '
+                        +#temporals.monthName(clientEntity.registrationDate)+' '
+                        +#temporals.year(clientEntity.registrationDate)}"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">Exercises</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-wrap">
+                        <div class="container">
+                            <form th:action="@{/client/listExercisesForClient/{id}(id=${client.id})}" method="get">
+                                <div class="input-group">
+                                    <div class="form-outline">
+                                        <input type="search" placeholder="Exercise name" name="keyword" id="form1"
+                                               class="form-control" th:value="${keyword}"/>
+                                        <label class="form-label" for="form1">Search</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <a class="link-warning"
+                                       th:href="@{/client/listExercisesForClient/{id}(id=${client.id})}">Discard</a>
+                                </div>
+                            </form>
+                        </div>
+                        <form th:action="@{/client/addExercisesForClient/{id}(id=${client.id})}" th:object="${client}"
+                              method="post">
+                            <div>
+                                <input th:field="*{id}" hidden>
+                                <input th:field="*{password}" hidden>
+                                <input th:field="*{firstName}" hidden>
+                                <input th:field="*{lastName}" hidden>
+                                <input th:field="*{birthDate}" hidden>
+                                <input th:field="*{coach}" hidden>
+                                <input th:field="*{gender}" hidden>
+                                <input th:field="*{phone}" hidden>
+                                <input th:field="*{email}" hidden>
+                                <input th:field="*{height}" hidden>
+                                <input th:field="*{weight}" hidden>
+                                <table class=" table table-responsive-xl">
+                                    <thead>
+                                    <tr>
+                                        <th>Adding</th>
+                                        <th>id</th>
+                                        <th>name</th>
+                                        <th>quantity</th>
+                                        <th>link</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="alert" role="alert" th:each="exercise : ${listExercises}">
+                                        <td>
+                                            <label class="checkbox-wrap checkbox-primary">
+                                                <input type="checkbox" checked th:field="*{exercises}"
+                                                       th:value="${exercise.id}">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <span th:text="${exercise.id}"></span>
+                                        </td>
+                                        <td>
+                                            <div class="pl-3 email">
+                                                <span th:text="${exercise.name}"></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span th:text="${exercise.quantity}"></span>
+                                        </td>
+                                        <td>
+                                            <span th:text="${exercise.link}"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class=" d-flex mt-2">
+                                <button class="btn1 btn-dark">Add exercise</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
+

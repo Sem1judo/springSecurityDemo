@@ -64,7 +64,7 @@ public class CoachController {
     @GetMapping("/editCoach/{id}")
     public ModelAndView editPage(@PathVariable("id") Long coachId) {
 
-        ModelAndView mav = new ModelAndView("coach/editFormCoach");
+        ModelAndView mav = new ModelAndView("admin/adminPanelEditCoach");
 
         UserDto userDto = userService.getByIdUserConvertedToUserDto(coachId);
 

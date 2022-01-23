@@ -30,9 +30,12 @@ public class Client extends User {
     @Enumerated(value = EnumType.STRING)
     private StatusCoach statusCoach;
 
-    @OneToMany(mappedBy="client")
+    @ManyToMany
+    @JoinTable(
+            name = "exercise_client_use",
+            joinColumns = @JoinColumn(name = "exercise_client_id"),
+            inverseJoinColumns = @JoinColumn(name = "exercise_id"))
     @ToString.Exclude
     private List<Exercise> exercises;
-
 
 }

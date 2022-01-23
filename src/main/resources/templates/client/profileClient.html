@@ -64,83 +64,65 @@
                             <form th:action="@{/client/listExercisesForClient/{id}(id=${client.id})}" method="get">
                                 <div class="input-group">
                                     <div class="form-outline">
-                                        <input type="search" placeholder="Name"  name="keyword" id="form1" class="form-control" th:value="${keyword}"/>
+                                        <input type="search" placeholder="Exercise name" name="keyword" id="form1"
+                                               class="form-control" th:value="${keyword}"/>
                                         <label class="form-label" for="form1">Search</label>
                                     </div>
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fas fa-search"></i>
                                     </button>
-                                    <a class="link-warning" th:href="@{/client/listExercisesForClient/{id}(id=${client.id})}">Discard</a>
+                                    <a class="link-warning"
+                                       th:href="@{/client/listExercisesForClient/{id}(id=${client.id})}">Discard</a>
                                 </div>
                             </form>
 
                         </div>
 
                         <table class=" table table-responsive-xl">
-                                    <thead>
-                                    <tr>
-                                        <th>&nbsp;</th>
-                                        <th>Email</th>
-                                        <th>Username</th>
-                                        <th>Status</th>
-                                        <th>&nbsp;</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="alert" role="alert" th:each="exercise : ${listExercises}">
-                                        <td>
-                                            <label class="checkbox-wrap checkbox-primary">
-                                                <input type="checkbox" checked>
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </td>
-                                        <td class="d-flex align-items-center">
+                            <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>Status</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="alert" role="alert" th:each="exercise : ${listExercises}">
+                                <!--                                <form th:action="">-->
 
-                                            <div class="img"
-                                                 th:style="'background-image:url(' + @{/img/person_1.jpg} + ');'"></div>
+                                <td>
+                                    <label class="checkbox-wrap checkbox-primary">
+                                        <input type="checkbox" checked th:value="*{client.exercises}">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td class="d-flex align-items-center">
 
-                                            <div class="pl-3 email">
-                                                <span th:text="${exercise.name}"></span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span th:text="${exercise.quantity}"></span>
-                                        </td>
-                                        <td class="status"><span class="active">Active</span></td>
-                                        <td>
-                                            <span th:text="${exercise.link}"></span>
-                                        </td>
-                                        <td>
+                                    <div class="img"
+                                         th:style="'background-image:url(' + @{/img/person_1.jpg} + ');'"></div>
 
-                                            <!--                                    <div th:if="${client.coach == null}">-->
-                                            <!--                                        <form th:action="@{/client/addCoachForUser/{id}(id=${exercise.id})}"-->
-                                            <!--                                              method="post">-->
-                                            <!--                                            <button type="submit" class="close" data-dismiss="alert"-->
-                                            <!--                                                    aria-label="add">-->
-                                            <!--                                                <span aria-hidden="true">Add coach <i class="fa fa-plus"></i></span>-->
-                                            <!--                                            </button>-->
-                                            <!--                                        </form>-->
-                                            <!--                                    </div>-->
-                                            <!--                                    <div th:unless="${client.exercise == null}">-->
-                                            <!--                                        <th:block th:if="${client.exercise.id} == ${client.id}">-->
-                                            <!--                                            <form th:action="@{/client/deleteCoachForUser/{id}(id=${exercise.id})}"-->
-                                            <!--                                                  method="post">-->
-                                            <!--                                                <button type="submit" class="close" data-dismiss="alert"-->
-                                            <!--                                                        aria-label="close">-->
-                                            <!--                                                    <span aria-hidden="true">Delete coach <i-->
-                                            <!--                                                            class="fa fa-close"></i></span>-->
-                                            <!--                                                </button>-->
-                                            <!--                                            </form>-->
-                                            <!--                                        </th:block>-->
-                                            <!--                                    </div>-->
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                    </table>
-                                </div>
-                        </div>
+                                    <div class="pl-3 email">
+                                        <span th:text="${exercise.name}"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span th:text="${exercise.quantity}"></span>
+                                </td>
+                                <td class="status"><span class="active">Active</span></td>
+                                <td>
+                                    <span th:text="${exercise.link}"></span>
+                                </td>
+                                <button type="submit">Add</button>
+                                </form>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
+        </div>
     </section>
 </div>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>

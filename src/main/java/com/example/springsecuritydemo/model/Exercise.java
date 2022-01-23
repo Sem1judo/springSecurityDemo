@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,7 +29,7 @@ public class Exercise {
     @Column
     private String quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Client client;
+    @ManyToMany(mappedBy = "exercises")
+    @ToString.Exclude
+    private List<Client> clients;
 }

@@ -1,8 +1,6 @@
 package com.example.springsecuritydemo.model.dto;
 
-import com.example.springsecuritydemo.model.Coach;
-import com.example.springsecuritydemo.model.Gender;
-import com.example.springsecuritydemo.model.StatusCoach;
+import com.example.springsecuritydemo.model.*;
 import com.example.springsecuritydemo.validation.validation.email.ValidEmail;
 import com.example.springsecuritydemo.validation.validation.userType.ValidTypeUser;
 import lombok.*;
@@ -14,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -102,6 +101,9 @@ public class UserDto {
     private String achievement;
 
     private Coach coach;
+
+    private List<Exercise> exercises;
+    private List<Client> clients;
 
     @Enumerated(EnumType.STRING)
     private StatusCoach statusCoach = StatusCoach.EMPTY;

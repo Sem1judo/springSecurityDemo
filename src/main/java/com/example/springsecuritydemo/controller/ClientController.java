@@ -3,6 +3,7 @@ package com.example.springsecuritydemo.controller;
 import com.example.springsecuritydemo.exception.UserAlreadyExistException;
 import com.example.springsecuritydemo.model.Client;
 import com.example.springsecuritydemo.model.Coach;
+import com.example.springsecuritydemo.model.Exercise;
 import com.example.springsecuritydemo.model.User;
 import com.example.springsecuritydemo.model.dto.UserDto;
 import com.example.springsecuritydemo.service.impl.ClientServiceImpl;
@@ -36,7 +37,7 @@ public class ClientController {
     private final CoachServiceImpl coachService;
     private final ExerciseServiceImpl exerciseService;
 
-
+    //todo after post methods link to right place
 
 
     @PostMapping("/addCoachForUser/{id}")
@@ -47,17 +48,31 @@ public class ClientController {
 
         clientService.addCoachForUser(coachId, getAuthCurrentEmail());
 
+
         return mav;
 
     }
 
-    @PostMapping("/deleteCoachForUser/{id}")
+    @PostMapping("/deleteCoachForClient/{id}")
     public ModelAndView deleteCoachForUser(@PathVariable("id") Long coachId, HttpServletRequest request) {
 
         String referer = request.getHeader("Referer");
         ModelAndView mav = new ModelAndView("redirect:" + referer);
 
         clientService.deleteCoachForUser(getAuthCurrentEmail(), coachId);
+
+        return mav;
+
+    }
+
+    @PostMapping("/addExercisesForClient/{id}")
+    public ModelAndView addExerciseForUser(@PathVariable("id") Long clientId,
+                                           UserDto client) {
+
+        ModelAndView mav = new ModelAndView("redirect:" + "/client/listExercisesForClient/" + clientId);
+
+
+        userService.update(client);
 
         return mav;
 
@@ -83,11 +98,15 @@ public class ClientController {
     }
 
     @GetMapping("/listExercisesForClient/{id}")
-    public ModelAndView findPaginatedCoaches(@PathVariable("id") Long clientId, @RequestParam(required = false) String keyword) {
-        ModelAndView mav = new ModelAndView("client/profileClient");
+    public ModelAndView findPaginatedCoaches(@PathVariable("id") Long clientId,
+                                             @RequestParam(required = false) String keyword) {
+        ModelAndView mav = new ModelAndView("client/listExercisesForClient");
 
-        mav.addObject("client", clientService.getByIdClient(clientId));
+        UserDto userDto = userService.getByIdUserConvertedToUserDto(clientId);
+        Client client = clientService.getByIdClient(clientId);
 
+        mav.addObject("client", userDto);
+        mav.addObject("clientEntity", client);
 
         if (keyword != null && keyword.length() >= 1) {
             mav.addObject("listExercises", exerciseService.findByKeyword(keyword));
@@ -96,10 +115,9 @@ public class ClientController {
             mav.addObject("listExercises", exerciseService.getListExercise());
         }
 
+
         return mav;
     }
-
-
 
 
     @GetMapping("/addClient")
@@ -124,8 +142,6 @@ public class ClientController {
         }
         return mav;
     }
-
-
 
 
     @PreAuthorize("hasAuthority('admin:update')")

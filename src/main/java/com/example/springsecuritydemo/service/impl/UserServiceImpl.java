@@ -213,6 +213,7 @@ public class UserServiceImpl implements IUserService {
             userDto.setWeight(((Client) t).getWeight());
             userDto.setStatusCoach(((Client) t).getStatusCoach());
             userDto.setCoach(((Client) t).getCoach());
+            userDto.setExercises(((Client) t).getExercises());
         }
         if (t instanceof Coach) {
             userDto.setTypeUser(TypeUser.COACH);
@@ -234,6 +235,7 @@ public class UserServiceImpl implements IUserService {
                 client.setWeight(userDto.getWeight());
                 client.setStatusCoach(userDto.getStatusCoach());
                 client.setCoach(userDto.getCoach());
+                client.setExercises(userDto.getExercises());
                 return client;
             }
             if (userDto.getTypeUser().equals(TypeUser.COACH)) {
