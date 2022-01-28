@@ -26,6 +26,8 @@ public class Coach extends User {
 
     @Column
     private String achievement;
+    @Column
+    private String specialization;
 
     @OneToMany(
             mappedBy = "coach",

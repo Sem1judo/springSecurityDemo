@@ -17,14 +17,16 @@
                 <div class="col-12 col-lg-9 col-xl-7">
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
-                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" th:text="#{register.registrationForm}">Registration
+                                Form</h3>
                             <form th:action="@{/user/registration}" th:method="post" th:object="${userDto}">
                                 <div class="row">
                                     <div class="form-group">
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label" for="firstName">First Name</label>
+                                            <label class="form-label" for="firstName" th:text="#{user.field.firstName}">First
+                                                Name</label>
                                             <input type="text" id="firstName" class="form-control form-control-lg"
                                                    th:field="*{firstName}"/>
                                             <span th:if="${#fields.hasErrors('firstName')}"
@@ -34,7 +36,8 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <label class="form-label" for="lastName">Last name</label>
+                                            <label class="form-label" for="lastName" th:text="#{user.field.lastName}">Last
+                                                name</label>
                                             <input type="text" id="lastName" class="form-control form-control-lg"
                                                    th:field="*{lastName}"/>
                                             <span th:if="${#fields.hasErrors('lastName')}"
@@ -45,7 +48,7 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <label class="form-label" for="password">Password</label>
+                                            <label class="form-label" for="password" th:text="#{user.field.password}">Password</label>
                                             <input required type="password" id="password"
                                                    class="form-control form-control-lg"
                                                    th:field="*{password}"/>
@@ -57,7 +60,8 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <label class="form-label" for="email">Email</label>
+                                            <label class="form-label" for="email"
+                                                   th:text="#{user.field.email}">Email</label>
                                             <input type="email" id="email" class="form-control form-control-lg"
                                                    th:field="*{email}"/>
                                             <span th:if="${#fields.hasErrors('email')}"
@@ -71,7 +75,7 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label for="birthDate" class="form-label">Birthday</label>
+                                            <label for="birthDate" class="form-label" th:text="#{user.field.birthDate}">Birthday</label>
                                             <input
                                                     type="date"
                                                     class="form-control form-control-lg"
@@ -83,10 +87,11 @@
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label" for="phoneNumber">Phone Number</label>
+                                            <label class="form-label" for="phoneNumber" th:text="#{user.field.phone}">Phone
+                                                Number</label>
                                             <input type="tel" id="phoneNumber" class="form-control form-control-lg"
                                                    th:field="*{phone}"/>
-
+                                            <span class="help-block">Format: 0962750198</span>
                                             <span th:if="${#fields.hasErrors('phone')}"
                                                   th:errors="*{phone}">Name Error</span>
                                         </div>
@@ -149,6 +154,14 @@
                                                 <span th:if="${#fields.hasErrors('additionalInfo')}"
                                                       th:errors="*{additionalInfo}">Name Error</span>
                                             </div>
+                                            <div class="form-outline">
+                                                <label class="form-label" for="specialization">specialization</label>
+                                                <input type="text" id="specialization"
+                                                       class="form-control form-control-lg"
+                                                       th:field="*{specialization}"/>
+                                                <span th:if="${#fields.hasErrors('specialization')}"
+                                                      th:errors="*{specialization}">Name Error</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +169,7 @@
                                 <div class="row" id="clientContent">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label" for="weight">Weight(kg)</label>
+                                            <label class="form-label" for="weight" th:text="#{client.field.weight}">Weight(kg)</label>
                                             <input type="number" id="weight" class="form-control form-control-lg"
                                                    th:field="*{weight}"/>
                                             <span th:if="${#fields.hasErrors('weight')}"
@@ -165,7 +178,7 @@
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label" for="height">Height(cm)</label>
+                                            <label class="form-label" for="height" th:text="#{client.field.height}">Height(cm)</label>
                                             <input type="number" id="height" class="form-control form-control-lg"
                                                    th:field="*{height}"/>
                                             <span th:if="${#fields.hasErrors('height')}"
@@ -196,10 +209,11 @@
                                     </div>
                                 </div>
                                 <div class="mt-4 pt-2">
-                                    <button type="submit"
-                                            class="btn btn-dark btn-lg">
-                                        Register
-                                    </button>
+                                    <div class="d-grid">
+                                        <button class="btn btn-dark btn-login text-uppercase fw-bold" type="submit"
+                                                th:text="#{login.register}">
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -211,5 +225,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </div>
 <script th:src="@{/js/register.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

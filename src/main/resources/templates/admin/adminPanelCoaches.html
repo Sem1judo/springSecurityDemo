@@ -42,6 +42,7 @@
                     <th>Education</th>
                     <th>Achievement</th>
                     <th>Additional Info</th>
+                    <th>Specialization</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -54,6 +55,7 @@
                     <td th:text="${coach.education}"></td>
                     <td th:text="${coach.achievement}"></td>
                     <td th:text="${coach.additionalInfo}"></td>
+                    <td th:text="${coach.specialization}"></td>
                     <td>
                         <ul class="list-inline ">
                             <li class="list-inline-item">
@@ -63,7 +65,7 @@
                                         class="fas fa-eye"></i></a>
                             </li>
                             <li class="list-inline-item">
-                                <a th:href="@{/coach/editCoach/{id}(id=${coach.id})}" class="text-info"
+                                <a th:href="@{/admin/editCoach/{id}(id=${coach.id})}" class="text-info"
                                    data-toggle="tooltip"
                                    data-original-title="Edit"><i
                                         class="fas fa-pencil-alt"></i></a>

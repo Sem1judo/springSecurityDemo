@@ -1,67 +1,55 @@
-
 <nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-  <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-          aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
-          class="navbar-toggler-icon"></span></button>
+    <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
+            class="navbar-toggler-icon"></span></button>
 
-  <div class="collapse navbar-collapse" id="navbarResponsive">
-    <ul class="navbar-nav navbar-sidenav">
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav">
+            <a th:href="@{/admin/adminPanel}" class="nav-link navlogo text-center">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Gtk-dialog-info.svg">
+            </a>
+            <li class="nav-item">
+                <a th:href="@{/}" class="nav-link sidesthrd">
+                    <span class="textside" th:text="#{nav.home}">Home</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/user/profile}" class="nav-link sidesfifth">
+                    <span class="textside" th:text="#{nav.profile}">Profile</span>
+                </a>
+            </li>
 
-      <a th:href="@{/admin/adminPanel}" class="nav-link navlogo text-center">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Gtk-dialog-info.svg">
-      </a>
-      <li class="nav-item">
-        <a th:href="@{/admin/listCoaches}" class="nav-link sidesecnd">
-          <span class="textside">Coaches</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a th:href="@{/admin/listClients}" class="nav-link sidesthrd">
-          <span class="textside">Clients</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a th:href="@{/exercise/listExercises}" class="nav-link sidesthrd">
-          <span class="textside">Exercises</span>
-        </a>
-      </li>
+            <li class="nav-item">
+                <a th:href="@{/admin/listCoaches}" class="nav-link sidesecnd">
+                    <span class="textside" th:text="#{nav.coaches}">Coaches</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/admin/listClients}" class="nav-link sidesthrd">
+                    <span class="textside" th:text="#{nav.clients}">Clients</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/exercise/listExercises}" class="nav-link sidesthrd">
+                    <span class="textside" th:text="#{nav.exercises}">Exercises</span>
+                </a>
+            </li>
 
-      <li class="nav-item">
-        <a th:href="@{/admin/registerUser}" class="nav-link sidesfifth">
-          <span class="textside">Add user</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a th:href="@{/exercise/createExercise}" class="nav-link sidesfifth">
-          <span class="textside">Add exercise</span>
-        </a>
-      </li>
+            <li class="nav-item">
+                <a th:href="@{/admin/registerUser}" class="nav-link sidesfifth">
+                    <span class="textside" th:text="#{nav.addUser}">Add user</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/exercise/createExercise}" class="nav-link sidesfifth">
+                    <span class="textside" th:text="#{nav.addExercise}">Add exercise</span>
+                </a>
+            </li>
 
-      </li>
-      <li class="nav-item">
-        <a th:href="@{/user/profile}">
-          <span class="textside">Profile</span>
-        </a>
-      </li>
-    </ul>
 
-    <div class="float-right">
-      <div class="btn-group">
-        <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
-                aria-expanded="false">
-          Action
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li><a class="dropdown-item" href="/logout">Logout</a></li>
         </ul>
-      </div>
-    </div>
 
-  </div>
+
+    </div>
 </nav>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>

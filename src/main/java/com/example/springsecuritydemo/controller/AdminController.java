@@ -41,6 +41,7 @@ public class AdminController {
 
 
     @PostMapping("/attachCoachForUser/{id}")
+    @PreAuthorize("hasAuthority('admin:create')")
     public ModelAndView attachCoachForUser(@PathVariable("id") Long clientId, HttpServletRequest request) {
 
         String referer = request.getHeader("Referer");
@@ -53,6 +54,7 @@ public class AdminController {
     }
 
     @PostMapping("/declineCoachForUser/{id}")
+    @PreAuthorize("hasAuthority('admin:delete')")
     public ModelAndView declineCoachForUser(@PathVariable("id") Long clientId, HttpServletRequest request) {
 
         String referer = request.getHeader("Referer");
@@ -136,6 +138,7 @@ public class AdminController {
     }
 
     @GetMapping("/registerUser")
+    @PreAuthorize("hasAuthority('admin:create')")
     ModelAndView registrationPage() {
         ModelAndView mav = new ModelAndView("admin/adminPanelAddUser");
 
@@ -146,6 +149,7 @@ public class AdminController {
     }
 
     @PostMapping("/registerUser")
+    @PreAuthorize("hasAuthority('admin:create')")
     ModelAndView registration(@ModelAttribute @Valid UserDto userDto, BindingResult bindingResult) {
 
         ModelAndView mav = new ModelAndView();
@@ -161,17 +165,19 @@ public class AdminController {
                 if (userDto.getTypeUser().equals(TypeUser.COACH)) {
                     mav.setViewName(REDIRECT + "/admin/listCoaches");
                 }
-
             } catch (UserAlreadyExistException uaeEx) {
+                mav.setViewName("admin/adminPanelAddUser");
                 mav.addObject("message", "An account for that username/email already exists.");
             }
         }
+
+
         return mav;
     }
 
     @PreAuthorize("hasAuthority('admin:update')")
     @GetMapping("/editClient/{id}")
-    public ModelAndView editPage(@PathVariable("id") Long clientId) {
+    public ModelAndView editClientPage(@PathVariable("id") Long clientId) {
 
         ModelAndView mav = new ModelAndView("admin/adminPanelEditClient");
 
@@ -184,11 +190,11 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('admin:update')")
     @PostMapping("/updateClient/{id}")
-    public ModelAndView updating(@PathVariable("id") Long clientId,
+    public ModelAndView updatingClient(@PathVariable("id") Long clientId,
                                  @Valid UserDto userDto,
                                  BindingResult bindingResult) {
 
-        ModelAndView mav = new ModelAndView("redirect:/" + "client/viewClient/" + clientId);
+        ModelAndView mav = new ModelAndView("redirect:/" + "admin/listClients");
 
         if (bindingResult.hasErrors()) {
             mav.setViewName("admin/adminPanelEditClient");
@@ -203,7 +209,39 @@ public class AdminController {
         return mav;
     }
 
+    @PreAuthorize("hasAuthority('admin:update')")
+    @GetMapping("/editCoach/{id}")
+    public ModelAndView editCoachPage(@PathVariable("id") Long coachId) {
 
+        ModelAndView mav = new ModelAndView("admin/adminPanelEditCoach");
+
+        UserDto userDto = userService.getByIdUserConvertedToUserDto(coachId);
+
+        mav.addObject("userDto", userDto);
+
+        return mav;
+    }
+
+    @PreAuthorize("hasAuthority('admin:update')")
+    @PostMapping("/updateCoach/{id}")
+    public ModelAndView updatingCoach(@PathVariable("id") Long coachId,
+                                 @Valid UserDto userDto,
+                                 BindingResult bindingResult) {
+
+        ModelAndView mav = new ModelAndView("redirect:/" + "admin/listCoaches");
+
+        if (bindingResult.hasErrors()) {
+            mav.setViewName("admin/adminPanelEditCoach");
+        } else {
+            try {
+                userService.update(userDto);
+            } catch (UserAlreadyExistException uaeEx) {
+                mav.addObject("message", "An account for that username/email already exists.");
+            }
+        }
+
+        return mav;
+    }
 
 }
 

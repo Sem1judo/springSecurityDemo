@@ -15,18 +15,33 @@
 <div class="container-xl px-4 mt-4">
 
     <nav class="nav nav-borders">
-        <a class="nav-link  ms-0" th:href="@{/}" target="__blank">Home</a>
-        <a class="nav-link active ms-0" th:href="@{/user/profile}" target="__blank">Profile</a>
-        <a class="nav-link" th:href="@{/user/billing}" target="__blank">Billing</a>
-        <a class="nav-link" th:href="@{/user/security}" target="__blank">Security</a>
-        <a class="nav-link" th:href="@{/user/workout}" target="__blank">Workout</a>
+        <a class="nav-link text-primary ms-0" th:href="@{/}" target="__blank" th:text="#{nav.home}">Home</a>
+        <a class="nav-link active ms-0" th:href="@{/user/profile}" target="__blank" th:text="#{nav.profile}">Profile</a>
+        <a class="nav-link" th:href="@{/user/billing}" target="__blank" th:text="#{nav.billing}">Billing</a>
+        <a class="nav-link" th:href="@{/user/security}" target="__blank" th:text="#{nav.security}">Security</a>
+        <a class="nav-link" th:href="@{/user/workout}" target="__blank" th:text="#{nav.workout}">Workout</a>
+        <a class="nav-link" th:href="@{/client/listCoachesForClient}" target="__blank" th:text="#{nav.coaches}">Coaches</a>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+               data-bs-toggle="dropdown" aria-expanded="false" th:text="${#strings.toUpperCase(#locale)}">
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" th:href="@{''(language=en)}" th:text="#{lang.eng}">Eng</a><i
+                    class="flag flag-united-states"></i>
+                <a class="dropdown-item" th:href="@{''(language=ru)}" th:text="#{lang.ru}">Rus</a><i
+                    class="flag flag-russia"></i>
+                <a class="dropdown-item" th:href="@{''(language=uk)}" th:text="#{lang.uk}">Ukr</a><i
+                    class="flag flag-ukraine"></i>
+            </ul>
+        </div>
     </nav>
     <hr class="mt-0 mb-4">
     <div class="row">
         <div class="col-xl-4">
             <!-- Profile picture card-->
             <div class="card mb-4 mb-xl-0">
-                <div class="card-header">Profile Picture</div>
+                <div class="card-header" th:text="#{profile.profilePicture}">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
                     <img class="img-account-profile rounded-circle mb-2"
@@ -41,39 +56,39 @@
         <div class="col-xl-8">
             <!-- Account details card-->
             <div class="card mb-4">
-                <div class="card-header">Account Details</div>
+                <div class="card-header" th:text="#{profile.accountDetails}">Account Details</div>
                 <div class="card-body">
                     <form th:method="post">
-
                         <div class="mb-3"
                              th:if="${user.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT}">
-                            <label class="small mb-1">Your coach (please love and respect)</label>
+                            <label class="small mb-1" th:text="#{profile.showCoach}">Your coach (please love and
+                                respect)</label>
                             <th:block th:if="${user.coach != null}">
                                 <input readonly class="form-control" type="text"
-                                       placeholder="Your coach"
                                        th:value="${user.coach.firstName +' '+user.coach.lastName}">
                             </th:block>
                             <th:block th:unless="${user.coach != null}">
                                 <input readonly class="form-control" type="text"
-                                       placeholder="Your coach"
-                                       value="You haven't yet chosen a coach">
+                                       th:value="#{profile.notShowCoach}">
                             </th:block>
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputFirstName">First name</label>
+                                <label class="small mb-1" for="inputFirstName" th:text="#{user.field.firstName}">First
+                                    name</label>
                                 <input readonly class="form-control" id="inputFirstName" type="text"
-                                       placeholder="Enter your first name" th:field="${user.firstName}">
+                                       th:field="${user.firstName}">
 
 
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputLastName">Last name</label>
+                                <label class="small mb-1" for="inputLastName" th:text="#{user.field.lastName}">Last
+                                    name</label>
                                 <input readonly class="form-control" id="inputLastName" type="text"
-                                       placeholder="Enter your last name" th:field="${user.lastName}">
+                                       th:field="${user.lastName}">
                             </div>
                         </div>
                         <!-- Form Row        -->
@@ -81,34 +96,39 @@
                              th:if="${user.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT}">
                             <!-- Form Group (organization name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputHeight">Height(cm)</label>
+                                <label class="small mb-1" for="inputHeight"
+                                       th:text="#{client.field.height}">Height(cm)</label>
                                 <input readonly class="form-control" id="inputHeight" type="text"
                                        placeholder="Enter your height" th:field="${user.height}">
                             </div>
                             <!-- Form Group (location)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputWeight">Weight(kg)</label>
+                                <label class="small mb-1" for="inputWeight"
+                                       th:text="#{client.field.weight}">Weight(kg)</label>
                                 <input readonly class="form-control" id="inputWeight" type="text"
-                                       placeholder="Enter your weight"  th:field="${user.weight}">
+                                       placeholder="Enter your weight" th:field="${user.weight}">
                             </div>
                         </div>
                         <!-- Form Group (email address)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                            <label class="small mb-1" for="inputEmailAddress" th:text="#{user.field.email}">Email
+                                address</label>
                             <input readonly class="form-control" id="inputEmailAddress" type="email"
-                                   placeholder="Enter your email address" th:field="${user.email}">
+                                   th:field="${user.email}">
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (phone number)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputPhone">Phone number</label>
+                                <label class="small mb-1" for="inputPhone" th:text="#{user.field.phone}">Phone
+                                    number</label>
                                 <input readonly class="form-control" id="inputPhone" type="tel"
                                        placeholder="Enter your phone number" th:field="${user.phone}">
                             </div>
 
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputBirthday">Birthday</label>
+                                <label class="small mb-1" for="inputBirthday"
+                                       th:text="#{user.field.birthDate}">Birthday</label>
                                 <input readonly class="form-control" id="inputBirthday" type="date" name="birthday"
                                        placeholder="Enter your birthday" th:field="${user.birthDate}">
                             </div>
@@ -116,35 +136,42 @@
                         <div id="coachContent"
                              th:if="${user.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}">
                             <div class="mb-3">
-                                <label class="small mb-1" for="inputEducation">Education</label>
+                                <label class="small mb-1" for="inputEducation" th:text="#{coach.field.education}">Education</label>
                                 <input readonly type="text" id="inputEducation"
                                        class="form-control form-control-lg"
                                        th:field="*{user.education}"/>
                             </div>
                             <div class="mb-3">
-                                <label class="small mb-1" for="inputAchievement">Achievement</label>
+                                <label class="small mb-1" for="inputAchievement" th:text="#{coach.field.achievement}">Achievement</label>
                                 <input readonly type="text" id="inputAchievement"
                                        class="form-control form-control-lg"
                                        th:field="*{user.achievement}"/>
                             </div>
 
                             <div class="mb-3">
-                                <label class="small mb-1" for="inputAdditionalInfo">Additional Info</label>
+                                <label class="small mb-1" for="inputAdditionalInfo"
+                                       th:text="#{coach.field.additionalInfo}">Additional Info</label>
                                 <input readonly type="text" id="inputAdditionalInfo"
                                        class="form-control form-control-lg"
                                        th:field="*{user.additionalInfo}"/>
-
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="inputSpecialization"
+                                       th:text="#{coach.field.specialization}">Specialization</label>
+                                <input readonly type="text" id="inputSpecialization"
+                                       class="form-control form-control-lg"
+                                       th:field="*{user.specialization}"/>
                             </div>
                         </div>
-
-
                     </form>
-                    <a th:href="@{/user/editUser/{id}(id=${user.id})}">Edit
+                    <a th:href="@{/user/editUser/{id}(id=${user.id})}" th:text="#{profile.edit}">Edit
                     </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
 </body>
 </html>

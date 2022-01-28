@@ -97,6 +97,7 @@
                                                                class="form-control form-control-lg"
                                                                th:field="*{phone}"/>
                                                         <label class="form-label" for="phoneNumber">Phone Number</label>
+                                                        <span class="help-block">Format: 0962750198</span>
                                                         <span th:if="${#fields.hasErrors('phone')}"
                                                               th:errors="*{phone}">Name Error</span>
                                                     </div>
@@ -160,6 +161,14 @@
                                                                   th:errors="*{additionalInfo}">Name Error</span>
                                                         </div>
                                                     </div>
+                                                    <div class="form-outline">
+                                                        <label class="form-label" for="specialization">specialization</label>
+                                                        <input type="text" id="specialization"
+                                                               class="form-control form-control-lg"
+                                                               th:field="*{specialization}"/>
+                                                        <span th:if="${#fields.hasErrors('specialization')}"
+                                                              th:errors="*{specialization}">Name Error</span>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -167,7 +176,8 @@
                                                 <div class="col-md-6 mb-4">
                                                     <div class="form-outline">
                                                         <label class="form-label" for="weight">Weight(kg)</label>
-                                                        <input type="number" id="weight" class="form-control form-control-lg"
+                                                        <input type="number" id="weight"
+                                                               class="form-control form-control-lg"
                                                                th:field="*{weight}"/>
                                                         <span th:if="${#fields.hasErrors('weight')}"
                                                               th:errors="*{weight}">Name Error</span>
@@ -176,7 +186,8 @@
                                                 <div class="col-md-6 mb-4">
                                                     <div class="form-outline">
                                                         <label class="form-label" for="height">Height(cm)</label>
-                                                        <input type="number" id="height" class="form-control form-control-lg"
+                                                        <input type="number" id="height"
+                                                               class="form-control form-control-lg"
                                                                th:field="*{height}"/>
                                                         <span th:if="${#fields.hasErrors('height')}"
                                                               th:errors="*{height}">Name Error</span>
@@ -219,12 +230,12 @@
                         </div>
                     </div>
                 </section>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
             </div>
-            <script th:src="@{/js/register.js}"></script>
         </div>
     </div>
-
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script th:src="@{/js/register.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

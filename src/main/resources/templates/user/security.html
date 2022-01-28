@@ -11,52 +11,67 @@
 <div class="container-xl px-4 mt-4">
     <!-- Account page navigation-->
     <nav class="nav nav-borders">
-        <a class="nav-link  ms-0" th:href="@{/}" target="__blank">Home</a>
-        <a class="nav-link  ms-0" th:href="@{/user/profile}" target="__blank">Profile</a>
-        <a class="nav-link " th:href="@{/user/billing}" target="__blank">Billing</a>
-        <a class="nav-link active " th:href="@{/user/security}" target="__blank">Security</a>
-        <a class="nav-link" th:href="@{/user/workout}" target="__blank">Workout</a>
+        <a class="nav-link text-primary ms-0" th:href="@{/}" target="__blank" th:text="#{nav.home}">Home</a>
+        <a class="nav-link  ms-0" th:href="@{/user/profile}" target="__blank" th:text="#{nav.profile}">Profile</a>
+        <a class="nav-link" th:href="@{/user/billing}" target="__blank" th:text="#{nav.billing}">Billing</a>
+        <a class="nav-link active" th:href="@{/user/security}" target="__blank" th:text="#{nav.security}">Security</a>
+        <a class="nav-link " th:href="@{/user/workout}" target="__blank" th:text="#{nav.workout}">Workout</a>
+        <a class="nav-link" th:href="@{/client/listCoachesForClient}" target="__blank" th:text="#{nav.coaches}">Coaches</a>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+               data-bs-toggle="dropdown" aria-expanded="false" th:text="${#strings.toUpperCase(#locale)}">
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" th:href="@{''(language=en)}" th:text="#{lang.eng}">Eng</a><i
+                    class="flag flag-united-states"></i>
+                <a class="dropdown-item" th:href="@{''(language=ru)}" th:text="#{lang.ru}">Rus</a><i
+                    class="flag flag-russia"></i>
+                <a class="dropdown-item" th:href="@{''(language=uk)}" th:text="#{lang.uk}">Ukr</a><i
+                    class="flag flag-ukraine"></i>
+            </ul>
+        </div>
     </nav>
     <hr class="mt-0 mb-4">
     <div class="row">
         <div class="col-lg-8">
             <!-- Change password card-->
             <div class="card mb-4">
-                <div class="card-header">Change Password</div>
+                <div class="card-header" th:text="#{security.changePassword}">Change Password</div>
                 <div class="card-body">
                     <form th:method="post">
                         <!-- Form Group (current password)-->
                         <span class="alert-danger" th:if="${message}"
                               th:text="${message}"></span>
                         <div class="mb-3">
-                            <label class="small mb-1" for="currentPassword">Current Password</label>
+                            <label class="small mb-1" for="currentPassword" th:text="#{security.currentPassword}">Current Password</label>
                             <input class="form-control" required name="oldPassword" id="currentPassword" type="password"
                                    placeholder="Enter current password">
                         </div>
                         <!-- Form Group (new password)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="newPassword">New Password</label>
+                            <label class="small mb-1" for="newPassword" th:text="#{security.newPass}">New Password</label>
                             <input class="form-control" required name="password" id="newPassword" type="password"
                                    placeholder="Enter new password">
 
                         </div>
                         <!-- Form Group (confirm password)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="confirmPassword">Confirm Password</label>
+                            <label class="small mb-1" for="confirmPassword" th:text="#{security.confirmPassword}">Confirm Password</label>
                             <input class="form-control" required name="confirmPassword" id="confirmPassword"
                                    type="password"
                                    placeholder="Confirm new password">
                         </div>
-                        <button class="btn btn-primary" onclick="savePass()" type="submit">Save</button>
+                        <button class="btn btn-primary" onclick="savePass()" type="submit" th:text="#{security.save}">Save</button>
                     </form>
                 </div>
             </div>
             <!-- Security preferences card-->
             <div class="card mb-4">
-                <div class="card-header">Security Preferences</div>
+                <div class="card-header" th:text="#{security.preferences}">Security Preferences</div>
                 <div class="card-body">
                     <!-- Account privacy optinos-->
-                    <h5 class="mb-1">Account Privacy</h5>
+                    <h5 class="mb-1" th:text="#{security.accPrivacy}">Account Privacy</h5>
                     <p class="small text-muted">By setting your account to private, your profile information and posts
                         will not be visible to users outside of your user groups.</p>
                     <form>
@@ -74,7 +89,7 @@
                     </form>
                     <hr class="my-4">
                     <!-- Data sharing options-->
-                    <h5 class="mb-1">Data Sharing</h5>
+                    <h5 class="mb-1"th:text="#{security.dataSharing}">Data Sharing</h5>
                     <p class="small text-muted">Sharing usage data can help us to improve our products and better serve
                         our users as they navigation through our application. When you agree to share usage data with
                         us, crash reports and usage analytics will be automatically sent to our development team for
@@ -97,7 +112,7 @@
         <div class="col-lg-4">
             <!-- Two factor authentication card-->
             <div class="card mb-4">
-                <div class="card-header">Two-Factor Authentication</div>
+                <div class="card-header" th:text="#{security.twoAuth}">Two-Factor Authentication</div>
                 <div class="card-body">
                     <p>Add another level of security to your account by enabling two-factor authentication. We will send
                         you a text message to verify your login attempts on unrecognized devices and browsers.</p>
@@ -120,16 +135,17 @@
             </div>
             <!-- Delete account card-->
             <div class="card mb-4">
-                <div class="card-header">Delete Account</div>
+                <div class="card-header" th:text="#{security.deleteAcc}">Delete Account</div>
                 <div class="card-body">
                     <p>Deleting your account is a permanent action and cannot be undone. If you are sure you want to
                         delete your account, select the button below.</p>
-                    <button class="btn btn-danger-soft text-danger" type="button">I understand, delete my account
+                    <button class="btn btn-danger-soft text-danger"  type="submit">I understand, delete my account
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

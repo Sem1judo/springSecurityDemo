@@ -12,112 +12,137 @@
 
     <link th:href="@{/css/listCoachesForClient.css}" rel="stylesheet" type="text/css">
 
+    <link th:href="@{/css/profile.css}" rel="stylesheet" type="text/css">
+
 </head>
 <body>
-<section class="ftco-section">
+<div class="container-xl px-4 mt-4">
+
+    <nav class="nav nav-borders">
+        <a class="nav-link text-primary ms-0" th:href="@{/}" target="__blank" th:text="#{nav.home}">Home</a>
+        <a class="nav-link  ms-0" th:href="@{/user/profile}" target="__blank" th:text="#{nav.profile}">Profile</a>
+        <a class="nav-link " th:href="@{/user/billing}" target="__blank" th:text="#{nav.billing}">Billing</a>
+        <a class="nav-link " th:href="@{/user/security}" target="__blank" th:text="#{nav.security}">Security</a>
+        <a class="nav-link " th:href="@{/user/workout}" target="__blank" th:text="#{nav.workout}">Workout</a>
+        <a class="nav-link active" th:href="@{/client/listCoachesForClient}" target="__blank"
+           th:text="#{nav.coaches}">Coaches</a>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+               data-bs-toggle="dropdown" aria-expanded="false" th:text="${#strings.toUpperCase(#locale)}">
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" th:href="@{''(language=en)}" th:text="#{lang.eng}">Eng</a><i
+                    class="flag flag-united-states"></i>
+                <a class="dropdown-item" th:href="@{''(language=ru)}" th:text="#{lang.ru}">Rus</a><i
+                    class="flag flag-russia"></i>
+                <a class="dropdown-item" th:href="@{''(language=uk)}" th:text="#{lang.uk}">Ukr</a><i
+                    class="flag flag-ukraine"></i>
+            </ul>
+        </div>
+    </nav>
+    <hr class="mt-0 mb-4">
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section">Coaches</h2>
+                <h2 class="heading-section"  th:text="#{nav.coaches}">Coaches</h2>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-wrap">
-
-                    <div class="container">
-                        <form th:action="@{/client/listCoachesForClient}" method="get">
-                            <div class="row height d-flex justify-content-center align-items-center">
-                                <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-wrap">
+                        <div class="container">
+                            <form th:action="@{/client/listCoachesForClient}" method="get">
+                                <div class="row height d-flex justify-content-center align-items-center">
+                                    <div class="col-md-8">
                                     <span class="search"><input type="text"
                                                                 class="form-control"
-                                                                placeholder="Name"
+                                                                th:placeholder="#{user.fullName}"
                                                                 th:value="${keyword}"
                                                                 name="keyword">
-                                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>
-                                        </button>
-                                        <a class="link-warning" th:href="@{/client/listCoachesForClient}">Discard</a>
                                     </span>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div>
-
-                    <table class="table table-responsive-xl">
-                        <thead>
-                        <tr>
-                            <th>&nbsp;</th>
-                            <th>Email</th>
-                            <th>Username</th>
-                            <th>Status</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="alert" role="alert" th:each="coach : ${listCoaches}">
-                            <td>
-                                <label class="checkbox-wrap checkbox-primary">
-                                    <input type="checkbox" checked>
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                            <td class="d-flex align-items-center">
-
-                                <div class="img"
-                                     th:style="'background-image:url(' + @{/img/person_1.jpg} + ');'"></div>
-
-                                <div class="pl-3 email">
-                                    <span th:text="${coach.email}"></span>
-                                    <span th:text="${#temporals.format(coach.registrationDate, 'dd-MM-yyyy')}"></span>
-                                </div>
-                            </td>
-                            <td>
-                                <a th:href="@{/coach/viewCoach/{id}(id=${coach.id})}">
-                                    <span th:text=" ${coach.firstName +' '+ coach.lastName}"></span>
-                                </a>
-                            </td>
-                            <td th:if="${coach.status == T(com.example.springsecuritydemo.model.Status).ACTIVE}"
-                                class="status"><span class="active" th:text="${coach.status}">Active</span></td>
-                            <td th:if="${coach.status == T(com.example.springsecuritydemo.model.Status).BANNED}"
-                                class="status"><span class="waiting" th:text="${coach.status}">Active</span>
-                            </td>
-                            <td>
-                                <a th:href="@{/coach/viewCoach/{id}(id=${coach.id})}" class="text-primary"
-                                   data-toggle="tooltip"
-                                   data-original-title="view">View coach <i
-                                        class="fa fa-eye"></i></a>
-                                </li>
-                                <div th:if="${client.coach == null}">
-                                    <form th:action="@{/client/addCoachForUser/{id}(id=${coach.id})}"
-                                          method="post">
-                                        <button type="submit" class="close" data-dismiss="alert"
-                                                aria-label="add">
-                                            <span aria-hidden="true">Add coach <i class="fa fa-plus"></i></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-success"><i
+                                                class="fa fa-search"></i>
                                         </button>
-                                    </form>
+                                        <a class="btn btn-danger" th:href="@{/client/listCoachesForClient}"><i
+                                                class="fa fa-remove"></i></a>
+                                    </div>
                                 </div>
-                                <div th:unless="${client.coach == null}">
-                                    <th:block th:if="${client.coach.id} == ${coach.id}">
-                                        <form th:action="@{/client/deleteCoachForUser/{id}(id=${coach.id})}"
+                            </form>
+
+                        </div>
+
+                        <table class="table table-responsive-xl">
+                            <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th th:text="#{user.fullName}">Full Name</th>
+                                <th th:text="#{coach.field.specialization}">Specialization</th>
+                                <th th:text="#{status}">Status</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="alert" role="alert" th:each="coach : ${listCoaches}">
+                                <td>
+                                    <label class="checkbox-wrap checkbox-primary">
+                                        <input type="checkbox" checked>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td class="d-flex align-items-center">
+                                    <div class="img"
+                                         th:style="'background-image:url(' + @{/img/person_1.jpg} + ');'"></div>
+
+                                    <div class="pl-3 email">
+                                        <span th:text=" ${coach.firstName +' '+ coach.lastName}"></span>
+                                        <span th:text="${#temporals.format(coach.registrationDate, 'dd-MM-yyyy')}"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span th:text=" ${coach.specialization}"></span>
+                                </td>
+                                <td th:if="${coach.status == T(com.example.springsecuritydemo.model.Status).ACTIVE}"
+                                    class="status"><span class="active"
+                                                         th:text="${coach.status}">Active</span></td>
+                                <td th:if="${coach.status == T(com.example.springsecuritydemo.model.Status).BANNED}"
+                                    class="status"><span class="waiting"
+                                                         th:text="${coach.status}">Active</span>
+                                </td>
+                                <td>
+                                    <div th:if="${client.coach == null}">
+                                        <form th:action="@{/client/addCoachForUser/{id}(id=${coach.id})}"
                                               method="post">
-                                            <button type="submit" class="close" data-dismiss="alert"
-                                                    aria-label="close">
-                                                <span aria-hidden="true">Delete coach <i class="fa fa-close"></i></span>
+                                            <button type="submit" class=" btn btn-success" data-dismiss="alert"
+                                                    aria-label="add">
+                                                <span aria-hidden="true" th:text="#{addCoach}">Add coach</span>
                                             </button>
                                         </form>
-                                    </th:block>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                                    </div>
+                                    <div th:unless="${client.coach == null}">
+                                        <th:block th:if="${client.coach.id} == ${coach.id}">
+                                            <form th:action="@{/client/deleteCoachForClient/{id}(id=${coach.id})}"
+                                                  method="post">
+                                                <button type="submit" class=" btn btn-danger" data-dismiss="alert"
+                                                        aria-label="close">
+                                                    <span aria-hidden="true" th:text="#{refuseCoach}"></span>
+                                                </button>
+                                            </form>
+                                        </th:block>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
 
+</div>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/js/listCoachesForClient.js}"></script>
 

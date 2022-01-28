@@ -220,6 +220,7 @@ public class UserServiceImpl implements IUserService {
             userDto.setEducation(((Coach) t).getEducation());
             userDto.setAchievement(((Coach) t).getAchievement());
             userDto.setAdditionalInfo(((Coach) t).getAdditionalInfo());
+            userDto.setSpecialization(((Coach) t).getSpecialization());
         }
 
         return userDto;
@@ -244,6 +245,7 @@ public class UserServiceImpl implements IUserService {
                 coach.setEducation(userDto.getEducation());
                 coach.setAchievement(userDto.getAchievement());
                 coach.setAdditionalInfo(userDto.getAdditionalInfo());
+                coach.setSpecialization(userDto.getSpecialization());
                 return coach;
             }
         }

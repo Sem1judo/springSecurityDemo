@@ -1,6 +1,7 @@
 package com.example.springsecuritydemo.security;
 
 import lombok.AllArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/auth/login").permitAll()
-                .defaultSuccessUrl("/user/userProfile")
+                .defaultSuccessUrl("/",true)
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
@@ -51,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/webjars/**", "/static/**", "/css/**","/scss/**","/js/**", "/img/**", "/icon/**","/fonts/**");
+        web.ignoring().antMatchers("/webjars/**", "/messages/**", "/static/**", "/css/**", "/scss/**", "/js/**", "/img/**", "/icon/**", "/fonts/**");
     }
 
     @Override

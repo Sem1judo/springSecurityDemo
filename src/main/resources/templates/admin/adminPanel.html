@@ -78,6 +78,7 @@
                     <td th:text="${client.weight} +'(kg) & ' +${client.height}+'(cm)'"></td>
                     <td>
                         <ul>
+                    <td th:text="${client.coach.firstName} +' ' +${client.coach.lastName}"></td>
                         <li class="list-inline-item">
                             <form th:action="@{/admin/attachCoachForUser/{id}(id=${client.id})}" method="post">
                                 <button type="submit">Attach</button>
@@ -98,6 +99,6 @@
     </div>
 </div>
 
-<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
 </body>
 </html>

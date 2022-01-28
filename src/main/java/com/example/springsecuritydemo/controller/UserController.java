@@ -3,11 +3,8 @@ package com.example.springsecuritydemo.controller;
 
 import com.example.springsecuritydemo.exception.InvalidOldPasswordException;
 import com.example.springsecuritydemo.exception.UserAlreadyExistException;
-import com.example.springsecuritydemo.model.Client;
 import com.example.springsecuritydemo.model.User;
-import com.example.springsecuritydemo.model.dto.TypeUser;
 import com.example.springsecuritydemo.model.dto.UserDto;
-import com.example.springsecuritydemo.service.impl.ClientServiceImpl;
 import com.example.springsecuritydemo.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @Controller
 @AllArgsConstructor
@@ -34,7 +33,6 @@ public class UserController {
         User user = userService.getUserByEmail(getCurrentUser().getEmail());
 
         UserDto userDto = userService.getByIdUserConvertedToUserDto(user.getId());
-
         mav.addObject("user", userDto);
 
         return mav;
@@ -45,6 +43,10 @@ public class UserController {
         ModelAndView mav = new ModelAndView("/user/profile");
 
         UserDto userDto = userService.getByIdUserConvertedToUserDto(id);
+
+        ResourceBundle bundle = ResourceBundle.getBundle("language/messages", Locale.forLanguageTag("uk"));
+        String message = bundle.getString("profile.showCoach");
+
 
         mav.addObject("user", userDto);
 
@@ -133,7 +135,10 @@ public class UserController {
 
         UserDto userDto = userService.getByIdUserConvertedToUserDto(user.getId());
 
+
+
         mav.addObject("user", userDto);
+        mav.addObject("listExercises", userDto.getExercises());
 
         return mav;
     }

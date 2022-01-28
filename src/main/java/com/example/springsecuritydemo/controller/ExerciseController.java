@@ -28,7 +28,7 @@ public class ExerciseController {
     private ExerciseServiceImpl exerciseService;
 
     @PreAuthorize("hasAuthority('admin:read')")
-    @GetMapping("/listExercises")
+        @GetMapping("/listExercises")
     public ModelAndView getListExercises(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                                          @RequestParam("size")
                                                  Optional<Integer> size,

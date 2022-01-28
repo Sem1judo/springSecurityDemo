@@ -28,9 +28,13 @@
                             <span class="number"
                                   th:text="${#numbers.formatDecimal(client.weight, 0, 'COMMA', 1, 'POINT')}"></span>
                             <span class="follow">kg</span>
-                            <span class="number" th:text="${client.height}"> <span class="follow">cm</span></span>
                         </div>
+                        <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+                            <span class="number"
+                                  th:text="${#numbers.formatDecimal(client.height, 0, 'COMMA', 1, 'POINT')}"></span>
+                            <span class="follow">cm</span>
 
+                        </div>
 
                         <div class=" px-2 rounded mt-4 date "><span class="join">Joined <span
                                 th:text="${#temporals.month(clientEntity.registrationDate)+' '

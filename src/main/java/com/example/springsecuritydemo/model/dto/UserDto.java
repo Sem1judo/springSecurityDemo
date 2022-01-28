@@ -86,6 +86,10 @@ public class UserDto {
             message = "Additional info must be alphanumeric with no forbidden characters")
     private String additionalInfo;
 
+    @Pattern(regexp = "^[\\w\\s.,\\-'!?+#*А-Яа-яЪъЇї]*$",
+            message = "Specialization info must be alphanumeric with no forbidden characters")
+    private String specialization;
+
 
     //    @Size(min = 10, max = 1024,
 //            message = "Education must be between 10 and 1024 characters long")

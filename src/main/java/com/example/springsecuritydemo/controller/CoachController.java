@@ -28,6 +28,7 @@ public class CoachController {
 
 
     @GetMapping("/viewCoach/{id}")
+    @PreAuthorize("hasAuthority('admin:read')")
     public ModelAndView viewCoach(@PathVariable("id") Long coachId) {
         ModelAndView mav = new ModelAndView("coach/profileCoach");
 
@@ -39,6 +40,7 @@ public class CoachController {
 
 
     @GetMapping("/addCoach")
+    @PreAuthorize("hasAuthority('admin:create')")
     ModelAndView addingPage() {
         ModelAndView mav = new ModelAndView("coach/addCoach");
 
@@ -47,6 +49,7 @@ public class CoachController {
     }
 
     @PostMapping("/addCoach")
+    @PreAuthorize("hasAuthority('admin:create')")
     ModelAndView adding(@ModelAttribute @Valid Coach coach, BindingResult bindingResult) {
 
         ModelAndView mav = new ModelAndView();
@@ -60,39 +63,6 @@ public class CoachController {
         return mav;
     }
 
-    @PreAuthorize("hasAuthority('admin:update')")
-    @GetMapping("/editCoach/{id}")
-    public ModelAndView editPage(@PathVariable("id") Long coachId) {
-
-        ModelAndView mav = new ModelAndView("admin/adminPanelEditCoach");
-
-        UserDto userDto = userService.getByIdUserConvertedToUserDto(coachId);
-
-        mav.addObject("userDto", userDto);
-
-        return mav;
-    }
-
-    @PreAuthorize("hasAuthority('admin:update')")
-    @PostMapping("/updateCoach/{id}")
-    public ModelAndView updating(@PathVariable("id") Long coachId,
-                                 @Valid UserDto userDto,
-                                 BindingResult bindingResult) {
-
-        ModelAndView mav = new ModelAndView("redirect:/" + "user/profile");
-
-        if (bindingResult.hasErrors()) {
-            mav.setViewName("coach/editFormCoach");
-        } else {
-            try {
-                userService.update(userDto);
-            } catch (UserAlreadyExistException uaeEx) {
-                mav.addObject("message", "An account for that username/email already exists.");
-            }
-        }
-
-        return mav;
-    }
 
     private String getAuthCurrentEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

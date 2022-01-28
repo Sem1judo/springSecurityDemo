@@ -21,11 +21,12 @@
                                 <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                                     <div class="card-body p-4 p-md-5">
                                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                                        <form th:action="@{/coach/updateCoach/{id}(id=${userDto.id})}" th:method="post"
+                                        <form th:action="@{/admin/updateCoach/{id}(id=${userDto.id})}" th:method="post"
                                               th:object="${userDto}">
                                             <input type="text" id="typeUser"
                                                    class="form-control form-control-lg"
                                                    th:field="*{typeUser}" hidden>
+
                                             <div class="row">
                                                 <div class="form-group">
                                                 </div>
@@ -55,7 +56,7 @@
 
                                                     <div class="form-outline">
                                                         <label class="form-label" for="password">password</label>
-                                                        <input type="password" id="password"
+                                                        <input type="text" id="password"
                                                                class="form-control form-control-lg"
                                                                th:field="*{password}"/>
                                                         <span th:if="${#fields.hasErrors('password')}"
@@ -100,6 +101,7 @@
                                                                class="form-control form-control-lg"
                                                                th:field="*{phone}"/>
                                                         <label class="form-label" for="phoneNumber">Phone Number</label>
+                                                        <span class="help-block">Format: 0962750198</span>
                                                         <span th:if="${#fields.hasErrors('phone')}"
                                                               th:errors="*{phone}">Name Error</span>
                                                     </div>
@@ -134,6 +136,14 @@
                                                                th:field="*{additionalInfo}"/>
                                                         <span th:if="${#fields.hasErrors('additionalInfo')}"
                                                               th:errors="*{additionalInfo}">Name Error</span>
+                                                    </div>
+                                                    <div class="form-outline">
+                                                        <label class="form-label" for="specialization">specialization</label>
+                                                        <input type="text" id="specialization"
+                                                               class="form-control form-control-lg"
+                                                               th:field="*{specialization}"/>
+                                                        <span th:if="${#fields.hasErrors('specialization')}"
+                                                              th:errors="*{specialization}">Name Error</span>
                                                     </div>
                                                 </div>
                                             </div>
