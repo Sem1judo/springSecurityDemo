@@ -1,10 +1,12 @@
 package com.example.springsecuritydemo.controller;
 
+import com.example.springsecuritydemo.exception.NoSuchEntityException;
 import com.example.springsecuritydemo.exception.UserAlreadyExistException;
 import com.example.springsecuritydemo.model.Client;
 import com.example.springsecuritydemo.model.Coach;
 import com.example.springsecuritydemo.model.Exercise;
 import com.example.springsecuritydemo.model.User;
+import com.example.springsecuritydemo.model.dto.TypeUser;
 import com.example.springsecuritydemo.model.dto.UserDto;
 import com.example.springsecuritydemo.service.impl.ClientServiceImpl;
 import com.example.springsecuritydemo.service.impl.CoachServiceImpl;
@@ -91,11 +93,17 @@ public class ClientController {
             mav.addObject("listCoaches", coachService.getListCoach());
         }
 
-        mav.addObject("client", clientService.getClientByEmail(getAuthCurrentEmail()));
+
+        try {
+            mav.addObject("client", clientService.getClientByEmail(getAuthCurrentEmail()));
+        } catch (NoSuchEntityException e) {
+            mav.addObject("client", null);
+        }
 
 
         return mav;
     }
+
 
     @GetMapping("/listExercisesForClient/{id}")
     public ModelAndView findPaginatedCoaches(@PathVariable("id") Long clientId,

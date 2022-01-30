@@ -15,3 +15,12 @@
     color: white !important;
     background-color: #3b5998;
 }
+
+.btn-register {
+    color: white !important;
+    background-color: #09890b;
+}
+.btn-signIn {
+    color: white !important;
+    background-color: #00a8ff;
+}

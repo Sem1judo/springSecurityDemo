@@ -2,7 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Security</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" th:href="@{/cimg/favicons/apple-touch-icon-57x57.png}">
+    <link rel="apple-touch-icon" sizes="60x60" th:href="@{/img/favicons/apple-touch-icon-60x60.png}">
+    <link rel="icon" type="image/png" th:href="@{/img/favicons/favicon-32x32.png}" sizes="32x32">
+    <link rel="icon" type="image/png" th:href="@{/img/favicons/favicon-16x16.png}" sizes="16x16">
+    <link rel="manifest" th:href="@{/img/favicons/manifest.json}">
+    <link rel="shortcut icon" th:href="@{/img/favicons/favicon.ico}">
+    <meta name="msapplication-TileColor" content="#00a8ff">
+    <meta name="msapplication-config" content="img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/security.css}" rel="stylesheet" type="text/css">
 </head>
@@ -16,7 +28,8 @@
         <a class="nav-link" th:href="@{/user/billing}" target="__blank" th:text="#{nav.billing}">Billing</a>
         <a class="nav-link active" th:href="@{/user/security}" target="__blank" th:text="#{nav.security}">Security</a>
         <a class="nav-link " th:href="@{/user/workout}" target="__blank" th:text="#{nav.workout}">Workout</a>
-        <a class="nav-link" th:href="@{/client/listCoachesForClient}" target="__blank" th:text="#{nav.coaches}">Coaches</a>
+        <a class="nav-link" th:href="@{/client/listCoachesForClient}" target="__blank"
+           th:text="#{nav.coaches}">Coaches</a>
         <div class="dropdown">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                data-bs-toggle="dropdown" aria-expanded="false" th:text="${#strings.toUpperCase(#locale)}">
@@ -43,26 +56,33 @@
                         <!-- Form Group (current password)-->
                         <span class="alert-danger" th:if="${message}"
                               th:text="${message}"></span>
+                        <span class="alert-success" th:if="${messageSuc}"
+                              th:text="${messageSuc}"></span>
                         <div class="mb-3">
-                            <label class="small mb-1" for="currentPassword" th:text="#{security.currentPassword}">Current Password</label>
+                            <label class="small mb-1" for="currentPassword" th:text="#{security.currentPassword}">Current
+                                Password</label>
                             <input class="form-control" required name="oldPassword" id="currentPassword" type="password"
                                    placeholder="Enter current password">
                         </div>
                         <!-- Form Group (new password)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="newPassword" th:text="#{security.newPass}">New Password</label>
+                            <label class="small mb-1" for="newPassword" th:text="#{security.newPass}">New
+                                Password</label>
                             <input class="form-control" required name="password" id="newPassword" type="password"
                                    placeholder="Enter new password">
 
                         </div>
                         <!-- Form Group (confirm password)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="confirmPassword" th:text="#{security.confirmPassword}">Confirm Password</label>
+                            <label class="small mb-1" for="confirmPassword" th:text="#{security.confirmPassword}">Confirm
+                                Password</label>
                             <input class="form-control" required name="confirmPassword" id="confirmPassword"
                                    type="password"
                                    placeholder="Confirm new password">
                         </div>
-                        <button class="btn btn-primary" onclick="savePass()" type="submit" th:text="#{security.save}">Save</button>
+                        <button class="btn btn-primary" onclick="savePass()" type="submit" th:text="#{security.save}">
+                            Save
+                        </button>
                     </form>
                 </div>
             </div>
@@ -89,7 +109,7 @@
                     </form>
                     <hr class="my-4">
                     <!-- Data sharing options-->
-                    <h5 class="mb-1"th:text="#{security.dataSharing}">Data Sharing</h5>
+                    <h5 class="mb-1" th:text="#{security.dataSharing}">Data Sharing</h5>
                     <p class="small text-muted">Sharing usage data can help us to improve our products and better serve
                         our users as they navigation through our application. When you agree to share usage data with
                         us, crash reports and usage analytics will be automatically sent to our development team for
@@ -139,8 +159,10 @@
                 <div class="card-body">
                     <p>Deleting your account is a permanent action and cannot be undone. If you are sure you want to
                         delete your account, select the button below.</p>
-                    <button class="btn btn-danger-soft text-danger"  type="submit">I understand, delete my account
-                    </button>
+                    <form th:action="@{/user/deleteUserByClient/{id}(id=${user.id})}" method="post">
+                        <button class="btn btn-danger-soft text-danger" type="submit">I understand, delete my account
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

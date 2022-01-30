@@ -44,10 +44,6 @@ public class UserController {
 
         UserDto userDto = userService.getByIdUserConvertedToUserDto(id);
 
-        ResourceBundle bundle = ResourceBundle.getBundle("language/messages", Locale.forLanguageTag("uk"));
-        String message = bundle.getString("profile.showCoach");
-
-
         mav.addObject("user", userDto);
 
         return mav;
@@ -102,11 +98,25 @@ public class UserController {
         return mav;
     }
 
+    @PostMapping(value = "/deleteUserByClient/{id}")
+    public ModelAndView deleteUser(@PathVariable("id") long id) {
+        ModelAndView mav = new ModelAndView("redirect:/" + "user/success");
+
+        userService.deleteById(id);
+
+        return mav;
+    }
+
+    @GetMapping("/success")
+    public ModelAndView getSuccessPage() {
+        return new ModelAndView("user/success");
+    }
 
     @PostMapping(value = "/deleteUser/{id}")
-    public ModelAndView deleteUser(@PathVariable("id") long id) {
+    public ModelAndView deleteUserByClient(@PathVariable("id") long id) {
 
         ModelAndView mav = new ModelAndView("redirect:/" + "admin/listClients");
+
 
         userService.deleteById(id);
 
@@ -136,7 +146,6 @@ public class UserController {
         UserDto userDto = userService.getByIdUserConvertedToUserDto(user.getId());
 
 
-
         mav.addObject("user", userDto);
         mav.addObject("listExercises", userDto.getExercises());
 
@@ -164,7 +173,7 @@ public class UserController {
             }
             if (password.equals(confirmPassword)) {
                 userService.changeUserPassword(user, password);
-                mav.addObject("message", "Successfully changed");
+                mav.addObject("messageSuc", "Successfully changed");
             } else mav.addObject("message", "Different passwords");
         } catch (InvalidOldPasswordException iopEx) {
             mav.addObject("message", "Incorrect current password");

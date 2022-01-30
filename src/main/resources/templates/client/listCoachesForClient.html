@@ -2,9 +2,19 @@
 <html lang="en">
 <head>
     <title>Coaches</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="apple-touch-icon" sizes="57x57" th:href="@{/cimg/favicons/apple-touch-icon-57x57.png}">
+    <link rel="apple-touch-icon" sizes="60x60" th:href="@{/img/favicons/apple-touch-icon-60x60.png}">
+    <link rel="icon" type="image/png" th:href="@{/img/favicons/favicon-32x32.png}" sizes="32x32">
+    <link rel="icon" type="image/png" th:href="@{/img/favicons/favicon-16x16.png}" sizes="16x16">
+    <link rel="manifest" th:href="@{/img/favicons/manifest.json}">
+    <link rel="shortcut icon" th:href="@{/img/favicons/favicon.ico}">
+    <meta name="msapplication-TileColor" content="#00a8ff">
+    <meta name="msapplication-config" content="img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 
@@ -46,7 +56,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section"  th:text="#{nav.coaches}">Coaches</h2>
+                <h2 class="heading-section" th:text="#{nav.coaches}">Coaches</h2>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -111,7 +121,7 @@
                                     class="status"><span class="waiting"
                                                          th:text="${coach.status}">Active</span>
                                 </td>
-                                <td>
+                                <td th:if="${client != null}">
                                     <div th:if="${client.coach == null}">
                                         <form th:action="@{/client/addCoachForUser/{id}(id=${coach.id})}"
                                               method="post">
@@ -133,6 +143,7 @@
                                         </th:block>
                                     </div>
                                 </td>
+                                <td th:unless="${client != null}"></td>
                             </tr>
                             </tbody>
                         </table>
