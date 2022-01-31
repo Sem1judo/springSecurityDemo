@@ -28,18 +28,19 @@ import java.util.List;
 public class ClientServiceImpl implements IClientService {
 
 
-    private static final String MISSING_ID_ERROR_MESSAGE = "Missing id client";
     private static final String MISSING_EMAIL_ERROR_MESSAGE = "Missing email client";
     private static final String NOT_EXIST_ENTITY = "Doesn't exist such client";
 
-    private ClientRepository clientRepository;
-    private CoachServiceImpl coachService;
-    private ExerciseServiceImpl exerciseService;
+    private final ClientRepository clientRepository;
+    private final CoachServiceImpl coachService;
 
+
+    @Override
     public List<Client> findByStatusCoach(StatusCoach statusCoach) {
         return clientRepository.findAllByStatusCoach(statusCoach);
     }
 
+    @Override
     public List<Client> getListClient() {
         log.debug("Trying to get list of Clients");
         try {
@@ -53,7 +54,7 @@ public class ClientServiceImpl implements IClientService {
         }
     }
 
-
+    @Override
     public Page<Client> findPaginated(int pageNo, Integer pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();
@@ -89,6 +90,7 @@ public class ClientServiceImpl implements IClientService {
         return client;
     }
 
+    @Override
     public Client getByIdClient(long id) {
         log.debug("Trying to get client with id={}", id);
 
@@ -110,6 +112,7 @@ public class ClientServiceImpl implements IClientService {
         return client;
     }
 
+    @Override
     public Client getClientByEmail(String email) {
         log.debug("Trying to get client with email={}", email);
 
@@ -131,7 +134,7 @@ public class ClientServiceImpl implements IClientService {
         return client;
     }
 
-
+    @Override
     public void addCoachForUser(Long coachId, String authCurrentEmail) {
         log.debug("Trying to add Coach For User with coach.id={}", coachId);
 
@@ -153,6 +156,7 @@ public class ClientServiceImpl implements IClientService {
 
     }
 
+    @Override
     public void attachCoachForUser(Long clientId) {
         log.debug("Trying to confirm Coach For User with coach.id={}", clientId);
 
@@ -171,6 +175,7 @@ public class ClientServiceImpl implements IClientService {
         }
     }
 
+    @Override
     public void declineCoachForUser(Long clientId) {
         log.debug("Trying to decline Coach For User with clientId={}", clientId);
 
@@ -189,6 +194,7 @@ public class ClientServiceImpl implements IClientService {
 
     }
 
+    @Override
     public void deleteCoachForUser(String authCurrentEmail, Long coachId) {
         log.debug("Trying to delete Coach For User with coach.id={}", coachId);
 
@@ -207,36 +213,4 @@ public class ClientServiceImpl implements IClientService {
         }
     }
 
-    public void addExercisesForClient(Client client) {
-        log.debug("Trying to add Exercises For client", client);
-
-        if (client == null) {
-            log.warn("Missing client");
-            throw new ServiceException("Missing client");
-        }
-        try {
-            clientRepository.save(client);
-        } catch (DataAccessException e) {
-            log.error("Failed to adding exercise for client: {}", client);
-            throw new ServiceException("Problem with adding exercise for client");
-        }
-    }
-
-    public void deleteExercisesForUser(Long clientId, Long exerciseId) {
-        log.debug("Trying to delete Exercise For Client with clientId", clientId);
-
-        if (clientId == 0) {
-            log.warn("Missing clientId");
-            throw new ServiceException("Missing clientId");
-        }
-        Client client = getByIdClient(clientId);
-        List<Exercise> exercises = client.getExercises();
-        exercises.remove(Integer.parseInt(String.valueOf(exerciseId)));
-        try {
-            clientRepository.save(client);
-        } catch (DataAccessException e) {
-            log.error("Failed to deleting exercise for client: {}", client);
-            throw new ServiceException("Problem with deleting exercise for client");
-        }
-    }
 }

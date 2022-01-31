@@ -43,6 +43,7 @@ public class UserServiceImpl implements IUserService {
     private static final String NOT_EXIST_ENTITY = "Doesn't exist such user";
 
 
+    @Override
     public <T extends User> User registerNewUser(UserDto userDto) throws UserAlreadyExistException {
         log.debug("Trying to register user: {}", userDto);
 
@@ -65,6 +66,7 @@ public class UserServiceImpl implements IUserService {
     }
 
 
+    @Override
     public List<User> getListUser() {
         log.debug("Trying to get list of users");
         try {
@@ -78,6 +80,7 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
     public void update(UserDto userDto) {
         log.debug("Trying to update userDto: {}", userDto);
 
@@ -109,6 +112,7 @@ public class UserServiceImpl implements IUserService {
     }
 
 
+    @Override
     public void deleteById(long id) {
         log.debug("Trying to delete user with id={}", id);
         if (id == 0) {
@@ -126,6 +130,7 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
     public void delete(User user) {
         log.debug("Trying to delete user = {}", user);
 
@@ -145,6 +150,7 @@ public class UserServiceImpl implements IUserService {
     }
 
 
+    @Override
     public UserDto getByIdUserConvertedToUserDto(long id) {
         log.debug("Trying to get user with id={}", id);
 
@@ -167,6 +173,7 @@ public class UserServiceImpl implements IUserService {
     }
 
 
+    @Override
     public User getUserByEmail(String email) {
         log.debug("Trying to get user with email={}", email);
 
@@ -188,7 +195,7 @@ public class UserServiceImpl implements IUserService {
         return user;
     }
 
-
+    @Override
     public void changeUserPassword(final User user, final String password) {
         user.setPassword(bcryptEncoder.encode(password));
         userRepository.save(user);
@@ -270,7 +277,6 @@ public class UserServiceImpl implements IUserService {
         t.setGender(userDto.getGender());
         return t;
     }
-
 
     public boolean checkIfValidOldPassword(final User user, final String oldPassword) throws InvalidOldPasswordException {
         return bcryptEncoder.matches(oldPassword, user.getPassword());

@@ -30,11 +30,11 @@ public class CoachServiceImpl implements ICoachService {
 
     private final CoachRepository coachRepository;
 
-
+    @Override
     public List<Coach> findByKeyword(String keyword) {
         return coachRepository.findByKeyword(keyword);
     }
-
+    @Override
     public List<Coach> getListCoach() {
         log.debug("Trying to get list of Coaches");
         try {
@@ -49,7 +49,7 @@ public class CoachServiceImpl implements ICoachService {
     }
 
 
-
+    @Override
     public Page<Coach> findPaginated(int pageNo, Integer pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();
@@ -85,6 +85,7 @@ public class CoachServiceImpl implements ICoachService {
     }
 
 
+    @Override
     public Coach getByIdCoach(long id) {
         log.debug("Trying to get user with id={}", id);
 

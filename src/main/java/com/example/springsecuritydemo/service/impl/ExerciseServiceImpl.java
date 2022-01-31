@@ -32,6 +32,8 @@ public class ExerciseServiceImpl implements IExerciseService {
     private static final String MISSING_ID_ERROR_MESSAGE = "Missing id exercise";
     private static final String NOT_EXIST_ENTITY = "Doesn't exist such exercise";
 
+
+    @Override
     public Page<Exercise> findPaginated(int pageNo, Integer pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();
@@ -41,7 +43,7 @@ public class ExerciseServiceImpl implements IExerciseService {
 
     }
 
-
+    @Override
     public Exercise createExercise(Exercise exercise) throws UserAlreadyExistException {
         log.debug("Trying to add exercise: {}", exercise);
 
@@ -54,6 +56,7 @@ public class ExerciseServiceImpl implements IExerciseService {
     }
 
 
+    @Override
     public List<Exercise> getListExercise() {
         log.debug("Trying to get list of exercises");
         try {
@@ -67,6 +70,8 @@ public class ExerciseServiceImpl implements IExerciseService {
         }
     }
 
+
+    @Override
     public void update(Exercise exercise) {
         log.debug("Trying to update exercise: {}", exercise);
 
@@ -93,6 +98,8 @@ public class ExerciseServiceImpl implements IExerciseService {
     }
 
 
+
+    @Override
     public void deleteById(long id) {
         log.debug("Trying to delete exercise with id={}", id);
         if (id == 0) {
@@ -110,6 +117,8 @@ public class ExerciseServiceImpl implements IExerciseService {
         }
     }
 
+
+    @Override
     public void delete(Exercise exercise) {
         log.debug("Trying to delete exercise = {}", exercise);
 
@@ -128,6 +137,7 @@ public class ExerciseServiceImpl implements IExerciseService {
         }
     }
 
+    @Override
     public Exercise getById(long id) {
         log.debug("Trying to get exercise with id={}", id);
 
@@ -149,6 +159,7 @@ public class ExerciseServiceImpl implements IExerciseService {
         return exercise;
     }
 
+    @Override
     public List<Exercise> findByKeyword(String keyword) {
         return exerciseRepository.findByKeyword(keyword);
     }
