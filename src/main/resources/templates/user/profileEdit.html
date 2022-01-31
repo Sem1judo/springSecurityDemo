@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" th:href="@{/cimg/favicons/apple-touch-icon-57x57.png}">
+    <link rel="apple-touch-icon" sizes="60x60" th:href="@{/img/favicons/apple-touch-icon-60x60.png}">
+    <link rel="icon" type="image/png" th:href="@{/img/favicons/favicon-32x32.png}" sizes="32x32">
+    <link rel="icon" type="image/png" th:href="@{/img/favicons/favicon-16x16.png}" sizes="16x16">
+    <link rel="manifest" th:href="@{/img/favicons/manifest.json}">
+    <link rel="shortcut icon" th:href="@{/img/favicons/favicon.ico}">
+    <meta name="msapplication-TileColor" content="#00a8ff">
+    <meta name="msapplication-config" content="img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/profile.css}" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+<div class="container-xl px-4 mt-4">
+
+    <nav class="nav nav-borders">
+        <a class="nav-link text-primary ms-0" th:href="@{/}" target="__blank" th:text="#{nav.home}">Home</a>
+        <a class="nav-link active ms-0" th:href="@{/user/profile}" target="__blank" th:text="#{nav.profile}">Profile</a>
+        <a class="nav-link" th:href="@{/user/billing}" target="__blank" th:text="#{nav.billing}">Billing</a>
+        <a class="nav-link" th:href="@{/user/security}" target="__blank" th:text="#{nav.security}">Security</a>
+        <a class="nav-link" th:href="@{/user/workout}" target="__blank" th:text="#{nav.workout}">Workout</a>
+        <a class="nav-link" th:href="@{/client/listCoachesForClient}" target="__blank" th:text="#{nav.coaches}">Coaches</a>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+               data-bs-toggle="dropdown" aria-expanded="false" th:text="${#strings.toUpperCase(#locale)}">
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" th:href="@{''(language=en)}" th:text="#{lang.eng}">Eng</a><i
+                    class="flag flag-united-states"></i>
+                <a class="dropdown-item" th:href="@{''(language=ru)}" th:text="#{lang.ru}">Rus</a><i
+                    class="flag flag-russia"></i>
+                <a class="dropdown-item" th:href="@{''(language=uk)}" th:text="#{lang.uk}">Ukr</a><i
+                    class="flag flag-ukraine"></i>
+            </ul>
+        </div>
+    </nav>
+    <hr class="mt-0 mb-4">
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header" th:text="#{profile.profilePicture}">Profile Picture</div>
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    <img class="img-account-profile rounded-circle mb-2"
+                         src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                    <!-- Profile picture help block-->
+                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                    <!-- Profile picture upload button-->
+                    <button class="btn btn-primary" type="button">Upload new image</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card mb-4">
+                <div class="card-header" th:text="#{profile.accountDetails}">Account Details</div>
+                <div class="card-body">
+                    <form th:action="@{/user/updateUser/{id}(id=${userDto.id})}" th:method="post"
+                          th:object="${userDto}">
+
+                        <input type="text" id="password"
+                               th:field="*{password}" hidden/>
+
+                        <input type="text" id="coach"
+                               th:field="*{coach}" hidden/>
+
+                        <input type="text" id="typeUser"
+                               th:field="*{typeUser}" hidden/>
+
+
+                        <div class="mb-3">
+                            <div th:each="genderValue : ${T(com.example.springsecuritydemo.model.Gender).values()}">
+                                <label for="inputGender" class="small mb-1"
+                                       th:text="${genderValue.displayValue}"></label>
+                                <input
+                                        type="radio"
+                                        class="form-check-input"
+                                        id="inputGender"
+                                        th:field="*{gender}"
+                                        th:value="${genderValue}"/>
+                            </div>
+                            <span class="alert-danger" th:if="${#fields.hasErrors('gender')}"
+                                  th:errors="*{gender}">Name Error</span>
+                        </div>
+
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (first name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputFirstName" th:text="#{user.field.firstName}">First
+                                    name</label>
+                                <input class="form-control" id="inputFirstName" type="text"
+                                       placeholder="Enter your first name" th:field="*{firstName}">
+                                <span class="alert-danger" th:if="${#fields.hasErrors('firstName')}"
+                                      th:errors="*{firstName}">Name Error</span>
+
+                            </div>
+                            <!-- Form Group (last name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLastName" th:text="#{user.field.lastName}">Last
+                                    name</label>
+                                <input class="form-control" id="inputLastName" type="text"
+                                       placeholder="Enter your last name" th:field="*{lastName}">
+                                <span class="alert-danger" th:if="${#fields.hasErrors('lastName')}"
+                                      th:errors="*{lastName}">Name Error</span>
+                            </div>
+                        </div>
+                        <!-- Form Row        -->
+                        <div class="row gx-3 mb-3"
+                             th:if="${userDto.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT}">
+
+                            <!-- Form Group (organization name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputHeight"
+                                       th:text="#{client.field.height}">Height(cm)</label>
+                                <input class="form-control" id="inputHeight" type="number"
+                                       placeholder="Enter your height" th:field="*{height}">
+                                <span class="alert-danger" th:if="${#fields.hasErrors('height')}"
+                                      th:errors="*{height}">Name Error</span>
+                            </div>
+                            <!-- Form Group (location)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputWeight"
+                                       th:text="#{client.field.weight}">Weight(kg)</label>
+                                <input class="form-control" id="inputWeight" type="number"
+                                       placeholder="Enter your weight" pattern="[/d]*" th:field="*{weight}">
+                                <span class="alert-danger" th:if="${#fields.hasErrors('weight')}"
+                                      th:errors="*{weight}">Name Error</span>
+                            </div>
+                        </div>
+                        <!-- Form Group (email address)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputEmailAddress" th:text="#{user.field.email}">Email
+                                address</label>
+                            <input class="form-control" id="inputEmailAddress" type="email"
+                                   placeholder="Enter your email address" th:field="*{email}">
+                            <span class="alert-danger" th:if="${#fields.hasErrors('email')}"
+                                  th:errors="*{email}">Name Error</span>
+                            <span class="alert-danger" th:if="${message}"
+                                  th:text="${message}"></span>
+                        </div>
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (phone number)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputPhone" th:text="#{user.field.phone}">Phone
+                                    number</label>
+                                <input class="form-control" id="inputPhone" type="tel"
+                                       placeholder="Enter your phone number" th:field="*{phone}">
+                                <span class="help-block">Format: 0962750198</span>
+                                <span class="alert-danger" th:if="${#fields.hasErrors('phone')}"
+                                      th:errors="*{phone}">Name Error</span>
+                            </div>
+                            <!-- Form Group (birthday)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputBirthday"
+                                       th:text="#{user.field.birthDate}">Birthday</label>
+                                <input type="date" class="form-control" id="inputBirthday" name="birthday"
+                                       placeholder="Enter your birthday" th:field="*{birthDate}">
+                                <span class="alert-danger" th:if="${#fields.hasErrors('birthDate')}"
+                                      th:errors="*{birthDate}">Name Error</span>
+                            </div>
+                            <div id="coachContent"
+                                 th:if="${userDto.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}">
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputEducation" th:text="#{coach.field.education}">Education</label>
+                                    <input type="text" class="form-control" id="inputEducation" name="birthday"
+                                           placeholder="Enter your education" th:field="*{education}">
+                                    <span class="alert-danger" th:if="${#fields.hasErrors('education')}"
+                                          th:errors="*{education}">Name Error</span>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputAchievement"
+                                           th:text="#{coach.field.achievement}">Achievement</label>
+                                    <input type="text" id="inputAchievement"
+                                           class="form-control" placeholder="Enter your achievement"
+                                           th:field="*{achievement}"/>
+                                    <span class="alert-danger" th:if="${#fields.hasErrors('achievement')}"
+                                          th:errors="*{achievement}">Name Error</span>
+
+                                </div>
+
+
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputAdditionalInfo"
+                                           th:text="#{coach.field.additionalInfo}">Additional Info</label>
+                                    <input type="text" id="inputAdditionalInfo"
+                                           class="form-control" placeholder="Enter your additional info"
+                                           th:field="*{additionalInfo}"/>
+                                    <span class="alert-danger" th:if="${#fields.hasErrors('additionalInfo')}"
+                                          th:errors="*{additionalInfo}">Name Error</span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputSpecialization"
+                                           th:text="#{coach.field.specialization}">Specialization</label>
+                                    <input type="text" id="inputSpecialization"
+                                           class="form-control" placeholder="Enter your additional info"
+                                           th:field="*{specialization}"/>
+                                    <span class="alert-danger" th:if="${#fields.hasErrors('specialization')}"
+                                          th:errors="*{specialization}">Name Error</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- Save changes button-->
+                        <button class="btn btn-primary" type="submit">Change</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Billing</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" th:href="@{/cimg/favicons/apple-touch-icon-57x57.png}">
+    <link rel="apple-touch-icon" sizes="60x60" th:href="@{/img/favicons/apple-touch-icon-60x60.png}">
+    <link rel="icon" type="image/png" th:href="@{/img/favicons/favicon-32x32.png}" sizes="32x32">
+    <link rel="icon" type="image/png" th:href="@{/img/favicons/favicon-16x16.png}" sizes="16x16">
+    <link rel="manifest" th:href="@{/img/favicons/manifest.json}">
+    <link rel="shortcut icon" th:href="@{/img/favicons/favicon.ico}">
+    <meta name="msapplication-TileColor" content="#00a8ff">
+    <meta name="msapplication-config" content="img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/security.css}" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+          integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous"/>
+
+
+</head>
+
+<body>
+
+<div class="container-xl px-4 mt-4">
+    <!-- Account page navigation-->
+    <nav class="nav nav-borders">
+        <a class="nav-link text-primary ms-0" th:href="@{/}" target="__blank" th:text="#{nav.home}">Home</a>
+        <a class="nav-link  ms-0" th:href="@{/user/profile}" target="__blank" th:text="#{nav.profile}">Profile</a>
+        <a class="nav-link active" th:href="@{/user/billing}" target="__blank" th:text="#{nav.billing}">Billing</a>
+        <a class="nav-link " th:href="@{/user/security}" target="__blank" th:text="#{nav.security}">Security</a>
+        <a class="nav-link " th:href="@{/user/workout}" target="__blank" th:text="#{nav.workout}">Workout</a>
+        <a class="nav-link" th:href="@{/client/listCoachesForClient}" target="__blank" th:text="#{nav.coaches}">Coaches</a>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+               data-bs-toggle="dropdown" aria-expanded="false" th:text="${#strings.toUpperCase(#locale)}">
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" th:href="@{''(language=en)}" th:text="#{lang.eng}">Eng</a><i
+                    class="flag flag-united-states"></i>
+                <a class="dropdown-item" th:href="@{''(language=ru)}" th:text="#{lang.ru}">Rus</a><i
+                    class="flag flag-russia"></i>
+                <a class="dropdown-item" th:href="@{''(language=uk)}" th:text="#{lang.uk}">Ukr</a><i
+                    class="flag flag-ukraine"></i>
+            </ul>
+        </div>
+    </nav>
+    <hr class="mt-0 mb-4">
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <!-- Billing card 1-->
+            <div class="card h-100 border-start-lg border-start-primary">
+                <div class="card-body">
+                    <div class="small text-muted">Current monthly bill</div>
+                    <div class="h3">$20.00</div>
+                    <a class="text-arrow-icon small" href="#!">
+                        Switch to yearly billing
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-arrow-right">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <!-- Billing card 2-->
+            <div class="card h-100 border-start-lg border-start-secondary">
+                <div class="card-body">
+                    <div class="small text-muted">Next payment due</div>
+                    <div class="h3">July 15</div>
+                    <a class="text-arrow-icon small text-secondary" href="#!">
+                        View payment history
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-arrow-right">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <!-- Billing card 3-->
+            <div class="card h-100 border-start-lg border-start-success">
+                <div class="card-body">
+                    <div class="small text-muted">Current plan</div>
+                    <div class="h3 d-flex align-items-center">Freelancer</div>
+                    <a class="text-arrow-icon small text-success" href="#!">
+                        Upgrade plan
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-arrow-right">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Payment methods card-->
+    <div class="card card-header-actions mb-4">
+        <div class="card-header">
+            Payment Methods
+            <button class="btn btn-sm btn-primary" type="button">Add Payment Method</button>
+        </div>
+        <div class="card-body px-0">
+            <!-- Payment method 1-->
+            <div class="d-flex align-items-center justify-content-between px-4">
+                <div class="d-flex align-items-center">
+                    <i class="fab fa-cc-visa fa-2x cc-color-visa"></i>
+                    <div class="ms-4">
+                        <div class="small">Visa ending in 1234</div>
+                        <div class="text-xs text-muted">Expires 04/2024</div>
+                    </div>
+                </div>
+                <div class="ms-4 small">
+                    <div class="badge bg-light text-dark me-3">Default</div>
+                    <a href="#!">Edit</a>
+                </div>
+            </div>
+            <hr>
+            <!-- Payment method 2-->
+            <div class="d-flex align-items-center justify-content-between px-4">
+                <div class="d-flex align-items-center">
+                    <i class="fab fa-cc-mastercard fa-2x cc-color-mastercard"></i>
+                    <div class="ms-4">
+                        <div class="small">Mastercard ending in 5678</div>
+                        <div class="text-xs text-muted">Expires 05/2022</div>
+                    </div>
+                </div>
+                <div class="ms-4 small">
+                    <a class="text-muted me-3" href="#!">Make Default</a>
+                    <a href="#!">Edit</a>
+                </div>
+            </div>
+            <hr>
+            <!-- Payment method 3-->
+            <div class="d-flex align-items-center justify-content-between px-4">
+                <div class="d-flex align-items-center">
+                    <i class="fab fa-cc-amex fa-2x cc-color-amex"></i>
+                    <div class="ms-4">
+                        <div class="small">American Express ending in 9012</div>
+                        <div class="text-xs text-muted">Expires 01/2026</div>
+                    </div>
+                </div>
+                <div class="ms-4 small">
+                    <a class="text-muted me-3" href="#!">Make Default</a>
+                    <a href="#!">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Billing history card-->
+    <div class="card mb-4">
+        <div class="card-header">Billing History</div>
+        <div class="card-body p-0">
+            <!-- Billing history table-->
+            <div class="table-responsive table-billing-history">
+                <table class="table mb-0">
+                    <thead>
+                    <tr>
+                        <th class="border-gray-200" scope="col">Transaction ID</th>
+                        <th class="border-gray-200" scope="col">Date</th>
+                        <th class="border-gray-200" scope="col">Amount</th>
+                        <th class="border-gray-200" scope="col">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>#39201</td>
+                        <td>06/15/2021</td>
+                        <td>$29.99</td>
+                        <td><span class="badge bg-light text-dark">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>#38594</td>
+                        <td>05/15/2021</td>
+                        <td>$29.99</td>
+                        <td><span class="badge bg-success">Paid</span></td>
+                    </tr>
+                    <tr>
+                        <td>#38223</td>
+                        <td>04/15/2021</td>
+                        <td>$29.99</td>
+                        <td><span class="badge bg-success">Paid</span></td>
+                    </tr>
+                    <tr>
+                        <td>#38125</td>
+                        <td>03/15/2021</td>
+                        <td>$29.99</td>
+                        <td><span class="badge bg-success">Paid</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

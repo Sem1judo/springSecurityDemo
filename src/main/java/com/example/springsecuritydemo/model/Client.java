@@ -1,42 +1,41 @@
 package com.example.springsecuritydemo.model;
 
 
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
+
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "clients")
-public class Client extends User{
+@ToString
+public class Client extends User {
 
     @Column
-    @NotNull
-    @Min(20)
-    @Max(value = 300)
     private Integer height;
 
     @Column
-    @NotNull
-    @Digits(integer = 3, fraction = 1)
-    @Min(20)
-    @Max(300)
     private BigDecimal weight;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Coach coach;
+
+    @Column(name = "status_coach")
+    @Enumerated(value = EnumType.STRING)
+    private StatusCoach statusCoach;
+
+    @ManyToMany
+    @JoinTable(
+            name = "exercise_client_use",
+            joinColumns = @JoinColumn(name = "exercise_client_id"),
+            inverseJoinColumns = @JoinColumn(name = "exercise_id"))
+    @ToString.Exclude
+    private List<Exercise> exercises;
 
 }

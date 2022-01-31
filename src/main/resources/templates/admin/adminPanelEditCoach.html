@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>List user</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/adminPanel.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header th:insert="admin/adminPanelNav :: nav"></header>
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="site-content">
+                <section class="vh-100 gradient-custom">
+                    <div class="container py-5 h-100">
+                        <div class="row justify-content-center align-items-center h-100">
+                            <div class="col-12 col-lg-9 col-xl-7">
+                                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                                    <div class="card-body p-4 p-md-5">
+                                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+                                        <form th:action="@{/admin/updateCoach/{id}(id=${userDto.id})}" th:method="post"
+                                              th:object="${userDto}">
+                                            <input type="text" id="typeUser"
+                                                   class="form-control form-control-lg"
+                                                   th:field="*{typeUser}" hidden>
+
+                                            <div class="row">
+                                                <div class="form-group">
+                                                </div>
+                                                <div class="col-md-6 mb-4">
+                                                    <div class="form-outline">
+                                                        <label class="form-label" for="firstName">First Name</label>
+                                                        <input type="text" id="firstName"
+                                                               class="form-control form-control-lg"
+                                                               th:field="*{firstName}"/>
+                                                        <span th:if="${#fields.hasErrors('firstName')}"
+                                                              th:errors="*{firstName}">Name Error</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-4">
+
+                                                    <div class="form-outline">
+                                                        <label class="form-label" for="lastName">Last name</label>
+                                                        <input type="text" id="lastName"
+                                                               class="form-control form-control-lg"
+                                                               th:field="*{lastName}"/>
+                                                        <span th:if="${#fields.hasErrors('lastName')}"
+                                                              th:errors="*{lastName}">Name Error</span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6 mb-4">
+
+                                                    <div class="form-outline">
+                                                        <label class="form-label" for="password">password</label>
+                                                        <input type="text" id="password"
+                                                               class="form-control form-control-lg"
+                                                               th:field="*{password}"/>
+                                                        <span th:if="${#fields.hasErrors('password')}"
+                                                              th:errors="*{password}">Name Error</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 mb-4">
+
+                                                    <div class="form-outline">
+                                                        <label class="form-label" for="email">Email</label>
+                                                        <input type="email" id="email"
+                                                               class="form-control form-control-lg"
+                                                               th:field="*{email}"/>
+                                                        <span th:if="${#fields.hasErrors('email')}"
+                                                              th:errors="*{email}">Name Error</span>
+                                                        <span th:if="${message}"
+                                                              th:text="${message}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                                                    <div class="form-outline datepicker w-100">
+                                                        <input
+                                                                type="date"
+                                                                class="form-control form-control-lg"
+                                                                id="birthDate"
+                                                                th:field="*{birthDate}"/>
+                                                        <label for="birthDate" class="form-label">Birthday</label>
+                                                        <span th:if="${#fields.hasErrors('birthDate')}"
+                                                              th:errors="*{birthDate}">Name Error</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                                                    <div class="form-outline">
+                                                        <input type="tel" id="phoneNumber"
+                                                               class="form-control form-control-lg"
+                                                               th:field="*{phone}"/>
+                                                        <label class="form-label" for="phoneNumber">Phone Number</label>
+                                                        <span class="help-block">Format: 0962750198</span>
+                                                        <span th:if="${#fields.hasErrors('phone')}"
+                                                              th:errors="*{phone}">Name Error</span>
+                                                    </div>
+                                                </div>
+
+                                                <div id="coachContent">
+                                                    <div class="form-outline coach_div">
+                                                        <label class="form-label"
+                                                               for="education">Education </label>
+                                                        <input type="text" id="education"
+                                                               class="form-control form-control-lg"
+                                                               th:field="*{education}"/>
+                                                        <span th:if="${#fields.hasErrors('education')}"
+                                                              th:errors="*{education}">Name Error</span>
+                                                    </div>
+
+                                                    <div class="form-outline">
+                                                        <label class="form-label"
+                                                               for="achievement">Achievement</label>
+                                                        <input type="text" id="achievement"
+                                                               class="form-control form-control-lg"
+                                                               th:field="*{achievement}"/>
+                                                        <span th:if="${#fields.hasErrors('achievement')}"
+                                                              th:errors="*{achievement}">Name Error</span>
+                                                    </div>
+
+                                                    <div class="form-outline">
+                                                        <label class="form-label" for="additionalInfo">additional
+                                                            Info</label>
+                                                        <input type="text" id="additionalInfo"
+                                                               class="form-control form-control-lg"
+                                                               th:field="*{additionalInfo}"/>
+                                                        <span th:if="${#fields.hasErrors('additionalInfo')}"
+                                                              th:errors="*{additionalInfo}">Name Error</span>
+                                                    </div>
+                                                    <div class="form-outline">
+                                                        <label class="form-label" for="specialization">specialization</label>
+                                                        <input type="text" id="specialization"
+                                                               class="form-control form-control-lg"
+                                                               th:field="*{specialization}"/>
+                                                        <span th:if="${#fields.hasErrors('specialization')}"
+                                                              th:errors="*{specialization}">Name Error</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="col-12">
+
+                                                    <div class="col-md-6 mb-4 ">
+                                                        <h6 class="mb-2 pb-1">Gender: </h6>
+                                                        <div class="form-check form-check-inline"
+                                                             th:each="genderValue : ${T(com.example.springsecuritydemo.model.Gender).values()}">
+                                                            <input
+                                                                    type="radio"
+                                                                    class="form-check-input"
+                                                                    name="inlineRadioOptions"
+                                                                    th:field="*{gender}"
+                                                                    th:value="${genderValue}"/>
+                                                            <label class="form-check-label"
+                                                                   th:text="${genderValue.displayValue}"></label>
+                                                        </div>
+                                                        <span th:if="${#fields.hasErrors('gender')}"
+                                                              th:errors="*{gender}">Name Error</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-4 pt-2">
+                                                <button type="submit"
+                                                        class="btn btn-dark btn-lg">
+                                                    Update
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
