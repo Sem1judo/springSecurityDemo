@@ -14,7 +14,7 @@
     <name>springSecurityDemo</name>
     <description>springSecurityDemo</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>15</java.version>
         <jjwt.version>0.9.1</jjwt.version>
         <oath2.version>2.5.6</oath2.version>
     </properties>
@@ -22,7 +22,7 @@
     <dependencies>
 
 
-<!--        for heroku-->
+        <!--        for heroku-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
@@ -152,8 +152,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>15</source>
+                    <target>15</target>
                 </configuration>
             </plugin>
         </plugins>
