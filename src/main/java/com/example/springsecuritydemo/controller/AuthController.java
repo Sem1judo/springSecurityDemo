@@ -1,6 +1,5 @@
 package com.example.springsecuritydemo.controller;
 
-import com.example.springsecuritydemo.exception.UserAlreadyExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
