@@ -52,7 +52,7 @@ public class RegistrationUserController {
         } else {
             try {
                 userService.registerNewUser(userDto);
-                mav.setViewName(REDIRECT);
+                mav.setViewName(REDIRECT+"profile");
             } catch (UserAlreadyExistException uaeEx) {
                 mav.addObject("message", "An account for that username/email already exists.");
             }

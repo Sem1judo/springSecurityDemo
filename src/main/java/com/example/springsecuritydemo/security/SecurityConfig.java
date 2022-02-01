@@ -34,22 +34,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/user/registration").permitAll()
-                .antMatchers("/user/signUpEmail").permitAll().
-                antMatchers("/auth/login").permitAll();
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/auth/login").permitAll()
-//                .failureUrl("/auth/login?error=true")
-//                .defaultSuccessUrl("/",true)
-//                .and()
-//                .logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
-//                .invalidateHttpSession(true)
-//                .clearAuthentication(true)
-//                .deleteCookies("JSESSIONID")
-//                .logoutSuccessUrl("/auth/login");
+                .antMatchers("/user/signUpEmail").permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/auth/login").permitAll()
+                .failureUrl("/auth/login?error=true")
+                .defaultSuccessUrl("/", true)
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/auth/login");
 
     }
 
