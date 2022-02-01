@@ -14,7 +14,7 @@
     <name>springSecurityDemo</name>
     <description>springSecurityDemo</description>
     <properties>
-        <java.version>14</java.version>
+        <java.version>11</java.version>
         <jjwt.version>0.9.1</jjwt.version>
         <oath2.version>2.5.6</oath2.version>
     </properties>
@@ -31,10 +31,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
@@ -121,7 +117,11 @@
             <version>2.5.6</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+        </dependency>
     </dependencies>
 
     <build>
