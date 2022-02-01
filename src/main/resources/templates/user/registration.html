@@ -65,7 +65,7 @@
 
                 <li><a href="#team"></a></li>
                 <th:block sec:authorize="isAnonymous()">
-                    <li><a th:href="@{/user/register}" class="btn btn-blue" th:text="#{login.signIn}">Sign in</a></li>
+                    <li><a th:href="@{/user/registration}" class="btn btn-blue" th:text="#{login.signIn}">Sign in</a></li>
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
                     <li>

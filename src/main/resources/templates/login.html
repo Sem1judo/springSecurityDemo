@@ -91,7 +91,7 @@
         </div>
         <div class="card border-0 shadow rounded-3 my-5">
             <div class="card-body p-4 p-sm-5">
-                <form method="POST" action="/auth/login">
+                <form  th:action="@{/auth/login}" method="post">
                     <div th:if="${error}" class="alert alert-danger">
                         <span th:text="#{login.failed}"></span>
                     </div>
