@@ -69,7 +69,7 @@
                 <li><a href="#team" th:text="#{nav.classes }">Classes</a></li>
                 <li><a href="#pricing" th:text="#{nav.pricing}">Pricing</a></li>
                 <th:block sec:authorize="isAnonymous()">
-                    <li><a th:href="@{/user/register}" class="btn btn-blue" th:text="#{login.signIn}">Sign in</a></li>
+                    <li><a th:href="@{/auth/login}" class="btn btn-blue" th:text="#{login.signIn}">Sign in</a></li>
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
                     <li>
