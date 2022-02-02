@@ -65,7 +65,7 @@
 
                 <li><a href="#team"></a></li>
                 <th:block sec:authorize="isAnonymous()">
-                    <li><a th:href="@{/auth/login}"  class="btn btn-blue" th:text="#{login.signIn}">Sign in</a></li>
+                    <li><a th:href="@{/auth/login}" class="btn btn-blue" th:text="#{login.signIn}">Sign in</a></li>
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
                     <li>
@@ -81,10 +81,15 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-
-<h1>Something went wrong! </h1>
-<a th:href="@{/}">Go Home</a>
-
+<section id="team" class="section gray-bg m5">
+    <div class="container">
+        <div class="row title text-center">
+            <h2>Something went wrong! </h2>
+            <h3>Sorry but you don't have access for this page</h3>
+            <a th:href="@{/}">Go Home</a>
+        </div>
+    </div>
+</section>
 <footer>
     <div class="container">
         <div class="row">
