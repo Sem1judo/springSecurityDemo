@@ -52,7 +52,7 @@ public class RegistrationUserController {
         } else {
             try {
                 userService.registerNewUser(userDto);
-                mav.setViewName(REDIRECT+"profile");
+                mav.setViewName(REDIRECT + "profile");
             } catch (UserAlreadyExistException uaeEx) {
                 mav.addObject("message", "An account for that username/email already exists.");
             }
@@ -61,24 +61,20 @@ public class RegistrationUserController {
     }
 
     @GetMapping("/signUpEmail")
-    ModelAndView signUpEmail(HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+    ModelAndView signUpEmail(HttpServletRequest request, @RequestParam(value = "plan", defaultValue = "empty") String plan) throws MessagingException, UnsupportedEncodingException {
         ModelAndView mav = new ModelAndView("/index");
 
-                String name = request.getParameter("name");
+        String name = request.getParameter("name");
         String email = request.getParameter("email");
-        MimeMessage mailMessage = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(mailMessage);
+        String phone = request.getParameter("phone");
 
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("noreply@baeldung.com");
+        message.setTo("respect.dun@gmail.com");
+        message.setSubject("User data: ");
+        message.setText("Full name :" + name + ", Email :" + email + ", Phone: " + phone + ",Plan: " + plan);
+        mailSender.send(message);
 
-        String mailSub = name + " has sent message";
-        String mailContent = email + "= has email";
-
-        helper.setFrom("judo1stss1@gmail.com", "Smart sport contact");
-        helper.setTo("respectdun@gmail.com");
-        helper.setSubject(mailSub);
-        helper.setText(mailContent, true);
-
-        mailSender.send(mailMessage);
 
         return mav;
     }
