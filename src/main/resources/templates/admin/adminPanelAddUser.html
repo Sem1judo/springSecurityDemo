@@ -23,184 +23,179 @@
                                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Create user</h3>
                                         <form th:action="@{/admin/registerUser}" th:method="post"
                                               th:object="${userDto}">
-                                            <div class="row">
-                                                <div class="form-group">
+                                            <div class="row gx-3 mb-3">
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputFirstName"
+                                                           th:text="#{user.field.firstName}">First
+                                                        name</label>
+                                                    <input class="form-control" id="inputFirstName" type="text"
+                                                           placeholder="Enter your first name" th:field="*{firstName}">
+                                                    <span class="alert-danger" th:if="${#fields.hasErrors('firstName')}"
+                                                          th:errors="*{firstName}">Name Error</span>
                                                 </div>
-                                                <div class="col-md-6 mb-4">
-                                                    <div class="form-outline">
-                                                        <label class="form-label" for="firstName">First Name</label>
-                                                        <input type="text" id="firstName"
-                                                               class="form-control form-control-lg"
-                                                               th:field="*{firstName}"/>
-                                                        <span th:if="${#fields.hasErrors('firstName')}"
-                                                              th:errors="*{firstName}">Name Error</span>
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputLastName"
+                                                           th:text="#{user.field.lastName}">Last
+                                                        name</label>
+                                                    <input class="form-control" id="inputLastName" type="text"
+                                                           placeholder="Enter your last name" th:field="*{lastName}">
+                                                    <span class="alert-danger" th:if="${#fields.hasErrors('lastName')}"
+                                                          th:errors="*{lastName}">Name Error</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row gx-3 mb-3">
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputEmailAddress"
+                                                           th:text="#{user.field.email}">Email
+                                                        address</label>
+                                                    <input class="form-control" id="inputEmailAddress" type="email"
+                                                           placeholder="Enter your email address" th:field="*{email}">
+                                                    <span class="alert-danger" th:if="${#fields.hasErrors('email')}"
+                                                          th:errors="*{email}">Name Error</span>
+                                                    <span class="alert-danger" th:if="${message}"
+                                                          th:text="${message}"></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputPassword"
+                                                           th:text="#{user.field.password}">Password</label>
+                                                    <input class="form-control" id="inputPassword" type="text"
+                                                           placeholder="Enter your password" th:field="*{password}">
+                                                    <span class="alert-danger" th:if="${#fields.hasErrors('password')}"
+                                                          th:errors="*{password}">Name Error</span>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Form Group (phone number)-->
+                                            <div class="row gx-3 mb-3">
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputPhone"
+                                                           th:text="#{user.field.phone}">Phone
+                                                        number</label>
+                                                    <input class="form-control" id="inputPhone" type="tel"
+                                                           placeholder="Enter your phone number"
+                                                           th:field="*{phone}">
+                                                    <span class="help-block">Format: 0962750198</span>
+                                                    <span class="alert-danger"
+                                                          th:if="${#fields.hasErrors('phone')}"
+                                                          th:errors="*{phone}">Name Error</span>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputBirthday"
+                                                           th:text="#{user.field.birthDate}">Birthday</label>
+                                                    <input type="date" class="form-control" id="inputBirthday"
+                                                           name="birthday"
+                                                           placeholder="Enter your birthday"
+                                                           th:field="*{birthDate}">
+                                                    <span class="alert-danger"
+                                                          th:if="${#fields.hasErrors('birthDate')}"
+                                                          th:errors="*{birthDate}">Name Error</span>
+                                                </div>
+                                            </div>
+
+                                            <div sec:authorize="hasAuthority('admin:create')" class="container">
+                                                <div class="custom-radio-button">
+                                                    <div>
+                                                        <input type="radio" id="CLIENT"
+                                                               th:value="${T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT}"
+                                                               th:field="*{typeUser}">
+                                                        <label for="CLIENT">
+                                                            <span th:text="${T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT}"></span>
+                                                        </label>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6 mb-4">
-
-                                                    <div class="form-outline">
-                                                        <label class="form-label" for="lastName">Last name</label>
-                                                        <input type="text" id="lastName"
-                                                               class="form-control form-control-lg"
-                                                               th:field="*{lastName}"/>
-                                                        <span th:if="${#fields.hasErrors('lastName')}"
-                                                              th:errors="*{lastName}">Name Error</span>
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-md-6 mb-4">
-
-                                                    <div class="form-outline">
-                                                        <label class="form-label" for="password">password</label>
-                                                        <input type="password" id="password"
-                                                               class="form-control form-control-lg"
-                                                               th:field="*{password}"/>
-                                                        <span th:if="${#fields.hasErrors('password')}"
-                                                              th:errors="*{password}">Name Error</span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6 mb-4">
-
-                                                    <div class="form-outline">
-                                                        <label class="form-label" for="email">Email</label>
-                                                        <input type="email" id="email"
-                                                               class="form-control form-control-lg"
-                                                               th:field="*{email}"/>
-                                                        <span th:if="${#fields.hasErrors('email')}"
-                                                              th:errors="*{email}">Name Error</span>
-                                                        <span th:if="${message}"
-                                                              th:text="${message}"></span>
+                                                    <div>
+                                                        <input type="radio" id="COACH"
+                                                               th:value="${T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}"
+                                                               th:field="*{typeUser}">
+                                                        <label for="COACH">
+                                                            <span th:text="${T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}"></span>
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col-md-6 mb-4 d-flex align-items-center">
-
-                                                    <div class="form-outline datepicker w-100">
-                                                        <input
-                                                                type="date"
-                                                                class="form-control form-control-lg"
-                                                                id="birthDate"
-                                                                th:field="*{birthDate}"/>
-                                                        <label for="birthDate" class="form-label">Birthday</label>
-                                                        <span th:if="${#fields.hasErrors('birthDate')}"
-                                                              th:errors="*{birthDate}">Name Error</span>
-                                                    </div>
+                                            <div sec:authorize="hasAuthority('admin:create')" id="coachContent"
+                                                 style="display: none">
+                                                <div class="mb-3">
+                                                    <label class="small mb-1" for="inputEducation"
+                                                           th:text="#{coach.field.education}">Education</label>
+                                                    <input type="text" class="form-control"
+                                                           id="inputEducation"
+                                                           name="birthday"
+                                                           placeholder="Enter your education"
+                                                           th:field="*{education}">
+                                                    <span class="alert-danger"
+                                                          th:if="${#fields.hasErrors('education')}"
+                                                          th:errors="*{education}">Name Error</span>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="small mb-1" for="inputAchievement"
+                                                           th:text="#{coach.field.achievement}">Achievement</label>
+                                                    <input type="text" id="inputAchievement"
+                                                           class="form-control"
+                                                           placeholder="Enter your achievement"
+                                                           th:field="*{achievement}"/>
+                                                    <span class="alert-danger"
+                                                          th:if="${#fields.hasErrors('achievement')}"
+                                                          th:errors="*{achievement}">Name Error</span>
                                                 </div>
 
-                                                <div class="col-md-6 mb-4 d-flex align-items-center">
-
-                                                    <div class="form-outline">
-                                                        <input type="tel" id="phoneNumber"
-                                                               class="form-control form-control-lg"
-                                                               th:field="*{phone}"/>
-                                                        <label class="form-label" for="phoneNumber">Phone Number</label>
-                                                        <span class="help-block">Format: 0962750198</span>
-                                                        <span th:if="${#fields.hasErrors('phone')}"
-                                                              th:errors="*{phone}">Name Error</span>
-                                                    </div>
+                                                <div class="mb-3">
+                                                    <label class="small mb-1" for="inputAdditionalInfo"
+                                                           th:text="#{coach.field.additionalInfo}">Additional
+                                                        Info</label>
+                                                    <input type="text" id="inputAdditionalInfo"
+                                                           class="form-control"
+                                                           placeholder="Enter your additional info"
+                                                           th:field="*{additionalInfo}"/>
+                                                    <span class="alert-danger"
+                                                          th:if="${#fields.hasErrors('additionalInfo')}"
+                                                          th:errors="*{additionalInfo}">Name Error</span>
                                                 </div>
 
-                                                <div class="row" sec:authorize="hasAuthority('admin:create')">
-                                                    <div class="container">
-                                                        <div class="row">
-
-                                                            <div class="custom-radio-button">
-                                                                <div>
-                                                                    <input type="radio" id="CLIENT"
-                                                                           th:value="${T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT}"
-                                                                           th:field="*{typeUser}">
-                                                                    <label for="CLIENT">
-                                                            <span th:text="${T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT    }">
-                                                                </span>
-                                                                    </label>
-                                                                </div>
-
-                                                                <div>
-                                                                    <input type="radio" id="COACH"
-                                                                           th:value="${T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}"
-                                                                           th:field="*{typeUser}">
-                                                                    <label for="COACH">
-                                                             <span th:text="${T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}">
-                                                                </span>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="coachContent">
-                                                        <div class="form-outline coach_div">
-                                                            <label class="form-label"
-                                                                   for="education">Education </label>
-                                                            <input type="text" id="education"
-                                                                   class="form-control form-control-lg"
-                                                                   th:field="*{education}"/>
-                                                            <span th:if="${#fields.hasErrors('education')}"
-                                                                  th:errors="*{education}">Name Error</span>
-                                                        </div>
-
-                                                        <div class="form-outline">
-                                                            <label class="form-label"
-                                                                   for="achievement">Achievement</label>
-                                                            <input type="text" id="achievement"
-                                                                   class="form-control form-control-lg"
-                                                                   th:field="*{achievement}"/>
-                                                            <span th:if="${#fields.hasErrors('achievement')}"
-                                                                  th:errors="*{achievement}">Name Error</span>
-                                                        </div>
-
-                                                        <div class="form-outline">
-                                                            <label class="form-label" for="additionalInfo">additional
-                                                                Info</label>
-                                                            <input type="text" id="additionalInfo"
-                                                                   class="form-control form-control-lg"
-                                                                   th:field="*{additionalInfo}"/>
-                                                            <span th:if="${#fields.hasErrors('additionalInfo')}"
-                                                                  th:errors="*{additionalInfo}">Name Error</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-outline">
-                                                        <label class="form-label" for="specialization">specialization</label>
-                                                        <input type="text" id="specialization"
-                                                               class="form-control form-control-lg"
-                                                               th:field="*{specialization}"/>
-                                                        <span th:if="${#fields.hasErrors('specialization')}"
-                                                              th:errors="*{specialization}">Name Error</span>
-                                                    </div>
+                                                <div class="mb-3">
+                                                    <label class="small mb-1" for="inputSpecialization"
+                                                           th:text="#{coach.field.specialization}">Specialization</label>
+                                                    <input type="text" id="inputSpecialization"
+                                                           class="form-control"
+                                                           placeholder="Enter your additional info"
+                                                           th:field="*{specialization}"/>
+                                                    <span class="alert-danger"
+                                                          th:if="${#fields.hasErrors('specialization')}"
+                                                          th:errors="*{specialization}">Name Error</span>
                                                 </div>
                                             </div>
 
-                                            <div class="row" id="clientContent">
-                                                <div class="col-md-6 mb-4">
-                                                    <div class="form-outline">
-                                                        <label class="form-label" for="weight">Weight(kg)</label>
-                                                        <input type="number" id="weight"
-                                                               class="form-control form-control-lg"
-                                                               th:field="*{weight}"/>
-                                                        <span th:if="${#fields.hasErrors('weight')}"
-                                                              th:errors="*{weight}">Name Error</span>
-                                                    </div>
+                                            <div id="clientContent" style="display: none">
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputHeight"
+                                                           th:text="#{client.field.height}">Height(cm)</label>
+                                                    <input class="form-control" id="inputHeight" type="number"
+                                                           placeholder="Enter your height" th:field="*{height}">
+                                                    <span class="alert-danger"
+                                                          th:if="${#fields.hasErrors('height')}"
+                                                          th:errors="*{height}">Name Error</span>
                                                 </div>
-                                                <div class="col-md-6 mb-4">
-                                                    <div class="form-outline">
-                                                        <label class="form-label" for="height">Height(cm)</label>
-                                                        <input type="number" id="height"
-                                                               class="form-control form-control-lg"
-                                                               th:field="*{height}"/>
-                                                        <span th:if="${#fields.hasErrors('height')}"
-                                                              th:errors="*{height}">Name Error</span>
-                                                    </div>
+                                                <!-- Form Group (location)-->
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputWeight"
+                                                           th:text="#{client.field.weight}">Weight(kg)</label>
+                                                    <input class="form-control" id="inputWeight" type="number"
+                                                           placeholder="Enter your weight" pattern="[/d]*"
+                                                           th:field="*{weight}">
+                                                    <span class="alert-danger"
+                                                          th:if="${#fields.hasErrors('weight')}"
+                                                          th:errors="*{weight}">Name Error</span>
                                                 </div>
                                             </div>
-
 
                                             <div class="row">
                                                 <div class="col-12">
 
                                                     <div class="col-md-6 mb-4 ">
-                                                        <h6 class="mb-2 pb-1">Gender: </h6>
+                                                        <h6 class="mb-2 pb-1" th:text="#{user.field.gender}">Gender: </h6>
                                                         <div class="form-check form-check-inline"
                                                              th:each="genderValue : ${T(com.example.springsecuritydemo.model.Gender).values()}">
                                                             <input

@@ -230,6 +230,8 @@ public class AdminController {
 
         ModelAndView mav = new ModelAndView("redirect:/" + "admin/listCoaches");
 
+        System.out.println(userDto);
+
         if (bindingResult.hasErrors()) {
             mav.setViewName("admin/adminPanelEditCoach");
         } else {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,6 +31,8 @@
         <a class="nav-link " th:href="@{/user/workout}" target="__blank" th:text="#{nav.workout}">Workout</a>
         <a class="nav-link" th:href="@{/client/listCoachesForClient}" target="__blank"
            th:text="#{nav.coaches}">Coaches</a>
+        <a sec:authorize="hasAuthority('admin:read')" class="nav-link" th:href="@{/admin/adminPanel}" target="__blank"
+           th:text="#{nav.admin}">Admin Panel</a>
         <div class="dropdown">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                data-bs-toggle="dropdown" aria-expanded="false" th:text="${#strings.toUpperCase(#locale)}">

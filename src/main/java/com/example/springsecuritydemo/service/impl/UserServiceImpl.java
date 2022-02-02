@@ -213,6 +213,7 @@ public class UserServiceImpl implements IUserService {
         userDto.setPhone(t.getPhone());
         userDto.setBirthDate(t.getBirthDate());
         userDto.setGender(t.getGender());
+        userDto.setRole(t.getRole());
 
         if (t instanceof Client) {
             userDto.setTypeUser(TypeUser.CLIENT);
@@ -270,6 +271,7 @@ public class UserServiceImpl implements IUserService {
             t.setPassword(userDto.getPassword());
         }
         t.setEmail(userDto.getEmail());
+        t.setRole(userDto.getRole());
         t.setFirstName(userDto.getFirstName());
         t.setLastName(userDto.getLastName());
         t.setPhone(userDto.getPhone());

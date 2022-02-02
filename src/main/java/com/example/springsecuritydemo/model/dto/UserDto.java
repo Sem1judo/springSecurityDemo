@@ -56,6 +56,9 @@ public class UserDto {
     @NotBlank
     private String phone;
 
+    private Role role;
+    private Coach coach;
+
     @Past
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -104,7 +107,7 @@ public class UserDto {
             message = "Achievement must be alphanumeric with no forbidden characters")
     private String achievement;
 
-    private Coach coach;
+
 
     private List<Exercise> exercises;
     private List<Client> clients;
