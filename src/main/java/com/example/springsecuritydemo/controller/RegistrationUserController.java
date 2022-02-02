@@ -69,7 +69,7 @@ public class RegistrationUserController {
         String phone = request.getParameter("phone");
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("noreply@baeldung.com");
+        message.setFrom("noreply@smart-sport.com");
         message.setTo("respect.dun@gmail.com");
         message.setSubject("User data: ");
         message.setText("Full name :" + name + ", Email :" + email + ", Phone: " + phone + ",Plan: " + plan);
