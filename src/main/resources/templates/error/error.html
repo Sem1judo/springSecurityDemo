@@ -59,9 +59,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right main-nav">
-                <th:block sec:authorize="isAuthenticated()">
-                    <li><a th:href="@{/user/profile}" th:text="#{nav.profile}">Profile</a></li>
-                </th:block>
+
 
                 <li><a href="#team"></a></li>
                 <th:block sec:authorize="isAnonymous()">

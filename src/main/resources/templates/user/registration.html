@@ -183,57 +183,58 @@
 
                         </div>
                     </div>
+                </div>
 
 
-                    <div class="row" id="clientContent">
-                        <div class="col-md-6 mb-4">
-                            <div class="form-outline">
+                <div class="row" id="clientContent">
+                    <div class="col-md-6 mb-4">
+                        <div class="form-outline">
 
-                                <label class="form-label" for="weight"
-                                       th:text="#{client.field.weight}">Weight(kg)</label>
-                                <input type="number" id="weight" class="form-control form-control-lg"
-                                       th:field="*{weight}"/>
-                                <span class=" alert-danger" th:if="${#fields.hasErrors('weight')}"
-                                      th:errors="*{weight}">Name Error</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="form-outline">
-
-                                <label class="form-label" for="height"
-                                       th:text="#{client.field.height}">Height(cm)</label>
-                                <input type="number" id="height" class="form-control form-control-lg"
-                                       th:field="*{height}"/>
-                                <span class=" alert-danger" th:if="${#fields.hasErrors('height')}"
-                                      th:errors="*{height}">Name Error</span>
-                            </div>
+                            <label class="form-label" for="weight"
+                                   th:text="#{client.field.weight}">Weight(kg)</label>
+                            <input type="number" id="weight" class="form-control form-control-lg"
+                                   th:field="*{weight}"/>
+                            <span class=" alert-danger" th:if="${#fields.hasErrors('weight')}"
+                                  th:errors="*{weight}">Name Error</span>
                         </div>
                     </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="form-outline">
 
-                    <div class="row">
-                        <div class="col-12">
-
-                            <div class="col-md-6 mb-4 ">
-                                <h6 class="mb-2 pb-1" th:text="#{user.field.gender}">Gender: </h6>
-                                <div class="form-check form-check-inline"
-                                     th:each="genderValue : ${T(com.example.springsecuritydemo.model.Gender).values()}">
-                                    <input
-                                            type="radio"
-                                            class="form-check-input"
-                                            name="inlineRadioOptions"
-                                            th:field="*{gender}"
-                                            th:value="${genderValue}"/>
-                                    <label class="form-check-label"
-                                           th:text="${genderValue.displayValue}"></label>
-                                </div>
-                                <span class=" alert-danger" th:if="${#fields.hasErrors('gender')}"
-                                      th:errors="*{gender}">Name Error</span>
-                            </div>
+                            <label class="form-label" for="height"
+                                   th:text="#{client.field.height}">Height(cm)</label>
+                            <input type="number" id="height" class="form-control form-control-lg"
+                                   th:field="*{height}"/>
+                            <span class=" alert-danger" th:if="${#fields.hasErrors('height')}"
+                                  th:errors="*{height}">Name Error</span>
                         </div>
                     </div>
-                    <div class="row">
-                        <button type="submit" class="btn btn-submit" th:text="#{login.register}">Submit</button>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="col-md-6 mb-4 ">
+                            <h6 class="mb-2 pb-1" th:text="#{user.field.gender}">Gender: </h6>
+                            <div class="form-check form-check-inline"
+                                 th:each="genderValue : ${T(com.example.springsecuritydemo.model.Gender).values()}">
+                                <input
+                                        type="radio"
+                                        class="form-check-input"
+                                        name="inlineRadioOptions"
+                                        th:field="*{gender}"
+                                        th:value="${genderValue}"/>
+                                <label class="form-check-label"
+                                       th:text="${genderValue.displayValue}"></label>
+                            </div>
+                            <span class=" alert-danger" th:if="${#fields.hasErrors('gender')}"
+                                  th:errors="*{gender}">Name Error</span>
+                        </div>
                     </div>
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn btn-submit" th:text="#{login.register}">Submit</button>
+                </div>
             </form>
         </div>
     </div>
