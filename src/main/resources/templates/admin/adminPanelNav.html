@@ -1,8 +1,18 @@
 <nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-    <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
-            class="navbar-toggler-icon"></span></button>
-
+    <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+           data-bs-toggle="dropdown" aria-expanded="false">Links
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" th:href="@{/admin/adminPanel}">adminPanel</a>
+            <a class="dropdown-item" th:href="@{/user/profile}">Profile</a>
+            <a class="dropdown-item" th:href="@{/admin/listCoaches}">Coaches</a>
+            <a class="dropdown-item" th:href="@{/admin/listClients}">Clients</a>
+            <a class="dropdown-item" th:href="@{/exercise/listExercises}">listExercises</a>
+            <a class="dropdown-item" th:href="@{/admin/registerUser}">registerUser</a>
+            <a class="dropdown-item" th:href="@{/exercise/createExercise}">createExercise</a>
+        </ul>
+    </div>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav">
             <a th:href="@{/admin/adminPanel}" class="nav-link navlogo text-center">
@@ -45,11 +55,7 @@
                     <span class="textside" th:text="#{nav.addExercise}">Add exercise</span>
                 </a>
             </li>
-
-
         </ul>
-
-
     </div>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </nav>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>

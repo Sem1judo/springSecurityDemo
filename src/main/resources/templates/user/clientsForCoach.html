@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Panel - Profile Coach</title>
+    <title>Clients for coach</title>
 
     <link rel="apple-touch-icon" sizes="57x57" th:href="@{/cimg/favicons/apple-touch-icon-57x57.png}">
     <link rel="apple-touch-icon" sizes="60x60" th:href="@{/img/favicons/apple-touch-icon-60x60.png}">
@@ -21,10 +21,39 @@
 </head>
 <body>
 
-<header th:insert="admin/adminPanelNav :: nav"></header>
-<div class="content-wrapper">
-    <div class="container-fluid">
-        <div class="row bg-dark ">
+
+<div class="container-xl px-4 mt-4">
+
+    <nav class="nav nav-borders">
+        <a class="nav-link text-primary ms-0" th:href="@{/}"th:text="#{nav.home}">Home</a>
+        <a class="nav-link active ms-0" th:href="@{/user/profile}"  th:text="#{nav.profile}">Profile</a>
+        <a class="nav-link" th:href="@{/user/billing}"  th:text="#{nav.billing}">Billing</a>
+        <a class="nav-link" th:href="@{/user/security}" th:text="#{nav.security}">Security</a>
+        <a class="nav-link" th:href="@{/user/workout}"  th:text="#{nav.workout}">Workout</a>
+        <a class="nav-link" th:href="@{/client/listCoachesForClient}"
+           th:text="#{nav.coaches}">Coaches</a>
+        <a sec:authorize="hasAuthority('admin:read')" class="nav-link" th:href="@{/admin/adminPanel}"
+           th:text="#{nav.admin}">Admin Panel</a>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+               data-bs-toggle="dropdown" aria-expanded="false" th:text="${#strings.toUpperCase(#locale)}">
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" th:href="@{''(language=en)}" th:text="#{lang.eng}">Eng</a><i
+                    class="flag flag-united-states"></i>
+                <a class="dropdown-item" th:href="@{''(language=ru)}" th:text="#{lang.ru}">Rus</a><i
+                    class="flag flag-russia"></i>
+                <a class="dropdown-item" th:href="@{''(language=uk)}" th:text="#{lang.uk}">Ukr</a><i
+                    class="flag flag-ukraine"></i>
+            </ul>
+        </div>
+    </nav>
+    <hr class="mt-0 mb-4">
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
             <div class="container mt-4 mb-4 p-3 d-flex justify-content-center ">
                 <div class="card p-4">
                     <div class=" image d-flex flex-column justify-content-center align-items-center">
