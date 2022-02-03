@@ -29,14 +29,14 @@
 <div class="container-xl px-4 mt-4">
     <!-- Account page navigation-->
     <nav class="nav nav-borders">
-        <a class="nav-link text-primary ms-0" th:href="@{/}" target="__blank" th:text="#{nav.home}">Home</a>
-        <a class="nav-link  ms-0" th:href="@{/user/profile}" target="__blank" th:text="#{nav.profile}">Profile</a>
-        <a class="nav-link" th:href="@{/user/billing}" target="__blank" th:text="#{nav.billing}">Billing</a>
-        <a class="nav-link" th:href="@{/user/security}" target="__blank" th:text="#{nav.security}">Security</a>
-        <a class="nav-link active" th:href="@{/user/workout}" target="__blank" th:text="#{nav.workout}">Workout</a>
-        <a class="nav-link" th:href="@{/client/listCoachesForClient}" target="__blank"
+        <a class="nav-link text-primary ms-0" th:href="@{/}"th:text="#{nav.home}">Home</a>
+        <a class="nav-link  ms-0" th:href="@{/user/profile}"  th:text="#{nav.profile}">Profile</a>
+        <a class="nav-link" th:href="@{/user/billing}"  th:text="#{nav.billing}">Billing</a>
+        <a class="nav-link" th:href="@{/user/security}" th:text="#{nav.security}">Security</a>
+        <a class="nav-link active" th:href="@{/user/workout}"  th:text="#{nav.workout}">Workout</a>
+        <a class="nav-link" th:href="@{/client/listCoachesForClient}"
            th:text="#{nav.coaches}">Coaches</a>
-        <a sec:authorize="hasAuthority('admin:read')" class="nav-link" th:href="@{/admin/adminPanel}" target="__blank"
+        <a sec:authorize="hasAuthority('admin:read')" class="nav-link" th:href="@{/admin/adminPanel}"
            th:text="#{nav.admin}">Admin Panel</a>
 
         <div class="dropdown">
