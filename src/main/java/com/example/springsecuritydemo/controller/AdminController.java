@@ -1,5 +1,6 @@
 package com.example.springsecuritydemo.controller;
 
+import com.example.springsecuritydemo.exception.ServiceException;
 import com.example.springsecuritydemo.exception.UserAlreadyExistException;
 import com.example.springsecuritydemo.model.Client;
 import com.example.springsecuritydemo.model.Coach;
@@ -7,6 +8,7 @@ import com.example.springsecuritydemo.model.StatusCoach;
 import com.example.springsecuritydemo.model.User;
 import com.example.springsecuritydemo.model.dto.TypeUser;
 import com.example.springsecuritydemo.model.dto.UserDto;
+import com.example.springsecuritydemo.repository.ClientRepository;
 import com.example.springsecuritydemo.service.impl.ClientServiceImpl;
 import com.example.springsecuritydemo.service.impl.CoachServiceImpl;
 import com.example.springsecuritydemo.service.impl.ExerciseServiceImpl;
@@ -14,6 +16,7 @@ import com.example.springsecuritydemo.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -191,8 +194,8 @@ public class AdminController {
     @PreAuthorize("hasAuthority('admin:update')")
     @PostMapping("/updateClient/{id}")
     public ModelAndView updatingClient(@PathVariable("id") Long clientId,
-                                 @Valid UserDto userDto,
-                                 BindingResult bindingResult) {
+                                       @Valid UserDto userDto,
+                                       BindingResult bindingResult) {
 
         ModelAndView mav = new ModelAndView("redirect:/" + "admin/listClients");
 
@@ -225,12 +228,10 @@ public class AdminController {
     @PreAuthorize("hasAuthority('admin:update')")
     @PostMapping("/updateCoach/{id}")
     public ModelAndView updatingCoach(@PathVariable("id") Long coachId,
-                                 @Valid UserDto userDto,
-                                 BindingResult bindingResult) {
+                                      @Valid UserDto userDto,
+                                      BindingResult bindingResult) {
 
         ModelAndView mav = new ModelAndView("redirect:/" + "admin/listCoaches");
-
-        System.out.println(userDto);
 
         if (bindingResult.hasErrors()) {
             mav.setViewName("admin/adminPanelEditCoach");
@@ -243,6 +244,19 @@ public class AdminController {
         }
 
         return mav;
+    }
+
+    @PreAuthorize("hasAuthority('admin:update')")
+    @PostMapping("/deleteCoachForClientByAdmin/{clientId}")
+    public ModelAndView deleteCoachForClientByAdmin(@PathVariable("clientId") Long clientId, HttpServletRequest request) {
+
+        String referer = request.getHeader("Referer");
+        ModelAndView mav = new ModelAndView("redirect:" + referer);
+
+        clientService.deleteCoachForClientByAdmin(clientId);
+
+        return mav;
+
     }
 
 }

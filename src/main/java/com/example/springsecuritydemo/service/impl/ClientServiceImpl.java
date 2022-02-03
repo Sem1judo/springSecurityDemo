@@ -213,4 +213,22 @@ public class ClientServiceImpl implements IClientService {
         }
     }
 
+    public void deleteCoachForClientByAdmin(Long clientId) {
+        log.debug("Trying to delete Coach For User with client.id={}", clientId);
+
+        if (clientId == 0) {
+            log.warn("Missing id client");
+            throw new ServiceException("Missing id client");
+        }
+        Client client = getByIdClient(clientId);
+        client.setCoach(null);
+        client.setStatusCoach(StatusCoach.EMPTY);
+        try {
+            clientRepository.save(client);
+        } catch (DataAccessException e) {
+            log.error("Failed to deleting coach for client: {}", client);
+            throw new ServiceException("Problem with deleting coach for client");
+        }
+    }
+
 }

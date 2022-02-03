@@ -57,6 +57,72 @@
             </div>
         </div>
     </div>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section" th:text="#{nav.clients}">Client</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-wrap">
+                        <div class="container">
+                            <form th:action="@{/}" method="get">
+                                <div class="input-group">
+                                    <div class="form-outline">
+                                        <input type="search" placeholder="Exercise name" name="keyword" id="form1"
+                                               class="form-control" th:value="${coach.firstName}"/>
+                                        <label class="form-label" for="form1">Search</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <a class="link-warning"
+                                       th:href="@{/}">Discard</a>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div>
+                            <table class=" table table-responsive-xl">
+                                <thead>
+                                <tr>
+                                    <th th:text="#{user.fullName}"></th>
+                                    <th th:text="#{user.field.email}"></th>
+                                    <th th:text="#{user.field.phone}"></th>
+                                    <th th:text="#{client.field.weight}"></th>
+                                    <th th:text="#{client.field.height}"></th>
+                                    <th>Status Coach</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="alert" role="alert" th:each="client : ${coach.clients}">
+                                    <td th:text="${client.firstName + ' '+ client.lastName}"></td>
+                                    <td th:text="${client.email}"></td>
+                                    <td th:text="${client.phone}"></td>
+                                    <td th:text="${client.weight}"></td>
+                                    <td th:text="${client.height}"></td>
+                                    <td th:text="${client.statusCoach}"></td>
+                                    <td>
+                                        <form th:action="@{/admin/deleteCoachForClientByAdmin/{clientId}(clientId=${client.id})}"
+                                              method="post">
+                                            <button type="submit" class=" btn btn-danger" data-dismiss="alert"
+                                                    aria-label="close">
+                                                <span aria-hidden="true" th:text="#{refuse.client}"></span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </div>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
