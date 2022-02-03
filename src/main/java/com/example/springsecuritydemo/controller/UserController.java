@@ -89,7 +89,7 @@ public class UserController {
 
     @GetMapping("/billing")
     public ModelAndView getBilling() {
-        ModelAndView mav = new ModelAndView("/user/billing");
+        ModelAndView mav = new ModelAndView("user/billing");
 
         User user = userService.getUserByEmail(getAuthCurrentEmail());
 
