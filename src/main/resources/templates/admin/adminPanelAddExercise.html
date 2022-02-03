@@ -19,66 +19,66 @@
     <meta name="theme-color" content="#ffffff">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/adminPanel.css}" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 
 <header th:insert="admin/adminPanelNav :: nav"></header>
+
 <div class="content-wrapper">
     <div class="container-fluid">
         <div class="row">
-            <div class="site-content">
-                <section class="vh-100 gradient-custom">
-                    <div class="container py-5 h-100">
-                        <div class="row justify-content-center align-items-center h-100">
-                            <div class="col-12 col-lg-9 col-xl-7">
-                                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                                    <div class="card-body p-4 p-md-5">
-                                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" th:text="#{nav.addExercise}">Create
-                                            exercise</h3>
-                                        <form th:action="@{/exercise/createExercise}" th:method="post"
-                                              th:object="${exercise}">
-                                            <div class="form-group">
-                                                <label for="inputName">Name of exercise</label>
-                                                <input type="text" class="form-control" id="inputName"
-                                                       placeholder="The push-up" th:field="*{name}"/>
-                                                <span th:if="${#fields.hasErrors('name')}"
-                                                      th:errors="*{name}">Name Error</span>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputQuantity">Quantity</label>
-                                                <input type="text" class="form-control" id="inputQuantity"
-                                                       placeholder="4 / 15" th:field="*{quantity}"/>
-                                                <span th:if="${#fields.hasErrors('quantity')}"
-                                                      th:errors="*{quantity}">Name Error</span>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputLink">Link</label>
-                                                <textarea class="form-control" id="inputLink"
-                                                          rows="3" placeholder="Link of the exercise"
-                                                          th:field="*{link}">
+            <section class="vh-100 gradient-custom">
+                <div class="container py-5 h-100">
+                    <div class="row justify-content-center align-items-center h-100">
+                        <div class="col-12 col-lg-9 col-xl-7">
+                            <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                                <div class="card-body p-4 p-md-5">
+                                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" th:text="#{nav.addExercise}">Create
+                                        exercise</h3>
+                                    <form th:action="@{/exercise/createExercise}" th:method="post"
+                                          th:object="${exercise}">
+                                        <div class="form-group">
+                                            <label for="inputName">Name of exercise</label>
+                                            <input type="text" class="form-control" id="inputName"
+                                                   placeholder="The push-up" th:field="*{name}"/>
+                                            <span th:if="${#fields.hasErrors('name')}"
+                                                  th:errors="*{name}">Name Error</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputQuantity">Quantity</label>
+                                            <input type="text" class="form-control" id="inputQuantity"
+                                                   placeholder="4 / 15" th:field="*{quantity}"/>
+                                            <span th:if="${#fields.hasErrors('quantity')}"
+                                                  th:errors="*{quantity}">Name Error</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputLink">Link</label>
+                                            <textarea class="form-control" id="inputLink"
+                                                      rows="3" placeholder="Link of the exercise"
+                                                      th:field="*{link}">
                                                 </textarea>
-                                                <span th:if="${#fields.hasErrors('link')}"
-                                                      th:errors="*{link}">Name Error</span>
-                                            </div>
-                                            <div class="mt-4 pt-2">
-                                                <button type="submit"
-                                                        class="btn btn-dark btn-lg">
-                                                    Create
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                            <span th:if="${#fields.hasErrors('link')}"
+                                                  th:errors="*{link}">Name Error</span>
+                                        </div>
+                                        <div class="mt-4 pt-2">
+                                            <button type="submit"
+                                                    class="btn btn-dark btn-lg">
+                                                Create
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-            </div>
+                </div>
+            </section>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
             <script th:src="@{/js/register.js}"></script>
         </div>
     </div>
+</div>
 
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
