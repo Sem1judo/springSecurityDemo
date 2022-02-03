@@ -56,7 +56,7 @@ public class UserDto {
     @NotBlank
     private String phone;
 
-    private Role role;
+
     private Coach coach;
 
     @Past
@@ -108,10 +108,11 @@ public class UserDto {
     private String achievement;
 
 
-
     private List<Exercise> exercises;
     private List<Client> clients;
 
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.CLIENT;
     @Enumerated(EnumType.STRING)
     private StatusCoach statusCoach = StatusCoach.EMPTY;
 
