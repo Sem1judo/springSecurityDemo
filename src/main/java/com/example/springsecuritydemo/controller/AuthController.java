@@ -11,21 +11,11 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @PostMapping("/login")
-    public ModelAndView getLoginPagePost(@RequestParam(value = "error", defaultValue = "false") boolean loginError) {
-
-        ModelAndView mav = new ModelAndView("/user/login");
-        if (loginError) {
-            mav.addObject("message", "Email or password is incorrect");
-            mav.addObject("error", true);
-        }
-        return mav;
-    }
 
     @GetMapping("/login")
     public ModelAndView getLoginPageGet(@RequestParam(value = "error", defaultValue = "false") boolean loginError) {
 
-        ModelAndView mav = new ModelAndView("/user/login");
+        ModelAndView mav = new ModelAndView("user/login");
         if (loginError) {
             mav.addObject("message", "Email or password is incorrect");
             mav.addObject("error", true);

@@ -48,7 +48,6 @@ public class ClientController {
 
         clientService.addCoachForUser(coachId, getAuthCurrentEmail());
 
-
         return mav;
 
     }
@@ -122,30 +121,6 @@ public class ClientController {
         }
 
 
-        return mav;
-    }
-
-
-    @GetMapping("/addClient")
-    ModelAndView addingPage() {
-        ModelAndView mav = new ModelAndView("client/addClient");
-
-        mav.addObject("client", new Client());
-        mav.addObject("user", new User());
-        return mav;
-    }
-
-    @PostMapping("/addClient")
-    ModelAndView adding(@ModelAttribute @Valid Client client, BindingResult bindingResult) {
-
-        ModelAndView mav = new ModelAndView();
-
-        if (bindingResult.hasErrors()) {
-            mav.setViewName("client/addClient");
-        } else {
-            clientService.addClientInfo(client, getAuthCurrentEmail());
-            mav.setViewName(REDIRECT + "/user/profile");
-        }
         return mav;
     }
 

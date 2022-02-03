@@ -35,7 +35,7 @@ public class ExerciseController {
                                          @RequestParam(value = "sortField", defaultValue = "id") String sortField,
                                          @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir
     ) {
-        ModelAndView mav = new ModelAndView("/admin/adminPanelExercises");
+        ModelAndView mav = new ModelAndView("admin/adminPanelExercises");
 
         int pageSize = size.orElse(10);
 
@@ -61,7 +61,7 @@ public class ExerciseController {
     @PreAuthorize("hasAuthority('admin:create')")
     public ModelAndView createExercisePage(@Valid Exercise exercise) {
 
-        ModelAndView mav = new ModelAndView("/admin/adminPanelAddExercise");
+        ModelAndView mav = new ModelAndView("admin/adminPanelAddExercise");
 
         mav.addObject("exercise", new Exercise());
 

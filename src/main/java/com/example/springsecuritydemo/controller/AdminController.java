@@ -127,7 +127,7 @@ public class AdminController {
     @GetMapping("/adminPanel")
     public ModelAndView getAdminPanel() {
 
-        ModelAndView mav = new ModelAndView("/admin/adminPanel");
+        ModelAndView mav = new ModelAndView("admin/adminPanel");
 
         mav.addObject("listClients", clientService.findByStatusCoach(StatusCoach.WAITING));
 

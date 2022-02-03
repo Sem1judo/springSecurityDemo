@@ -38,32 +38,6 @@ public class CoachController {
         return mav;
     }
 
-
-    @GetMapping("/addCoach")
-    @PreAuthorize("hasAuthority('admin:create')")
-    ModelAndView addingPage() {
-        ModelAndView mav = new ModelAndView("coach/addCoach");
-
-        mav.addObject("coach", new Coach());
-        return mav;
-    }
-
-    @PostMapping("/addCoach")
-    @PreAuthorize("hasAuthority('admin:create')")
-    ModelAndView adding(@ModelAttribute @Valid Coach coach, BindingResult bindingResult) {
-
-        ModelAndView mav = new ModelAndView();
-
-        if (bindingResult.hasErrors()) {
-            mav.setViewName("coach/addCoach");
-        } else {
-            coachService.addCoachInfo(coach, getAuthCurrentEmail());
-            mav.setViewName(REDIRECT + "/user/profile");
-        }
-        return mav;
-    }
-
-
     private String getAuthCurrentEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();

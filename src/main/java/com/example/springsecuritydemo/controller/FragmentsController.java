@@ -14,6 +14,6 @@ public class FragmentsController {
     @GetMapping("/header")
     public ModelAndView headerPage() {
 
-        return new ModelAndView("/fragment/header");
+        return new ModelAndView("fragment/header");
     }
 }

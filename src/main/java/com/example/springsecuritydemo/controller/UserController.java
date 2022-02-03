@@ -28,7 +28,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public ModelAndView getUser() {
-        ModelAndView mav = new ModelAndView("/user/profile");
+        ModelAndView mav = new ModelAndView("user/profile");
 
         User user = userService.getUserByEmail(getAuthCurrentEmail());
 
@@ -40,7 +40,7 @@ public class UserController {
 
     @GetMapping("/profile/{id}")
     public ModelAndView getUserProfileWithId(@PathVariable("id") long id) {
-        ModelAndView mav = new ModelAndView("/user/profile");
+        ModelAndView mav = new ModelAndView("user/profile");
 
         UserDto userDto = userService.getByIdUserConvertedToUserDto(id);
 
@@ -129,7 +129,7 @@ public class UserController {
 
     @GetMapping("/security")
     public ModelAndView getSecurity() {
-        ModelAndView mav = new ModelAndView("/user/security");
+        ModelAndView mav = new ModelAndView("user/security");
 
         User user = userService.getUserByEmail(getAuthCurrentEmail());
 
@@ -142,7 +142,7 @@ public class UserController {
 
     @GetMapping("/workout")
     public ModelAndView getWorkout() {
-        ModelAndView mav = new ModelAndView("/user/workout");
+        ModelAndView mav = new ModelAndView("user/workout");
 
         User user = userService.getUserByEmail(getAuthCurrentEmail());
 
