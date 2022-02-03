@@ -65,7 +65,7 @@
 
                 <li><a href="#team"></a></li>
                 <th:block sec:authorize="isAnonymous()">
-                    <li><a th:href="@{/auth/login}"  class="btn btn-blue" th:text="#{login.signIn}">Sign in</a></li>
+                    <li><a th:href="@{/auth/login}" class="btn btn-blue" th:text="#{login.signIn}">Sign in</a></li>
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
                     <li>
@@ -91,7 +91,7 @@
         </div>
         <div class="card border-0 shadow rounded-3 my-5">
             <div class="card-body p-4 p-sm-5">
-                <form  th:action="@{/auth/login}" method="post">
+                <form th:action="@{/auth/login}" method="post">
                     <div th:if="${error}" class="alert alert-danger">
                         <span th:text="#{login.failed}"></span>
                     </div>
@@ -125,19 +125,21 @@
                     <hr class="my-4">
 
                 </form>
-                <div class="row text-center">
-                    <div class="col-md-6 mb-6">
-                        <button class="btn btn-google text-uppercase fw-bold mr-1" type="submit">
-                            <span> <i class="fab fa-facebook-f me-2"></i></span>
-                            <span th:text="#{login.sign.google}">Sign in with Google</span>
-                        </button>
-                    </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="col-md-6 mb-6">
+                            <button class="btn btn-google text-uppercase fw-light mr-1" type="submit">
+                                <span> <i class="fab fa-google me-2"></i></span>
+                                <span th:text="#{login.sign.google}">Sign in with Google</span>
+                            </button>
+                        </div>
 
-                    <div class="col-md-6 mb-6">
-                        <button class="btn btn-facebook text-uppercase fw-bold mr-1" type="submit">
-                            <span> <i class="fab fa-facebook-f me-2"></i> </span>
-                            <span th:text="#{login.sign.facebook}">Sign in with Facebook</span>
-                        </button>
+                        <div class="col-md-6 mb-6">
+                            <button class="btn btn-facebook text-uppercase fw-bold mr-1" type="submit">
+                                <span> <i class="fab fa-facebook-f me-2"></i> </span>
+                                <span th:text="#{login.sign.facebook}">Sign in with Facebook</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <hr class="my-4">
