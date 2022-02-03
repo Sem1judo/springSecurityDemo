@@ -73,8 +73,9 @@
                 <div class="card-header" th:text="#{profile.accountDetails}">Account Details</div>
                 <div class="card-body">
                     <form th:method="post">
-                        <div class="mb-3"
-                             th:if="${user.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT}">
+                        <div class="mb-3 "
+                             th:if="${user.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT &&
+                             user.getStatusCoach() == T(com.example.springsecuritydemo.model.StatusCoach).ATTACHED}">
                             <label class="small mb-1" th:text="#{profile.showCoach}">Your coach (please love and
                                 respect)</label>
                             <th:block th:if="${user.coach != null}">
