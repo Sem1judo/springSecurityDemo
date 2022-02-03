@@ -27,6 +27,9 @@ public class CoachController {
     private final UserServiceImpl userService;
 
 
+    //todo show list of clients under coach
+    //todo edit by admin client coaches
+
     @GetMapping("/viewCoach/{id}")
     @PreAuthorize("hasAuthority('admin:read')")
     public ModelAndView viewCoach(@PathVariable("id") Long coachId) {

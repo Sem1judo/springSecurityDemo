@@ -30,10 +30,10 @@
 <div class="container-xl px-4 mt-4">
 
     <nav class="nav nav-borders">
-        <a class="nav-link text-primary ms-0" th:href="@{/}"  th:text="#{nav.home}">Home</a>
-        <a class="nav-link  ms-0" th:href="@{/user/profile}"  th:text="#{nav.profile}">Profile</a>
-        <a class="nav-link " th:href="@{/user/billing}"  th:text="#{nav.billing}">Billing</a>
-        <a class="nav-link " th:href="@{/user/security}"  th:text="#{nav.security}">Security</a>
+        <a class="nav-link text-primary ms-0" th:href="@{/}" th:text="#{nav.home}">Home</a>
+        <a class="nav-link  ms-0" th:href="@{/user/profile}" th:text="#{nav.profile}">Profile</a>
+        <a class="nav-link " th:href="@{/user/billing}" th:text="#{nav.billing}">Billing</a>
+        <a class="nav-link " th:href="@{/user/security}" th:text="#{nav.security}">Security</a>
         <a class="nav-link " th:href="@{/user/workout}" th:text="#{nav.workout}">Workout</a>
         <a class="nav-link active" th:href="@{/client/listCoachesForClient}" target="__blank"
            th:text="#{nav.coaches}">Coaches</a>
@@ -135,7 +135,8 @@
                                         </form>
                                     </div>
                                     <div th:unless="${client.coach == null}">
-                                        <th:block th:if="${client.coach.id} == ${coach.id}">
+                                        <th:block
+                                                th:if="${client.statusCoach == T(com.example.springsecuritydemo.model.StatusCoach).ATTACHED}">
                                             <form th:action="@{/client/deleteCoachForClient/{id}(id=${coach.id})}"
                                                   method="post">
                                                 <button type="submit" class=" btn btn-danger" data-dismiss="alert"
@@ -143,6 +144,15 @@
                                                     <span aria-hidden="true" th:text="#{refuseCoach}"></span>
                                                 </button>
                                             </form>
+                                        </th:block>
+                                    </div>
+                                    <div th:unless="${client.coach == null}">
+                                        <th:block
+                                                th:if="${client.statusCoach ==  T(com.example.springsecuritydemo.model.StatusCoach).WAITING}">
+                                            <button type="submit" class=" btn btn-warning" data-dismiss="alert"
+                                                    aria-label="close">
+                                                <span aria-hidden="true" th:text="#{waitingForConfirmCoach}">WAITING FOR CONFIRMATION</span>
+                                            </button>
                                         </th:block>
                                     </div>
                                 </td>
