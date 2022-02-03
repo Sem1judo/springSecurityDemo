@@ -136,7 +136,8 @@
                                     </div>
                                     <div th:unless="${client.coach == null}">
                                         <th:block
-                                                th:if="${client.statusCoach == T(com.example.springsecuritydemo.model.StatusCoach).ATTACHED}">
+                                                th:if="${client.statusCoach == T(com.example.springsecuritydemo.model.StatusCoach).ATTACHED &&
+                                                client.coach.id == coach.id}">
                                             <form th:action="@{/client/deleteCoachForClient/{id}(id=${coach.id})}"
                                                   method="post">
                                                 <button type="submit" class=" btn btn-danger" data-dismiss="alert"
@@ -148,7 +149,8 @@
                                     </div>
                                     <div th:unless="${client.coach == null}">
                                         <th:block
-                                                th:if="${client.statusCoach ==  T(com.example.springsecuritydemo.model.StatusCoach).WAITING}">
+                                                th:if="${client.statusCoach ==  T(com.example.springsecuritydemo.model.StatusCoach).WAITING &&
+                                                  client.coach.id == coach.id}">
                                             <button type="submit" class=" btn btn-warning" data-dismiss="alert"
                                                     aria-label="close">
                                                 <span aria-hidden="true" th:text="#{waitingForConfirmCoach}">WAITING FOR CONFIRMATION</span>

@@ -67,23 +67,6 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-wrap">
-                        <div class="container">
-                            <form th:action="@{/}" method="get">
-                                <div class="input-group">
-                                    <div class="form-outline">
-                                        <input type="search" placeholder="Exercise name" name="keyword" id="form1"
-                                               class="form-control" th:value="${coach.firstName}"/>
-                                        <label class="form-label" for="form1">Search</label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <a class="link-warning"
-                                       th:href="@{/}">Discard</a>
-                                </div>
-                            </form>
-                        </div>
-
                         <div>
                             <table class=" table table-responsive-xl">
                                 <thead>
