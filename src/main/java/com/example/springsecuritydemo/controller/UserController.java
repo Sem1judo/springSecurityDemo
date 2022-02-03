@@ -30,7 +30,7 @@ public class UserController {
     public ModelAndView getUser() {
         ModelAndView mav = new ModelAndView("/user/profile");
 
-        User user = userService.getUserByEmail(getCurrentUser().getEmail());
+        User user = userService.getUserByEmail(getAuthCurrentEmail());
 
         UserDto userDto = userService.getByIdUserConvertedToUserDto(user.getId());
         mav.addObject("user", userDto);
@@ -91,7 +91,8 @@ public class UserController {
     public ModelAndView getBilling() {
         ModelAndView mav = new ModelAndView("/user/billing");
 
-        User user = userService.getUserByEmail(getCurrentUser().getEmail());
+        User user = userService.getUserByEmail(getAuthCurrentEmail());
+
 
         UserDto userDto = userService.getByIdUserConvertedToUserDto(user.getId());
 
@@ -130,7 +131,7 @@ public class UserController {
     public ModelAndView getSecurity() {
         ModelAndView mav = new ModelAndView("/user/security");
 
-        User user = userService.getUserByEmail(getCurrentUser().getEmail());
+        User user = userService.getUserByEmail(getAuthCurrentEmail());
 
         UserDto userDto = userService.getByIdUserConvertedToUserDto(user.getId());
 
@@ -143,7 +144,7 @@ public class UserController {
     public ModelAndView getWorkout() {
         ModelAndView mav = new ModelAndView("/user/workout");
 
-        User user = userService.getUserByEmail(getCurrentUser().getEmail());
+        User user = userService.getUserByEmail(getAuthCurrentEmail());
 
         UserDto userDto = userService.getByIdUserConvertedToUserDto(user.getId());
 
@@ -165,7 +166,8 @@ public class UserController {
 
         ModelAndView mav = new ModelAndView("user/security");
 
-        User user = userService.getUserByEmail(getCurrentUser().getEmail());
+        User user = userService.getUserByEmail(getAuthCurrentEmail());
+
 
         mav.addObject("user", user);
 
@@ -185,8 +187,8 @@ public class UserController {
     }
 
 
-    public User getCurrentUser() {
+    private String getAuthCurrentEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return userService.getUserByEmail(authentication.getName());
+        return authentication.getName();
     }
 }

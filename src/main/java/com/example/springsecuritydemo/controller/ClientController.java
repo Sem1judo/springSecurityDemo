@@ -39,8 +39,6 @@ public class ClientController {
     private final CoachServiceImpl coachService;
     private final ExerciseServiceImpl exerciseService;
 
-    //todo after post methods link to right place
-
 
     @PostMapping("/addCoachForUser/{id}")
     public ModelAndView addCoachForUser(@PathVariable("id") Long coachId, HttpServletRequest request) {

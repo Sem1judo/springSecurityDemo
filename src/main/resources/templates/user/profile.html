@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Coaches</title>
+    <title>Profile</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,11 +17,8 @@
     <meta name="msapplication-config" content="img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
-
-    <link th:href="@{/css/listCoachesForClient.css}" rel="stylesheet" type="text/css">
 
     <link th:href="@{/css/profile.css}" rel="stylesheet" type="text/css">
 
@@ -31,12 +28,11 @@
 
     <nav class="nav nav-borders">
         <a class="nav-link text-primary ms-0" th:href="@{/}"  th:text="#{nav.home}">Home</a>
-        <a class="nav-link  ms-0" th:href="@{/user/profile}"  th:text="#{nav.profile}">Profile</a>
-        <a class="nav-link " th:href="@{/user/billing}"  th:text="#{nav.billing}">Billing</a>
-        <a class="nav-link " th:href="@{/user/security}"  th:text="#{nav.security}">Security</a>
-        <a class="nav-link " th:href="@{/user/workout}" th:text="#{nav.workout}">Workout</a>
-        <a class="nav-link active" th:href="@{/client/listCoachesForClient}" target="__blank"
-           th:text="#{nav.coaches}">Coaches</a>
+        <a class="nav-link active ms-0" th:href="@{/user/profile}" th:text="#{nav.profile}">Profile</a>
+        <a class="nav-link" th:href="@{/user/billing}" th:text="#{nav.billing}">Billing</a>
+        <a class="nav-link" th:href="@{/user/security}" th:text="#{nav.security}">Security</a>
+        <a class="nav-link" th:href="@{/user/workout}" th:text="#{nav.workout}">Workout</a>
+        <a class="nav-link" th:href="@{/client/listCoachesForClient}" th:text="#{nav.coaches}">Coaches</a>
         <a sec:authorize="hasAuthority('admin:read')" class="nav-link" th:href="@{/admin/adminPanel}"
            th:text="#{nav.admin}">Admin Panel</a>
         <div class="dropdown">
@@ -55,111 +51,141 @@
         </div>
     </nav>
     <hr class="mt-0 mb-4">
-
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section" th:text="#{nav.coaches}">Coaches</h2>
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header" th:text="#{profile.profilePicture}">Profile Picture</div>
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    <img class="img-account-profile rounded-circle mb-2"
+                         src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                    <!-- Profile picture help block-->
+                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                    <!-- Profile picture upload button-->
+                    <button class="btn btn-primary" type="button">Upload new image</button>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-wrap">
-                        <div class="container">
-                            <form th:action="@{/client/listCoachesForClient}" method="get">
-                                <div class="row height d-flex justify-content-center align-items-center">
-                                    <div class="col-md-8">
-                                    <span class="search"><input type="text"
-                                                                class="form-control"
-                                                                th:placeholder="#{user.fullName}"
-                                                                th:value="${keyword}"
-                                                                name="keyword">
-                                    </span>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button type="submit" class="btn btn-success"><i
-                                                class="fa fa-search"></i>
-                                        </button>
-                                        <a class="btn btn-danger" th:href="@{/client/listCoachesForClient}"><i
-                                                class="fa fa-remove"></i></a>
-                                    </div>
-                                </div>
-                            </form>
-
+        </div>
+        <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card mb-4">
+                <div class="card-header" th:text="#{profile.accountDetails}">Account Details</div>
+                <div class="card-body">
+                    <form th:method="post">
+                        <div class="mb-3"
+                             th:if="${user.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT}">
+                            <label class="small mb-1" th:text="#{profile.showCoach}">Your coach (please love and
+                                respect)</label>
+                            <th:block th:if="${user.coach != null}">
+                                <input readonly class="form-control" type="text"
+                                       th:value="${user.coach.firstName +' '+user.coach.lastName}">
+                            </th:block>
+                            <th:block th:unless="${user.coach != null}">
+                                <input readonly class="form-control" type="text"
+                                       th:value="#{profile.notShowCoach}">
+                            </th:block>
                         </div>
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (first name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputFirstName" th:text="#{user.field.firstName}">First
+                                    name</label>
+                                <input readonly class="form-control" id="inputFirstName" type="text"
+                                       th:field="${user.firstName}">
 
-                        <table class="table table-responsive-xl">
-                            <thead>
-                            <tr>
-                                <th>&nbsp;</th>
-                                <th th:text="#{user.fullName}">Full Name</th>
-                                <th th:text="#{coach.field.specialization}">Specialization</th>
-                                <th th:text="#{status}">Status</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="alert" role="alert" th:each="coach : ${listCoaches}">
-                                <td>
-                                    <label class="checkbox-wrap checkbox-primary">
-                                        <input type="checkbox" checked>
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                                <td class="d-flex align-items-center">
-                                    <div class="img"
-                                         th:style="'background-image:url(' + @{/img/person_1.jpg} + ');'"></div>
 
-                                    <div class="pl-3 email">
-                                        <span th:text=" ${coach.firstName +' '+ coach.lastName}"></span>
-                                        <span th:text="${#temporals.format(coach.registrationDate, 'dd-MM-yyyy')}"></span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span th:text=" ${coach.specialization}"></span>
-                                </td>
-                                <td th:if="${coach.status == T(com.example.springsecuritydemo.model.Status).ACTIVE}"
-                                    class="status"><span class="active"
-                                                         th:text="${coach.status}">Active</span></td>
-                                <td th:if="${coach.status == T(com.example.springsecuritydemo.model.Status).BANNED}"
-                                    class="status"><span class="waiting"
-                                                         th:text="${coach.status}">Active</span>
-                                </td>
-                                <td th:if="${client != null}">
-                                    <div th:if="${client.coach == null}">
-                                        <form th:action="@{/client/addCoachForUser/{id}(id=${coach.id})}"
-                                              method="post">
-                                            <button type="submit" class=" btn btn-success" data-dismiss="alert"
-                                                    aria-label="add">
-                                                <span aria-hidden="true" th:text="#{addCoach}">Add coach</span>
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div th:unless="${client.coach == null}">
-                                        <th:block th:if="${client.coach.id} == ${coach.id}">
-                                            <form th:action="@{/client/deleteCoachForClient/{id}(id=${coach.id})}"
-                                                  method="post">
-                                                <button type="submit" class=" btn btn-danger" data-dismiss="alert"
-                                                        aria-label="close">
-                                                    <span aria-hidden="true" th:text="#{refuseCoach}"></span>
-                                                </button>
-                                            </form>
-                                        </th:block>
-                                    </div>
-                                </td>
-                                <td th:unless="${client != null}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            </div>
+                            <!-- Form Group (last name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLastName" th:text="#{user.field.lastName}">Last
+                                    name</label>
+                                <input readonly class="form-control" id="inputLastName" type="text"
+                                       th:field="${user.lastName}">
+                            </div>
+                        </div>
+                        <!-- Form Row        -->
+                        <div class="row gx-3 mb-3"
+                             th:if="${user.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).CLIENT}">
+                            <!-- Form Group (organization name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputHeight"
+                                       th:text="#{client.field.height}">Height(cm)</label>
+                                <input readonly class="form-control" id="inputHeight" type="text"
+                                       placeholder="Enter your height" th:field="${user.height}">
+                            </div>
+                            <!-- Form Group (location)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputWeight"
+                                       th:text="#{client.field.weight}">Weight(kg)</label>
+                                <input readonly class="form-control" id="inputWeight" type="text"
+                                       placeholder="Enter your weight" th:field="${user.weight}">
+                            </div>
+                        </div>
+                        <!-- Form Group (email address)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputEmailAddress" th:text="#{user.field.email}">Email
+                                address</label>
+                            <input readonly class="form-control" id="inputEmailAddress" type="email"
+                                   th:field="${user.email}">
+                        </div>
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (phone number)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputPhone" th:text="#{user.field.phone}">Phone
+                                    number</label>
+                                <input readonly class="form-control" id="inputPhone" type="tel"
+                                       placeholder="Enter your phone number" th:field="${user.phone}">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputBirthday"
+                                       th:text="#{user.field.birthDate}">Birthday</label>
+                                <input readonly class="form-control" id="inputBirthday" type="date" name="birthday"
+                                       placeholder="Enter your birthday" th:field="${user.birthDate}">
+                            </div>
+                        </div>
+                        <div id="coachContent"
+                             th:if="${user.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}">
+                            <div class="mb-3">
+                                <label class="small mb-1" for="inputEducation" th:text="#{coach.field.education}">Education</label>
+                                <input readonly type="text" id="inputEducation"
+                                       class="form-control form-control-lg"
+                                       th:field="*{user.education}"/>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="inputAchievement" th:text="#{coach.field.achievement}">Achievement</label>
+                                <input readonly type="text" id="inputAchievement"
+                                       class="form-control form-control-lg"
+                                       th:field="*{user.achievement}"/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="small mb-1" for="inputAdditionalInfo"
+                                       th:text="#{coach.field.additionalInfo}">Additional Info</label>
+                                <input readonly type="text" id="inputAdditionalInfo"
+                                       class="form-control form-control-lg"
+                                       th:field="*{user.additionalInfo}"/>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="inputSpecialization"
+                                       th:text="#{coach.field.specialization}">Specialization</label>
+                                <input readonly type="text" id="inputSpecialization"
+                                       class="form-control form-control-lg"
+                                       th:field="*{user.specialization}"/>
+                            </div>
+                        </div>
+                    </form>
+                    <a th:href="@{/user/editUser/{id}(id=${user.id})}" th:text="#{profile.edit}">Edit
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/js/listCoachesForClient.js}"></script>
 
 </body>
 </html>
-
