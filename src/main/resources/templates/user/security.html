@@ -33,6 +33,9 @@
            th:text="#{nav.coaches}">Coaches</a>
         <a sec:authorize="hasAuthority('admin:read')" class="nav-link" th:href="@{/admin/adminPanel}"
            th:text="#{nav.admin}">Admin Panel</a>
+        <form th:action="@{/auth/logout}" method="post">
+            <input type="submit" class="nav-link" th:value="#{login.logout}"/>
+        </form>
         <div class="dropdown">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                data-bs-toggle="dropdown" aria-expanded="false" th:text="${#strings.toUpperCase(#locale)}">
@@ -172,5 +175,7 @@
     </div>
 </div>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<footer th:insert="fragment/footerProfile :: footer"></footer>
 </body>
 </html>

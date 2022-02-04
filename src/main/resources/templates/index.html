@@ -60,7 +60,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right main-nav">
                 <th:block sec:authorize="isAuthenticated()">
-                    <li><a th:href="@{/user/profile}" th:text="#{nav.profile}">Profile</a></li>
+                    <li class="text-uppercase"><a th:href="@{/user/profile}" th:text="#{nav.profile}">Profile</a></li>
                 </th:block>
                 <th:block sec:authorize="isAnonymous()">
                     <li><a href="#intro" th:text="#{nav.intro}">Intro</a></li>
@@ -320,7 +320,7 @@
                                                                            th:text="#{pricing.online.oneTraining}">month</span>
                         </h4>
                         <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill"
-                           th:text="#{login.register}">Sign Up Now</a>
+                           th:text="#{footer.apply.btn}">Sign Up Now</a>
                         <i class="info-icon icon_question"></i>
                     </div>
                     <div class="box-second active">
@@ -341,7 +341,7 @@
                                                                            th:text="#{pricing.online.oneTraining}">month</span>
                         </h4>
                         <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill"
-                           th:text="#{login.register}">Sign Up Now</a>
+                           th:text="#{footer.apply.btn}">Sign Up Now</a>
                         <i class="info-icon icon_question"></i>
                     </div>
                     <div class="box-second">
@@ -423,53 +423,8 @@
         </div>
     </div>
 </div>
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 text-center-mobile">
-                <h3 class="white">Reserve a Free Trial Class!</h3>
-                <h5 class="light regular light-white">Shape your body and improve your health.</h5>
-                <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue ripple trial-button"
-                   th:text="#{login.register}">Start
-                    Free Trial</a>
+<footer th:insert="fragment/footer :: footer"></footer>
 
-            </div>
-            <div class="col-sm-6 text-center-mobile">
-                <h3 class="white">Opening Hours <span class="open-blink"></span></h3>
-                <div class="row opening-hours">
-                    <div class="col-sm-6 text-center-mobile">
-                        <h5 class="light-white light">Mon - Fri</h5>
-                        <h3 class="regular white">9:00 - 22:00</h3>
-                    </div>
-                    <div class="col-sm-6 text-center-mobile">
-                        <h5 class="light-white light">Sat - Sun</h5>
-                        <h3 class="regular white">10:00 - 18:00</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row bottom-footer text-center-mobile">
-            <div class="col-sm-8">
-                <p>&copy; 2022 All Rights Reserved. Powered by <strong>Semkov.S</strong></p>
-            </div>
-            <div class="col-sm-4 text-right text-center-mobile">
-                <ul class="social-footer">
-                    <li><a href=""><i class="fab fa-facebook"></i></a>
-                    </li>
-                    <li><a href=""><i class="fab fa-twitter"></i></a></li>
-                    <li><a href=""><i class="fab fa-google"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- Holder for mobile navigation -->
-<div class="mobile-nav">
-    <ul>
-    </ul>
-    <a href="#" class="close-link"><i class="arrow_up"></i></a>
-</div>
 <!-- Scripts -->
 <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
 <script th:src="@{/js/owl.carousel.min.js}"></script>

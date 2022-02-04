@@ -6,18 +6,23 @@ import com.example.springsecuritydemo.exception.UserAlreadyExistException;
 import com.example.springsecuritydemo.model.User;
 import com.example.springsecuritydemo.model.dto.UserDto;
 import com.example.springsecuritydemo.service.impl.UserServiceImpl;
+import com.example.springsecuritydemo.util.FileUploadUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.io.IOException;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @AllArgsConstructor
@@ -25,6 +30,21 @@ import java.util.ResourceBundle;
 public class UserController {
 
     private final UserServiceImpl userService;
+
+    @PostMapping("/uploadImage")
+    public RedirectView saveUser(UserDto user,
+                                 @RequestParam("image") MultipartFile multipartFile) throws IOException {
+
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        user.setPhotos(fileName);
+        userService.update(user);
+
+        String uploadDir = "src/main/resources/static/img/user-photos/" + user.getId();
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+        System.out.println(user);
+        return new RedirectView("/user/profile", true);
+    }
 
     @GetMapping("/profile")
     public ModelAndView getUser() {
@@ -58,8 +78,6 @@ public class UserController {
         UserDto userDto = userService.getByIdUserConvertedToUserDto(userId);
 
         mav.addObject("userDto", userDto);
-
-
 
 
         return mav;

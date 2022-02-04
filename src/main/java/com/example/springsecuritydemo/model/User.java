@@ -25,6 +25,9 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @Column(nullable = true, length = 64)
+    private String photos;
+
     @Column
     private String password;
 
@@ -62,4 +65,5 @@ public class User {
     @Column
     @Builder.Default
     private LocalDateTime registrationDate = LocalDateTime.now();
+
 }

@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Transient;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -111,6 +112,9 @@ public class UserDto {
     private List<Exercise> exercises;
     private List<Client> clients;
 
+    @Column(nullable = true, length = 64)
+    private String photos;
+
     @Enumerated(EnumType.STRING)
     private Role role = Role.CLIENT;
     @Enumerated(EnumType.STRING)
@@ -122,4 +126,11 @@ public class UserDto {
     private TypeUser typeUser = TypeUser.CLIENT;
 
 
+    @Transient
+    public String getPhotosImagePath() {
+        if (photos == null || id == null) return null;
+
+        return "/img/user-photos/" + id + "/" + photos;
+
+    }
 }

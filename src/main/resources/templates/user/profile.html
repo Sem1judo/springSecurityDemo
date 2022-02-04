@@ -27,7 +27,7 @@
 <div class="container-xl px-4 mt-4">
 
     <nav class="nav nav-borders">
-        <a class="nav-link text-primary ms-0" th:href="@{/}"  th:text="#{nav.home}">Home</a>
+        <a class="nav-link text-primary ms-0" th:href="@{/}" th:text="#{nav.home}">Home</a>
         <a class="nav-link active ms-0" th:href="@{/user/profile}" th:text="#{nav.profile}">Profile</a>
         <a class="nav-link" th:href="@{/user/billing}" th:text="#{nav.billing}">Billing</a>
         <a class="nav-link" th:href="@{/user/security}" th:text="#{nav.security}">Security</a>
@@ -35,6 +35,9 @@
         <a class="nav-link" th:href="@{/client/listCoachesForClient}" th:text="#{nav.coaches}">Coaches</a>
         <a sec:authorize="hasAuthority('admin:read')" class="nav-link" th:href="@{/admin/adminPanel}"
            th:text="#{nav.admin}">Admin Panel</a>
+        <form th:action="@{/auth/logout}" method="post">
+            <input type="submit" class="nav-link" th:value="#{login.logout}"/>
+        </form>
         <div class="dropdown">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                data-bs-toggle="dropdown" aria-expanded="false" th:text="${#strings.toUpperCase(#locale)}">
@@ -57,13 +60,40 @@
             <div class="card mb-4 mb-xl-0">
                 <div class="card-header" th:text="#{profile.profilePicture}">Profile Picture</div>
                 <div class="card-body text-center">
-                    <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2"
-                         src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                    <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
-                    <!-- Profile picture upload button-->
-                    <button class="btn btn-primary" type="button">Upload new image</button>
+                    <img th:if="${user.photos != null}" class="img-account-profile rounded-circle mb-2"
+                         th:src="@{${user.photosImagePath}}"/>
+                    <form th:action="@{/user/uploadImage}"
+                          th:object="${user}" method="post"
+                          enctype="multipart/form-data">
+                        <input th:field="*{id}" hidden>
+                        <input th:field="*{password}" hidden>
+                        <input th:field="*{firstName}" hidden>
+                        <input th:field="*{lastName}" hidden>
+                        <input th:field="*{birthDate}" hidden>
+                        <input th:field="*{coach}" hidden>
+                        <input th:field="*{gender}" hidden>
+                        <input th:field="*{phone}" hidden>
+                        <input th:field="*{email}" hidden>
+                        <input th:field="*{height}" hidden>
+                        <input th:field="*{weight}" hidden>
+                        <input th:field="*{education}" hidden>
+                        <input th:field="*{achievement}" hidden>
+                        <input th:field="*{specialization}" hidden>
+                        <input th:field="*{additionalInfo}" hidden>
+                        <input th:field="*{role}" hidden>
+                        <input th:field="*{statusCoach}" hidden>
+                        <input th:field="*{typeUser}" hidden>
+                        <!-- Profile picture help block-->
+                        <div class="small font-italic text-muted mb-4">
+                            <input REQUIRED class="form-control" id="customFile" type="file" name="image"
+                                   accept="image/png, image/jpeg"/>
+                            <label class="text-warning form-label">JPG or PNG no larger than 5 MB</label>
+                        </div>
+                        <!-- Profile picture upload button-->
+                        <button class="btn btn-primary" type="submit" th:text="#{profile.upload.new.image}">Upload new
+                            image
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -186,6 +216,9 @@
         </div>
     </div>
 </div>
+
+<footer th:insert="fragment/footerProfile :: footer"></footer>
+
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
 </body>
