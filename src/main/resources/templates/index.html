@@ -320,7 +320,7 @@
                                                                            th:text="#{pricing.online.oneTraining}">month</span>
                         </h4>
                         <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill"
-                           th:text="#{footer.apply.btn}">Sign Up Now</a>
+                           th:text="#{login.register}">Sign Up Now</a>
                         <i class="info-icon icon_question"></i>
                     </div>
                     <div class="box-second active">
@@ -341,7 +341,7 @@
                                                                            th:text="#{pricing.online.oneTraining}">month</span>
                         </h4>
                         <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill"
-                           th:text="#{footer.apply.btn}">Sign Up Now</a>
+                           th:text="#{login.register}">Sign Up Now</a>
                         <i class="info-icon icon_question"></i>
                     </div>
                     <div class="box-second">
@@ -424,7 +424,12 @@
     </div>
 </div>
 <footer th:insert="fragment/footer :: footer"></footer>
-
+<!-- Holder for mobile navigation -->
+<div class="mobile-nav">
+    <ul>
+    </ul>
+    <a href="#" class="close-link"><i class="arrow_up"></i></a>
+</div>
 <!-- Scripts -->
 <script th:src="@{/js/jquery-1.11.1.min.js}"></script>
 <script th:src="@{/js/owl.carousel.min.js}"></script>
