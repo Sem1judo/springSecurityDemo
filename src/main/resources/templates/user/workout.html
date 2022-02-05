@@ -21,7 +21,17 @@
     <link th:href="@{/css/workout.css}" rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous"/>
+    <style>
 
+        .didExercise {
+            cursor: pointer;
+        }
+
+        .done:before {
+            content: '\2705';
+        }
+
+    </style>
 </head>
 
 <body>
@@ -39,7 +49,7 @@
         <a sec:authorize="hasAuthority('admin:read')" class="nav-link" th:href="@{/admin/adminPanel}"
            th:text="#{nav.admin}">Admin Panel</a>
         <form th:action="@{/auth/logout}" method="post">
-            <input type="submit" class="nav-link" th:value="#{login.logout}"/>
+            <input type="submit" class="nav-link link-danger" th:value="#{login.logout}"/>
         </form>
 
         <div class="dropdown">
@@ -86,13 +96,13 @@
             </div>
         </div>
     </div>
-    <div class="row" th:each="exercise,iter : ${listExercises}">
 
-        <div class="font-weight-bold" th:text="${iter.count}"></div>
-        <div class="col-lg-3 mb-3">
+    <div class="row" th:each="exercise,iter : ${listExercises}">
+        <div class="font-weight-bold " th:text="${iter.count}">done</div>
+        <div class="col-lg-3 mb-3 ">
             <!-- Billing card 1-->
             <div class="card h-100 border-start-lg border-start-primary">
-                <div class="card-body">
+                <div class="card-body ">
                     <div class="h3 text-uppercase  text-success font-weight-bold text-center"
                          th:text="${exercise.name}">The Push-Up
                     </div>
@@ -102,18 +112,18 @@
         <div class="col-lg-6 mb-6">
             <!-- Billing card 2-->
             <div class="card h-100 border-start-lg border-start-secondary">
-                <div class="card-body">
+                <div class="card-body ">
                     <iframe th:src="${exercise.link}" title="YouTube video player"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 mb-3">
+        <div class="col-lg-3 mb-3 ">
             <!-- Billing card 3-->
             <div class="card h-100 border-start-lg border-start-success">
                 <div class="card-body">
-                    <div class="h3  text-danger font-weight-bold  text-center"
+                    <div class="h3 didExercise text-danger font-weight-bold  text-center"
                          th:text="${exercise.quantity}">4 / 20
                     </div>
                 </div>
@@ -121,7 +131,17 @@
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $('.didExercise').click(function () {
+        $(this).toggleClass('done');
+    });
+</script>
+
 <footer th:insert="fragment/footerProfile :: footer"></footer>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+
 </body>
 </html>

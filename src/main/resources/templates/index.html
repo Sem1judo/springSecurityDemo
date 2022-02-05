@@ -59,25 +59,20 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right main-nav">
-                <th:block sec:authorize="isAuthenticated()">
-                    <li class="text-uppercase"><a th:href="@{/user/profile}" th:text="#{nav.profile}">Profile</a></li>
-                </th:block>
-                <th:block sec:authorize="isAnonymous()">
-                    <li><a href="#intro" th:text="#{nav.intro}">Intro</a></li>
-                </th:block>
+                <li class="text-uppercase" sec:authorize="isAuthenticated()"><a th:href="@{/user/profile}"
+                                                                                th:text="#{nav.profile}">Profile</a>
+                </li>
+                <li sec:authorize="isAnonymous()"><a href="#intro" th:text="#{nav.intro}">Intro</a></li>
                 <li><a href="#services" th:text="#{nav.services}">Services</a></li>
                 <li><a href="#team" th:text="#{nav.classes }">Classes</a></li>
                 <li><a href="#pricing" th:text="#{nav.pricing}">Pricing</a></li>
-                <th:block sec:authorize="isAnonymous()">
-                    <li><a th:href="@{/auth/login}" class="btn btn-blue" th:text="#{login.signIn}">Sign in</a></li>
-                </th:block>
-                <th:block sec:authorize="isAuthenticated()">
-                    <li>
-                        <form th:action="@{/auth/logout}" method="post">
-                            <input type="submit" class="btn btn-blue" th:value="#{login.logout}"/>
-                        </form>
-                    </li>
-                </th:block>
+                <li sec:authorize="isAnonymous()"><a th:href="@{/auth/login}" class="btn btn-blue"
+                                                     th:text="#{login.signIn}">Sign in</a></li>
+                <li sec:authorize="isAuthenticated()">
+                    <form th:action="@{/auth/logout}" method="post">
+                        <input type="submit" class="btn btn-blue" th:value="#{login.logout}"/>
+                    </form>
+                </li>
 
             </ul>
         </div>
@@ -319,7 +314,7 @@
                         <h4 class="white regular light">300 &#8372 / <span class="small-font"
                                                                            th:text="#{pricing.online.oneTraining}">month</span>
                         </h4>
-                        <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill"
+                        <a sec:authorize="isAnonymous()" href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill"
                            th:text="#{login.register}">Sign Up Now</a>
                         <i class="info-icon icon_question"></i>
                     </div>
@@ -340,7 +335,7 @@
                         <h4 class="white regular light">600 &#8372 / <span class="small-font"
                                                                            th:text="#{pricing.online.oneTraining}">month</span>
                         </h4>
-                        <a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill"
+                        <a sec:authorize="isAnonymous()" href="#" data-toggle="modal" data-target="#modal1" class="btn btn-white-fill"
                            th:text="#{login.register}">Sign Up Now</a>
                         <i class="info-icon icon_question"></i>
                     </div>
@@ -359,6 +354,7 @@
         </div>
     </div>
 </section>
+
 <section class="section section-padded blue-bg">
     <div class="container">
         <div class="row">
