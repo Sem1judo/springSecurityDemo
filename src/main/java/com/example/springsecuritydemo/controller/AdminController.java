@@ -133,6 +133,7 @@ public class AdminController {
         ModelAndView mav = new ModelAndView("admin/adminPanel");
 
         mav.addObject("listClients", clientService.findByStatusCoach(StatusCoach.WAITING));
+        System.out.println();
 
         mav.addObject("totalNumberCoaches", coachService.getListCoach().size());
         mav.addObject("totalNumberClients", clientService.getListClient().size());
