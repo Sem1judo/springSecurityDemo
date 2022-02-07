@@ -40,7 +40,7 @@ public class UserDto {
     @NotNull
     @Size(min = 2, max = 45,
             message = "First name must be between 2 and 45 characters long")
-    @Pattern(regexp = "^[a-zA-ZА-Яа-яЇї]+$",
+    @Pattern(regexp = "^[a-zA-ZА-Яа-яЇїІі]+$",
             message = "First name must be alphanumeric with no spaces")
     private String firstName;
 
@@ -48,7 +48,7 @@ public class UserDto {
     @NotNull
     @Size(min = 2, max = 45,
             message = "Last name must be between 2 and 45 characters long")
-    @Pattern(regexp = "^[a-zA-ZА-Яа-яЇї]+$",
+    @Pattern(regexp = "^[a-zA-ZА-Яа-яЇїІі]+$",
             message = "Last name must be alphanumeric with no spaces")
     private String lastName;
 
@@ -86,25 +86,25 @@ public class UserDto {
 
     //    @Size(min = 3, max = 1024,
 //            message = "Additional info must be between 3 and 1024 characters long")
-    @Pattern(regexp = "^[\\w\\s.,\\-'!?+#*А-Яа-яЪъЇї]*$",
+    @Pattern(regexp = "^[\\w\\s.,\\-'!?+#*А-Яа-яЪъЇїІі]*$",
             message = "Additional info must be alphanumeric with no forbidden characters")
     private String additionalInfo;
 
-    @Pattern(regexp = "^[\\w\\s.,\\-'!?+#*А-Яа-яЪъЇї]*$",
+    @Pattern(regexp = "^[\\w\\s.,\\-'!?+#*А-Яа-яЪъЇїІі]*$",
             message = "Specialization info must be alphanumeric with no forbidden characters")
     private String specialization;
 
 
     //    @Size(min = 10, max = 1024,
 //            message = "Education must be between 10 and 1024 characters long")
-    @Pattern(regexp = "^[\\w\\s.,\\-'!?+#*А-Яа-яЪъЇї]*$",
+    @Pattern(regexp = "^[\\w\\s.,\\-'!?+#*А-Яа-яЪъЇїІі]*$",
             message = "Education must be alphanumeric with no forbidden characters")
     private String education;
 
 
     //    @Size(min = 10, max = 1024,
 //            message = "Achievement must be between 10 and 1024 characters long")
-    @Pattern(regexp = "^[\\w\\s.,\\-'!?+#*А-Яа-яЪъЇї]*$",
+    @Pattern(regexp = "^[\\w\\s.,\\-'!?+#*А-Яа-яЪъЇїІі]*$",
             message = "Achievement must be alphanumeric with no forbidden characters")
     private String achievement;
 

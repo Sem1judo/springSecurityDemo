@@ -1,0 +1,13 @@
+.link-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+}
+.link-button:focus {
+    outline: none;
+}
+.link-button:active {
+    color:red;
+}

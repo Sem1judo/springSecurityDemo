@@ -61,18 +61,19 @@ public class RegistrationUserController {
     }
 
     @GetMapping("/signUpEmail")
-    ModelAndView signUpEmail(HttpServletRequest request, @RequestParam(value = "plan", defaultValue = "empty") String plan) throws MessagingException, UnsupportedEncodingException {
+    ModelAndView signUpEmail(HttpServletRequest request, @RequestParam(value = "plan", defaultValue = "empty") String plan, @RequestParam(value = "comment", defaultValue = "empty") String comment) {
         ModelAndView mav = new ModelAndView("/index");
 
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
 
+
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("noreply@smart-sport.com");
         message.setTo("respect.dun@gmail.com");
         message.setSubject("User data: ");
-        message.setText("Full name :" + name + ", Email :" + email + ", Phone: " + phone + ",Plan: " + plan);
+        message.setText("Full name :" + name + ", Email :" + email + ", Phone: " + phone + ",Plan: " + plan + ", User Comment = " + comment);
         mailSender.send(message);
 
 

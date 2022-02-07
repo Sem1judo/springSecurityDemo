@@ -19,6 +19,7 @@
 
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/security.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/navLinkBtn.css}" rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
           integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous"/>
@@ -31,7 +32,7 @@
 <div class="container-xl px-4 mt-4">
     <!-- Account page navigation-->
     <nav class="nav nav-borders">
-        <a class="nav-link text-primary ms-0" th:href="@{/}" th:text="#{nav.home}">Home</a>
+        <a class="nav-link link-button ms-0" th:href="@{/}" th:text="#{nav.home}">Home</a>
         <a class="nav-link  ms-0" th:href="@{/user/profile}" th:text="#{nav.profile}">Profile</a>
         <a class="nav-link active" th:href="@{/user/billing}" th:text="#{nav.billing}">Billing</a>
         <a class="nav-link " th:href="@{/user/security}" th:text="#{nav.security}">Security</a>
@@ -40,7 +41,7 @@
         <a sec:authorize="hasAuthority('admin:read')" class="nav-link" th:href="@{/admin/adminPanel}"
            th:text="#{nav.admin}">Admin Panel</a>
         <form th:action="@{/auth/logout}" method="post">
-            <input type="submit" class="nav-link" th:value="#{login.logout}"/>
+            <input type="submit" class="nav-link link-button" th:value="#{login.logout}"/>
         </form>
         <div class="dropdown">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
