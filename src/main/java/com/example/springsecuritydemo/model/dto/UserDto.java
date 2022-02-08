@@ -76,7 +76,7 @@ public class UserDto {
     private Integer height;
 
 
-    @Digits(integer = 3, fraction = 1)
+    @Digits(integer = 3, fraction = 2)
     @Min(20)
     @Max(300)
     private BigDecimal weight;
