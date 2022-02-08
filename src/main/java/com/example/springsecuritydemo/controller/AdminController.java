@@ -1,22 +1,17 @@
 package com.example.springsecuritydemo.controller;
 
-import com.example.springsecuritydemo.exception.ServiceException;
 import com.example.springsecuritydemo.exception.UserAlreadyExistException;
 import com.example.springsecuritydemo.model.Client;
 import com.example.springsecuritydemo.model.Coach;
 import com.example.springsecuritydemo.model.StatusCoach;
-import com.example.springsecuritydemo.model.User;
 import com.example.springsecuritydemo.model.dto.TypeUser;
 import com.example.springsecuritydemo.model.dto.UserDto;
-import com.example.springsecuritydemo.repository.ClientRepository;
 import com.example.springsecuritydemo.service.impl.ClientServiceImpl;
 import com.example.springsecuritydemo.service.impl.CoachServiceImpl;
 import com.example.springsecuritydemo.service.impl.ExerciseServiceImpl;
 import com.example.springsecuritydemo.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -26,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -133,7 +127,6 @@ public class AdminController {
         ModelAndView mav = new ModelAndView("admin/adminPanel");
 
         mav.addObject("listClients", clientService.findByStatusCoach(StatusCoach.WAITING));
-        System.out.println();
 
         mav.addObject("totalNumberCoaches", coachService.getListCoach().size());
         mav.addObject("totalNumberClients", clientService.getListClient().size());
@@ -145,7 +138,6 @@ public class AdminController {
     @PreAuthorize("hasAuthority('admin:create')")
     ModelAndView registrationPage() {
         ModelAndView mav = new ModelAndView("admin/adminPanelAddUser");
-
 
         mav.addObject("userDto", new UserDto());
         mav.addObject("isClient", true);

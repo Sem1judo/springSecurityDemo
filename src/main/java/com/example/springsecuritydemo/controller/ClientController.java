@@ -3,17 +3,12 @@ package com.example.springsecuritydemo.controller;
 import com.example.springsecuritydemo.exception.NoSuchEntityException;
 import com.example.springsecuritydemo.exception.UserAlreadyExistException;
 import com.example.springsecuritydemo.model.Client;
-import com.example.springsecuritydemo.model.Coach;
-import com.example.springsecuritydemo.model.Exercise;
-import com.example.springsecuritydemo.model.User;
-import com.example.springsecuritydemo.model.dto.TypeUser;
 import com.example.springsecuritydemo.model.dto.UserDto;
 import com.example.springsecuritydemo.service.impl.ClientServiceImpl;
 import com.example.springsecuritydemo.service.impl.CoachServiceImpl;
 import com.example.springsecuritydemo.service.impl.ExerciseServiceImpl;
 import com.example.springsecuritydemo.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,8 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @AllArgsConstructor

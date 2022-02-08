@@ -1,12 +1,7 @@
 package com.example.springsecuritydemo.controller;
 
 
-import com.example.springsecuritydemo.exception.UserAlreadyExistException;
-import com.example.springsecuritydemo.model.Client;
 import com.example.springsecuritydemo.model.Exercise;
-import com.example.springsecuritydemo.model.StatusCoach;
-import com.example.springsecuritydemo.model.dto.UserDto;
-import com.example.springsecuritydemo.service.IExerciseService;
 import com.example.springsecuritydemo.service.impl.ExerciseServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;

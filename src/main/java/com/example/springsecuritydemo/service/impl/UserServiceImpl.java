@@ -17,23 +17,19 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements IUserService {
 
-    private UserRepository userRepository;
-    private CoachRepository coachRepository;
-    private ClientRepository clientRepository;
+    private final UserRepository userRepository;
+    private final CoachRepository coachRepository;
+    private final ClientRepository clientRepository;
 
     private PasswordEncoder bcryptEncoder;
 

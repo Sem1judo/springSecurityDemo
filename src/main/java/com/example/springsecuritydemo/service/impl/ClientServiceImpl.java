@@ -4,7 +4,6 @@ import com.example.springsecuritydemo.exception.NoSuchEntityException;
 import com.example.springsecuritydemo.exception.ServiceException;
 import com.example.springsecuritydemo.model.Client;
 import com.example.springsecuritydemo.model.Coach;
-import com.example.springsecuritydemo.model.Exercise;
 import com.example.springsecuritydemo.model.StatusCoach;
 import com.example.springsecuritydemo.repository.ClientRepository;
 import com.example.springsecuritydemo.service.IClientService;
@@ -18,8 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j

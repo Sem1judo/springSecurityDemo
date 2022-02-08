@@ -3,12 +3,8 @@ package com.example.springsecuritydemo.service.impl;
 import com.example.springsecuritydemo.exception.NoSuchEntityException;
 import com.example.springsecuritydemo.exception.ServiceException;
 import com.example.springsecuritydemo.exception.UserAlreadyExistException;
-import com.example.springsecuritydemo.model.*;
-import com.example.springsecuritydemo.model.dto.TypeUser;
-import com.example.springsecuritydemo.model.dto.UserDto;
-import com.example.springsecuritydemo.repository.ClientRepository;
+import com.example.springsecuritydemo.model.Exercise;
 import com.example.springsecuritydemo.repository.ExerciseRepository;
-import com.example.springsecuritydemo.service.IClientService;
 import com.example.springsecuritydemo.service.IExerciseService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +22,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ExerciseServiceImpl implements IExerciseService {
-    private ExerciseRepository exerciseRepository;
+    private final ExerciseRepository exerciseRepository;
 
 
     private static final String MISSING_ID_ERROR_MESSAGE = "Missing id exercise";

@@ -2,11 +2,7 @@ package com.example.springsecuritydemo.service.impl;
 
 import com.example.springsecuritydemo.exception.NoSuchEntityException;
 import com.example.springsecuritydemo.exception.ServiceException;
-import com.example.springsecuritydemo.exception.UserAlreadyExistException;
-import com.example.springsecuritydemo.model.Client;
 import com.example.springsecuritydemo.model.Coach;
-import com.example.springsecuritydemo.model.User;
-import com.example.springsecuritydemo.model.dto.UserDto;
 import com.example.springsecuritydemo.repository.CoachRepository;
 import com.example.springsecuritydemo.service.ICoachService;
 import lombok.AllArgsConstructor;
@@ -17,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
