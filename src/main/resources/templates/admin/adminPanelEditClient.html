@@ -128,7 +128,7 @@
                                                        th:text="#{client.field.weight}">Weight(kg)</label>
                                                 <input class="form-control" id="inputWeight" type="number"
                                                        placeholder="Enter your weight" pattern="[/d]*"
-                                                       th:field="*{weight}" >
+                                                       th:field="*{weight}">
                                                 <span class="alert-danger" th:if="${#fields.hasErrors('weight')}"
                                                       th:errors="*{weight}">Name Error</span>
                                             </div>

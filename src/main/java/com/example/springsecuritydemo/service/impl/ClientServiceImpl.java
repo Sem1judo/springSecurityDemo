@@ -219,7 +219,7 @@ public class ClientServiceImpl implements IClientService {
         }
         Client client = getByIdClient(clientId);
         client.setCoach(null);
-        client.setStatusCoach(StatusCoach.EMPTY);
+        client.setStatusCoach(StatusCoach.DECLINED);
         try {
             clientRepository.save(client);
         } catch (DataAccessException e) {
