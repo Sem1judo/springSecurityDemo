@@ -29,7 +29,9 @@
             <div class="container mt-4 mb-4 p-3 d-flex justify-content-center ">
                 <div class="card p-4">
                     <div class=" image d-flex flex-column justify-content-center align-items-center">
-                        <button class="btn btn-secondary"><img src="https://i.imgur.com/wvxPV9S.png" height="100"
+                        <button class="btn btn-secondary"><img th:if="${coach.photos != null}"
+                                                               class="img-account-profile rounded-circle mb-2"
+                                                               th:src="@{${coach.photosImagePath}}" height="100"
                                                                width="100"/>
                         </button>
                         <span class="name mt-3" th:text="${coach.firstName +' '+ coach.lastName}">NAME</span>
