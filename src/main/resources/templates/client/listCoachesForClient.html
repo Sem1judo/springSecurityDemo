@@ -111,15 +111,18 @@
                                 </td>
                                 <td class="d-flex align-items-center">
                                     <div>
-                                        <img th:if="${coach.photos != null}"
-                                             class="img-account-profile rounded-circle mb-2"
-                                             th:src="@{${coach.photosImagePath}}">
+                                        <a th:href="@{/user/profile/{id}(id=${coach.id})}">
+                                            <img th:if="${coach.photos != null}"
+                                                 class="img-account-profile imgHover rounded-circle mb-2"
+                                                 th:src="@{${coach.photosImagePath}}">
+                                        </a>
                                     </div>
 
                                     <div class="pl-3 email">
                                         <span th:text=" ${coach.firstName +' '+ coach.lastName}"></span>
                                         <span th:text="${#temporals.format(coach.registrationDate, 'dd-MM-yyyy')}"></span>
                                     </div>
+
                                 </td>
                                 <td>
                                     <span th:text=" ${coach.specialization}"></span>

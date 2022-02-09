@@ -37,7 +37,7 @@
         <a sec:authorize="hasAuthority('admin:read')" class="nav-link" th:href="@{/admin/adminPanel}"
            th:text="#{nav.admin}">Admin Panel</a>
         <form th:action="@{/auth/logout}" method="post">
-            <input type="submit" class="nav-link link-button"  th:value="#{login.logout}"/>
+            <input type="submit" class="nav-link link-button" th:value="#{login.logout}"/>
         </form>
         <div class="dropdown">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -61,9 +61,10 @@
             <div class="card mb-4 mb-xl-0">
                 <div class="card-header" th:text="#{profile.profilePicture}">Profile Picture</div>
                 <div class="card-body text-center">
-                    <img th:if="${user.photos != null}" class="img-account-profile rounded-circle mb-2"
+                    <img  th:if="${user.photos != null}" class="img-account-profile  rounded-circle mb-2"
                          th:src="@{${user.photosImagePath}}"/>
-                    <form th:action="@{/user/uploadImage}"
+
+                    <form th:if="${user.email == #authentication.getPrincipal().getUsername()}" th:action="@{/user/uploadImage}"
                           th:object="${user}" method="post"
                           enctype="multipart/form-data">
                         <input th:field="*{id}" hidden>
@@ -210,7 +211,8 @@
                             </div>
                         </div>
                     </form>
-                    <a th:href="@{/user/editUser/{id}(id=${user.id})}" th:text="#{profile.edit}">Edit
+                    <a th:if="${user.email == #authentication.getPrincipal().getUsername()}"
+                       th:href="@{/user/editUser/{id}(id=${user.id})}" th:text="#{profile.edit}">Edit
                     </a>
                 </div>
             </div>
