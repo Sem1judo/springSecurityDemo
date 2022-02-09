@@ -66,4 +66,13 @@ public class User {
     @Builder.Default
     private LocalDateTime registrationDate = LocalDateTime.now();
 
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (photos == null || id == null) return null;
+
+        return "/img/user-photos/" + id + "/" + photos;
+
+    }
+
 }

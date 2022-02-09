@@ -110,8 +110,11 @@
                                     </label>
                                 </td>
                                 <td class="d-flex align-items-center">
-                                    <div class="img"
-                                         th:style="'background-image:url(' + @{/img/person_1.jpg} + ');'"></div>
+                                    <div>
+                                        <img th:if="${coach.photos != null}"
+                                             class="img-account-profile rounded-circle mb-2"
+                                             th:src="@{${coach.photosImagePath}}">
+                                    </div>
 
                                     <div class="pl-3 email">
                                         <span th:text=" ${coach.firstName +' '+ coach.lastName}"></span>
