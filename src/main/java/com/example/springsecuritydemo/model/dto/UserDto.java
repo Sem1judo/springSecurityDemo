@@ -82,7 +82,7 @@ public class UserDto {
     private BigDecimal weight;
 
 
-    /// coach
+    // coach
 
     //    @Size(min = 3, max = 1024,
 //            message = "Additional info must be between 3 and 1024 characters long")
@@ -112,9 +112,11 @@ public class UserDto {
     private List<Exercise> exercises;
     private List<Client> clients;
 
-    @Column(nullable = true, length = 64)
+    @Column(length = 64)
     private String photos;
 
+    @Enumerated(EnumType.STRING)
+    private TariffPlan tariffPlan = TariffPlan.FREE;
     @Enumerated(EnumType.STRING)
     private Role role = Role.CLIENT;
     @Enumerated(EnumType.STRING)

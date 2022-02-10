@@ -86,6 +86,8 @@
                         <input th:field="*{role}" hidden>
                         <input th:field="*{statusCoach}" hidden>
                         <input th:field="*{typeUser}" hidden>
+                        <input th:field="*{tariffPlan}" hidden>
+                        <input th:field="*{exercises}" hidden>
                         <!-- Profile picture help block-->
                         <div class="small font-italic text-muted mb-4">
                             <input REQUIRED class="form-control" id="customFile" type="file" name="image"
@@ -111,6 +113,7 @@
 
                         <input type="text"
                                th:field="*{password}" hidden/>
+                        <input th:field="*{exercises}" hidden>
                         <input type="text"
                                th:field="*{coach}" hidden/>
                         <input type="text"
@@ -119,21 +122,37 @@
                                th:field="*{role}" hidden>
                         <input th:field="*{statusCoach}" hidden>
                         <input th:field="*{photos}" hidden>
-
-                        <div class="mb-3">
-                            <h6 class="mb-2 pb-1" th:text="#{user.field.gender}">Gender: </h6>
-                            <div th:each="genderValue : ${T(com.example.springsecuritydemo.model.Gender).values()}">
-                                <label for="inputGender" class="small mb-1"
-                                       th:text="${genderValue.displayValue}"></label>
-                                <input
-                                        type="radio"
-                                        class="form-check-input"
-                                        id="inputGender"
-                                        th:field="*{gender}"
-                                        th:value="${genderValue}"/>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <h6 class="mb-2 pb-1" th:text="#{user.field.gender}">Gender: </h6>
+                                <div th:each="genderValue : ${T(com.example.springsecuritydemo.model.Gender).values()}">
+                                    <label for="inputGender" class="small mb-1"
+                                           th:text="${genderValue.displayValue}"></label>
+                                    <input
+                                            type="radio"
+                                            class="form-check-input"
+                                            id="inputGender"
+                                            th:field="*{gender}"
+                                            th:value="${genderValue}"/>
+                                </div>
+                                <span class="alert-danger" th:if="${#fields.hasErrors('gender')}"
+                                      th:errors="*{gender}">Name Error</span>
                             </div>
-                            <span class="alert-danger" th:if="${#fields.hasErrors('gender')}"
-                                  th:errors="*{gender}">Name Error</span>
+                            <div class="col-md-6">
+                                <h6 class="mb-2 pb-1" th:text="#{pricing.pricingPlan}">Gender: </h6>
+                                <div th:each="plan : ${T(com.example.springsecuritydemo.model.TariffPlan).values()}">
+                                    <label class="form-check-label" for="inputTariffPlan"
+                                           th:text="${plan.labelPlan}"></label>
+                                    <input
+                                            type="radio"
+                                            class="form-check-input"
+                                            id="inputTariffPlan"
+                                            th:field="*{tariffPlan}"
+                                            th:value="${plan}"/>
+                                </div>
+                                <span class="alert-danger" th:if="${#fields.hasErrors('tariffPlan')}"
+                                      th:errors="*{tariffPlan}">Name Error</span>
+                            </div>
                         </div>
 
                         <!-- Form Row-->
@@ -216,7 +235,8 @@
                             <div id="coachContent"
                                  th:if="${userDto.typeUser == T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}">
                                 <div class="mb-3">
-                                    <label class="small mb-1" for="inputEducation" th:text="#{coach.field.education}">Education</label>
+                                    <label class="small mb-1" for="inputEducation"
+                                           th:text="#{coach.field.education}">Education</label>
                                     <input type="text" class="form-control" id="inputEducation" name="birthday"
                                            placeholder="Enter your education" th:field="*{education}">
                                     <span class="alert-danger" th:if="${#fields.hasErrors('education')}"

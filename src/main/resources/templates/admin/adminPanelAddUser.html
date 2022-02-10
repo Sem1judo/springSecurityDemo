@@ -222,6 +222,20 @@
                                                     <span th:if="${#fields.hasErrors('gender')}"
                                                           th:errors="*{gender}">Name Error</span>
                                                 </div>
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="statusCoach"
+                                                           th:text="#{status}">Status Coach</label>
+                                                    <div th:each="statusCoachValue : ${T(com.example.springsecuritydemo.model.StatusCoach).values()}">
+                                                        <label for="statusCoach" class="small mb-1"
+                                                               th:text="${statusCoachValue}"></label>
+                                                        <input
+                                                                type="radio"
+                                                                class="form-check-input"
+                                                                id="statusCoach"
+                                                                th:field="*{statusCoach}"
+                                                                th:value="${statusCoachValue}"/>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="mt-4 pt-2">

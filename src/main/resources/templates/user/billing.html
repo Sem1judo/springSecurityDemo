@@ -64,8 +64,12 @@
             <!-- Billing card 1-->
             <div class="card h-100 border-start-lg border-start-primary">
                 <div class="card-body">
-                    <div class="small text-muted">Current monthly bill</div>
-                    <div class="h3">$29.99</div>
+                    <div class="small text-muted" th:text="#{current.month.bill}">Current monthly bill</div>
+                    <div class="h3">
+                        <span th:text="${'&#8372 '+user.tariffPlan.price}"></span>
+                        <span th:text="#{currency.grn}"></span>
+                    </div>
+
                     <a class="text-arrow-icon small" href="#!">
                         Switch to yearly billing
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -82,8 +86,11 @@
             <!-- Billing card 2-->
             <div class="card h-100 border-start-lg border-start-secondary">
                 <div class="card-body">
-                    <div class="small text-muted">Next payment due</div>
-                    <div class="h3">July 15</div>
+                    <div class="small text-muted" th:text="#{plan.data.chose}"></div>
+                    <div class="h3" th:text="${#temporals.month(user.tariffPlan.joinedPlanDate)+' '
+                        +#temporals.monthName(user.tariffPlan.joinedPlanDate)+' '
+                        +#temporals.year(user.tariffPlan.joinedPlanDate)}">
+                    </div>
                     <a class="text-arrow-icon small text-secondary" href="#!">
                         View payment history
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -100,21 +107,53 @@
             <!-- Billing card 3-->
             <div class="card h-100 border-start-lg border-start-success">
                 <div class="card-body">
-                    <div class="small text-muted">Current plan</div>
-                    <div class="h3 d-flex align-items-center" th:text="#{pricing.freeTrial}">Freelancer</div>
-                    <a class="text-arrow-icon small text-success" href="#!">
-                        Upgrade plan
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="feather feather-arrow-right">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </a>
+                    <div class="small text-muted" th:text="#{current.plan}">Current plan</div>
+                    <div class="h3 d-flex align-items-center" th:text="${user.tariffPlan.labelPlan}">Freelancer</div>
+                    <button class="btn btn-success m-1" onclick="myFunction()" th:text="#{change}"></button>
+                    <div id="changePlan" style="display: none">
+                        <form th:action="@{/user/changePlan}"
+                              th:object="${user}" method="post">
+                            <input th:field="*{id}" hidden>
+                            <input th:field="*{password}" hidden>
+                            <input th:field="*{firstName}" hidden>
+                            <input th:field="*{lastName}" hidden>
+                            <input th:field="*{birthDate}" hidden>
+                            <input th:field="*{coach}" hidden>
+                            <input th:field="*{gender}" hidden>
+                            <input th:field="*{phone}" hidden>
+                            <input th:field="*{email}" hidden>
+                            <input th:field="*{height}" hidden>
+                            <input th:field="*{weight}" hidden>
+                            <input th:field="*{education}" hidden>
+                            <input th:field="*{achievement}" hidden>
+                            <input th:field="*{specialization}" hidden>
+                            <input th:field="*{additionalInfo}" hidden>
+                            <input th:field="*{role}" hidden>
+                            <input th:field="*{statusCoach}" hidden>
+                            <input th:field="*{typeUser}" hidden>
+                            <input th:field="*{photos}" hidden>
+                            <input th:field="*{exercises}" hidden>
+                            <div class="form-check form-check-inline m-2"
+                                 th:each="plan : ${T(com.example.springsecuritydemo.model.TariffPlan).values()}">
+                                <input
+                                        type="radio"
+                                        class="form-check-input"
+                                        th:field="*{tariffPlan}"
+                                        th:value="${plan}"/>
+                                <label class="form-check-label"
+                                       th:text="${plan.labelPlan}"></label>
+                            </div>
+                            <div class="row">
+                                <button class=" btn btn-outline-success" type="submit"
+                                        th:text="#{profile.edit}"></button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Payment methods card-->
     <div class="card card-header-actions mb-4">
         <div class="card-header">
@@ -216,7 +255,16 @@
 </div>
 
 <footer th:insert="fragment/footerProfile :: footer"></footer>
-
+<script>
+    function myFunction() {
+        var x = document.getElementById("changePlan");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

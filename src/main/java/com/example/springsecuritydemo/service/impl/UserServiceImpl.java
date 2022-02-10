@@ -219,6 +219,7 @@ public class UserServiceImpl implements IUserService {
             userDto.setStatusCoach(((Client) t).getStatusCoach());
             userDto.setCoach(((Client) t).getCoach());
             userDto.setExercises(((Client) t).getExercises());
+            userDto.setTariffPlan(((Client) t).getTariffPlan());
         }
         if (t instanceof Coach) {
             userDto.setTypeUser(TypeUser.COACH);
@@ -242,6 +243,7 @@ public class UserServiceImpl implements IUserService {
                 client.setStatusCoach(userDto.getStatusCoach());
                 client.setCoach(userDto.getCoach());
                 client.setExercises(userDto.getExercises());
+                client.setTariffPlan(userDto.getTariffPlan());
                 return client;
             }
             if (userDto.getTypeUser().equals(TypeUser.COACH)) {

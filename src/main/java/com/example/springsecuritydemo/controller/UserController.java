@@ -33,7 +33,7 @@ public class UserController {
     private final UserServiceImpl userService;
 
     @PostMapping("/uploadImage")
-    public RedirectView saveUser(UserDto user,
+    public RedirectView uploadImage(UserDto user,
                                  @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
@@ -43,8 +43,17 @@ public class UserController {
         String uploadDir = "src/main/resources/static/img/user-photos/" + user.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
-        System.out.println(user);
         return new RedirectView("/user/profile", true);
+    }
+
+    @PostMapping("/changePlan")
+    public RedirectView changePlan(UserDto user) {
+
+        userService.update(user);
+
+        System.out.println(user);
+
+        return new RedirectView("/user/billing");
     }
 
     @GetMapping("/profile")
@@ -112,8 +121,10 @@ public class UserController {
 
         User user = userService.getUserByEmail(getAuthCurrentEmail());
 
-
         UserDto userDto = userService.getByIdUserConvertedToUserDto(user.getId());
+
+
+        userService.update(userDto);
 
         mav.addObject("user", userDto);
 

@@ -40,6 +40,7 @@
                                                th:field="*{typeUser}" hidden>
                                         <input type="text" id="role"
                                                th:field="*{role}" hidden>
+                                        <input th:field="*{exercises}" hidden>
 
 
                                         <div class="row gx-3 mb-3">
@@ -54,7 +55,24 @@
                                                 <input class="form-control" type="text"
                                                        th:field="*{coach}">
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3 ">
+                                                <h6 class="mb-2 pb-1" th:text="#{pricing.pricingPlan}">
+                                                    pricingPlan: </h6>
+                                                <div class="form-check form-check-inline"
+                                                     th:each="plan : ${T(com.example.springsecuritydemo.model.TariffPlan).values()}">
+                                                    <input
+                                                            type="radio"
+                                                            class="form-check-input"
+                                                            name="inlineRadioOptions"
+                                                            th:field="*{tariffPlan}"
+                                                            th:value="${plan}"/>
+                                                    <label class="form-check-label"
+                                                           th:text="${plan}"></label>
+                                                </div>
+                                                <span class=" alert-danger" th:if="${#fields.hasErrors('tariffPlan')}"
+                                                      th:errors="*{tariffPlan}">Name Error</span>
+                                            </div>
+                                            <div class="col-md-3">
                                                 <label class="small mb-1" for="statusCoach"
                                                        th:text="#{status}">Status Coach</label>
                                                 <div th:each="statusCoachValue : ${T(com.example.springsecuritydemo.model.StatusCoach).values()}">

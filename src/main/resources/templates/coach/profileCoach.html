@@ -42,8 +42,6 @@
                         <div class="d-flex flex-row justify-content-center align-items-center mt-3">
                             <span class="number"
                                   th:text="${coach.education}"></span>
-                            <span class="follow">kg</span>
-
                         </div>
                         <div class="d-flex flex-row justify-content-center align-items-center mt-3">
                             <span class="number"
@@ -58,7 +56,6 @@
                         <div class="d-flex flex-row justify-content-center align-items-center mt-3">
                             <span class="number"
                                   th:text="${coach.specialization}"></span>
-
                         </div>
 
                         <div class=" px-2 rounded mt-4 date "><span class="join">Joined <span
@@ -90,6 +87,7 @@
                                     <th th:text="#{user.field.phone}"></th>
                                     <th th:text="#{client.field.weight}"></th>
                                     <th th:text="#{client.field.height}"></th>
+                                    <th th:text="#{current.plan}"></th>
                                     <th>Status Coach</th>
                                     <th>Action</th>
                                 </tr>
@@ -101,7 +99,9 @@
                                     <td th:text="${client.phone}"></td>
                                     <td th:text="${client.weight}"></td>
                                     <td th:text="${client.height}"></td>
+                                    <td th:text="${client.tariffPlan}"></td>
                                     <td th:text="${client.statusCoach}"></td>
+
                                     <td>
                                         <form th:action="@{/admin/deleteCoachForClientByAdmin/{clientId}(clientId=${client.id})}"
                                               method="post">

@@ -231,6 +231,22 @@
                                 <span class=" alert-danger" th:if="${#fields.hasErrors('gender')}"
                                       th:errors="*{gender}">Name Error</span>
                             </div>
+                            <div class="col-md-6 mb-4 ">
+                                <h6 class="mb-2 pb-1" th:text="#{pricing.pricingPlan}">pricingPlan: </h6>
+                                <div class="form-check form-check-inline"
+                                     th:each="plan : ${T(com.example.springsecuritydemo.model.TariffPlan).values()}">
+                                    <input
+                                            type="radio"
+                                            class="form-check-input"
+                                            name="inlineRadioOptions"
+                                            th:field="*{tariffPlan}"
+                                            th:value="${plan}"/>
+                                    <label class="form-check-label"
+                                           th:text="${plan.labelPlan}"></label>
+                                </div>
+                                <span class=" alert-danger" th:if="${#fields.hasErrors('tariffPlan')}"
+                                      th:errors="*{tariffPlan}">Name Error</span>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

@@ -22,9 +22,15 @@ public class Client extends User {
     @Column
     private BigDecimal weight;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     private Coach coach;
+
+
+    @Column(name = "tariff_plan")
+    @Enumerated(value = EnumType.STRING)
+    private TariffPlan tariffPlan;
 
     @Column(name = "status_coach")
     @Enumerated(value = EnumType.STRING)
