@@ -51,8 +51,6 @@ public class UserController {
 
         userService.update(user);
 
-        System.out.println(user);
-
         return new RedirectView("/user/billing");
     }
 
