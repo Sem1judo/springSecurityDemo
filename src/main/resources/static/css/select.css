@@ -1,0 +1,19 @@
+
+
+.optionbox select {
+    background: #29a9f3;
+    color: #fff;
+    padding: 10px;
+
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 5px 48px rgb(93, 15, 9);
+    -webkit-appearance: button;
+    outline: none
+}
+
+
+
+.optionbox:hover:before {
+    background: #c72059
+}

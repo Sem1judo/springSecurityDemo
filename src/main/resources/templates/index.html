@@ -33,6 +33,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/fonts/eleganticons/et-icons.css}">
     <!-- Main style -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/cardio.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/select.css}">
 
     <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css}" rel="stylesheet">
 
@@ -391,42 +392,32 @@
             <a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
             <h3 class="white" th:text="#{login.register}"></h3>
             <form th:action="@{/user/signUpEmail}" class="popup-form">
-                <label for="name"  class="white light" th:text="#{user.fullName}"></label>
+                <label for="name" class="white light" th:text="#{user.fullName}"></label>
                 <input type="text" required id="name" class="form-control form-white" name="name"
                        pattern="[A-Za-zА-Яа-яЁёІіЇї'-'\s]{1, 40}$"
                        th:placeholder="#{user.fullName}">
-                <label for="phone" class="white light" th:text="#{user.field.phone}"></label>
+                <label for="phone" class="white light" th:text="#{user.field.phone}">
+                </label>
                 <input type="text" id="phone" required class="form-control form-white" name="phone"
-                       pattern="^(?:\+38)?(?:\(044\)[ .-]?[0-9]{3}[ .-]?[0-9]{2}[ .-]?[0-9]{2}|044[ .-]?[0-9]{3}[ .-]?[0-9]{2}[ .-]?[0-9]{2}|044[0-9]{7})$"
-                       th:placeholder="#{user.field.phone}">
-
+                       pattern="^(?:\+38)?(0\d{9})$"
+                       placeholder="Формат: +380123456789">
                 <textarea class="form-control form-white" name="comment"
                           th:placeholder="#{comment}"></textarea>
-                <div class="dropdown">
-                    <button id="dLabel" class="form-control form-white dropdown" type="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" th:text="#{pricing.pricingPlan}">
-                        Pricing Plan
-                    </button>
-                    <ul class="dropdown-menu animated fadeIn" role="menu" aria-labelledby="dLabel">
-                        <li class="animated lightSpeedIn"><a th:href="'@{/user/signUpEmail?plan=online'"
-                                                             th:text="#{pricing.online.training} + '(300&#8372)'">
-                            month membership ($150)</a></li>
-                        <li class="animated lightSpeedIn"><a th:href="'@{/user/signUpEmail?plan=personal'"
-                                                             th:text="#{pricing.personal.training} + '(600&#8372)'">
-                            month membership ($150)</a></li>
-                        <li class="animated lightSpeedIn"><a th:href="'@{/user/signUpEmail?plan=free'"
-                                                             th:text="#{pricing.freeTrial}">Free trial class</a></li>
-                    </ul>
-                </div>
-                <div>
 
+                <label for="plan" class="white light" th:text="#{pricing.pricingPlan}">
+                </label>
+                <div class="optionbox">
+                    <select name="plan" id="plan">
+                        <option  selected value="free"
+                                th:text="#{pricing.freeTrial}"></option>
+                        <option  value="online"
+                                th:text="#{pricing.online.training} + '(300&#8372)'">
+                        </option>
+                        <option  value="personal"
+                                th:text="#{pricing.personal.training} + '(600&#8372)'">
+                        </option>
+                    </select>
                 </div>
-                <!--                <div class="checkbox-holder text-left">-->
-                <!--                    <div class="checkbox">-->
-                <!--                        <input type="checkbox" value="None" id="squaredOne" name="check"/>-->
-                <!--                        <label for="squaredOne"><span>I Agree to the <strong>Terms &amp; Conditions</strong></span></label>-->
-                <!--                    </div>-->
-                <!--                </div>-->
                 <button type="submit" class="btn btn-submit" th:text="#{submit}">Submit</button>
             </form>
         </div>
