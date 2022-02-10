@@ -53,21 +53,22 @@
                         </div>
 
                     </div>
-                    <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+                    <div th:if="${clientEntity.coach != null}"
+                         class="d-flex flex-row justify-content-center align-items-center mt-3">
                         <span class="follow" th:text="#{coach}"></span>
                         <span class="number"
-                              th:text="${': '+ clientEntity.coach.firstName +' '+ clientEntity.coach.lastName}"></span>
+                              th:text="${': '+ clientEntity?.coach?.firstName +' '+ clientEntity?.coach?.lastName}"></span>
                     </div>
                     <div class="d-flex flex-row justify-content-center align-items-center mt-3">
                         <span class="follow" th:text="#{status}"></span>
-                            <span class="number"
-                                  th:text="${': '+clientEntity.statusCoach}"></span>
+                        <span class="number"
+                              th:text="${': '+clientEntity.statusCoach}"></span>
                     </div>
 
                     <div class="d-flex flex-row justify-content-center align-items-center mt-3">
                         <span class="follow" th:text="#{pricing.pricingPlan}"></span>
-                            <span class="number"
-                                  th:text="${': '+clientEntity.tariffPlan.labelPlan}"></span>
+                        <span class="number"
+                              th:text="${': '+clientEntity.tariffPlan.labelPlan}"></span>
                     </div>
                     <div class="d-flex flex-row justify-content-center align-items-center mt-3">
                         <span class="follow" th:text="#{plan.data.chose}"></span>
