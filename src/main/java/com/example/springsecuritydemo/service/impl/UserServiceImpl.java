@@ -31,8 +31,7 @@ public class UserServiceImpl implements IUserService {
     private final CoachRepository coachRepository;
     private final ClientRepository clientRepository;
 
-    private PasswordEncoder bcryptEncoder;
-
+    private final PasswordEncoder bcryptEncoder;
 
     private static final String MISSING_ID_ERROR_MESSAGE = "Missing id user";
     private static final String MISSING_EMAIL_ERROR_MESSAGE = "Missing email user";
@@ -53,8 +52,7 @@ public class UserServiceImpl implements IUserService {
             if (userDto.getTypeUser().equals(TypeUser.COACH)) {
                 return coachRepository.save((Coach) userDtoConvertToEntity(userDto));
             }
-        } catch (
-                DataAccessException e) {
+        } catch (DataAccessException e) {
             log.error("Failed to create user: {}", userDto, e);
             throw new ServiceException("Failed to create user", e);
         }

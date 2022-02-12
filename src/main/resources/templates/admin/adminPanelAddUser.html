@@ -181,25 +181,63 @@
                                         </div>
 
                                         <div id="clientContent" style="display: none">
-                                            <div class="col-md-6">
-                                                <label class="small mb-1" for="inputHeight"
-                                                       th:text="#{client.field.height}">Height(cm)</label>
-                                                <input class="form-control" id="inputHeight" type="number"
-                                                       placeholder="Enter your height" th:field="*{height}">
-                                                <span class="alert-danger"
-                                                      th:if="${#fields.hasErrors('height')}"
-                                                      th:errors="*{height}">Name Error</span>
+                                            <div class="row gx-3 mb-3">
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputHeight"
+                                                           th:text="#{client.field.height}">Height(cm)</label>
+                                                    <input class="form-control" id="inputHeight" type="number"
+                                                           placeholder="Enter your height" th:field="*{height}">
+                                                    <span class="alert-danger"
+                                                          th:if="${#fields.hasErrors('height')}"
+                                                          th:errors="*{height}">Name Error</span>
+                                                </div>
+                                                <!-- Form Group (location)-->
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputWeight"
+                                                           th:text="#{client.field.weight}">Weight(kg)</label>
+                                                    <input class="form-control" id="inputWeight" type="number"
+                                                           placeholder="Enter your weight" pattern="[/d]*"
+                                                           th:field="*{weight}">
+                                                    <span class="alert-danger"
+                                                          th:if="${#fields.hasErrors('weight')}"
+                                                          th:errors="*{weight}">Name Error</span>
+                                                </div>
                                             </div>
-                                            <!-- Form Group (location)-->
-                                            <div class="col-md-6">
-                                                <label class="small mb-1" for="inputWeight"
-                                                       th:text="#{client.field.weight}">Weight(kg)</label>
-                                                <input class="form-control" id="inputWeight" type="number"
-                                                       placeholder="Enter your weight" pattern="[/d]*"
-                                                       th:field="*{weight}">
-                                                <span class="alert-danger"
-                                                      th:if="${#fields.hasErrors('weight')}"
-                                                      th:errors="*{weight}">Name Error</span>
+                                            <div class="row gx-3 mb-3">
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="statusCoach"
+                                                           th:text="#{status}">Status Coach</label>
+                                                    <div th:each="statusCoachValue : ${T(com.example.springsecuritydemo.model.StatusCoach).values()}">
+                                                        <label for="statusCoach" class="small mb-1"
+                                                               th:text="${statusCoachValue}"></label>
+                                                        <input
+                                                                type="radio"
+                                                                class="form-check-input"
+                                                                id="statusCoach"
+                                                                th:field="*{statusCoach}"
+                                                                th:value="${statusCoachValue}"/>
+                                                        <span class=" alert-danger"
+                                                              th:if="${#fields.hasErrors('statusCoach')}"
+                                                              th:errors="*{statusCoach}">Name Error</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-4 ">
+                                                    <h6 class="mb-2 pb-1" th:text="#{pricing.pricingPlan}"></h6>
+                                                    <div class="form-check "
+                                                         th:each="plan : ${T(com.example.springsecuritydemo.model.TariffPlan).values()}">
+                                                        <label class="form-check-label"
+                                                               th:text="${plan.labelPlan}"></label>
+                                                        <input
+                                                                type="radio"
+                                                                class="form-check-input"
+                                                                name="inlineRadioOptions"
+                                                                th:field="*{tariffPlan}"
+                                                                th:value="${plan}"/>
+                                                    </div>
+                                                    <span class=" alert-danger"
+                                                          th:if="${#fields.hasErrors('tariffPlan')}"
+                                                          th:errors="*{tariffPlan}">Name Error</span>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -222,20 +260,7 @@
                                                     <span th:if="${#fields.hasErrors('gender')}"
                                                           th:errors="*{gender}">Name Error</span>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label class="small mb-1" for="statusCoach"
-                                                           th:text="#{status}">Status Coach</label>
-                                                    <div th:each="statusCoachValue : ${T(com.example.springsecuritydemo.model.StatusCoach).values()}">
-                                                        <label for="statusCoach" class="small mb-1"
-                                                               th:text="${statusCoachValue}"></label>
-                                                        <input
-                                                                type="radio"
-                                                                class="form-check-input"
-                                                                id="statusCoach"
-                                                                th:field="*{statusCoach}"
-                                                                th:value="${statusCoachValue}"/>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="mt-4 pt-2">
