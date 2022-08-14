@@ -78,16 +78,17 @@
                     </div>
                     <div class="row gx-3 mb-3">
                         <div class="col-md-6">
-                                <label class="small mb-1" for="inputGender"
-                                       th:text="#{user.field.gender}">gender</label>
-                                <input readonly class="form-control" id="inputGender" type="text"
-                                       th:value="${user.gender.displayValue}">
+                            <label class="small mb-1" for="inputGender"
+                                   th:text="#{user.field.gender}">gender</label>
+                            <input readonly class="form-control" id="inputGender" type="text"
+                                   th:value="${user.gender.displayValue}">
                         </div>
-                        <div class="col-md-6">
-                                <label class="small mb-1" for="inputTariffPlan"
-                                       th:text="#{pricing.pricingPlan}">pricingPlan</label>
-                                <input readonly class="form-control" id="inputTariffPlan" type="text"
-                                       th:value="${user.tariffPlan.labelPlan}">
+                        <div class="col-md-6"
+                             th:if="${userDto?.typeUser != T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}">
+                            <label class="small mb-1" for="inputTariffPlan"
+                                   th:text="#{pricing.pricingPlan}">pricingPlan</label>
+                            <input readonly class="form-control" id="inputTariffPlan" type="text"
+                                   th:value="${user.tariffPlan.labelPlan}">
                         </div>
                     </div>
                     <!-- Form Row-->

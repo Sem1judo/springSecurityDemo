@@ -29,6 +29,9 @@ public class Exercise {
     @Column
     private String quantity;
 
+    @Column
+    private String note;
+
     @ManyToMany(mappedBy = "exercises")
     @ToString.Exclude
     private List<Client> clients;

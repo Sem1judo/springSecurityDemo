@@ -36,7 +36,9 @@
                     <th scope="col"><a
                             th:href="@{'/exercise/listExercises?pageNo=' + ${currentPage} + '&sortField=id&sortDir=' + ${reverseSortDir}}">
                         Quantity</a></th>
+
                     <th scope="col">Example of the exercise(Link)</th>
+                    <th scope="col">Note</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -47,6 +49,7 @@
                     <td th:text="${exercise.quantity}"></td>
                     <td><a target="_blank" th:text="${exercise.link}"
                            th:href="${exercise.link}">Example of the exercise</a></td>
+                    <td th:text="${exercise.note}"></td>
                     <td>
                         <ul class="list-inline ">
                             <li class="list-inline-item">

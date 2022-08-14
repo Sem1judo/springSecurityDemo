@@ -138,7 +138,7 @@
                                 <span class="alert-danger" th:if="${#fields.hasErrors('gender')}"
                                       th:errors="*{gender}">Name Error</span>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" th:if="${userDto?.typeUser != T(com.example.springsecuritydemo.model.dto.TypeUser).COACH}">
                                 <h6 class="mb-2 pb-1" th:text="#{pricing.pricingPlan}">Gender: </h6>
                                 <div th:each="plan : ${T(com.example.springsecuritydemo.model.TariffPlan).values()}">
                                     <label class="form-check-label" for="inputTariffPlan"
