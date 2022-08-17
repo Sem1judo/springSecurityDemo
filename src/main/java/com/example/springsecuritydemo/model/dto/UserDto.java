@@ -67,7 +67,7 @@ public class UserDto {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private Gender gender = Gender.OTHER;
 
     // client
 
